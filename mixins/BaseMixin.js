@@ -3,6 +3,13 @@ import MetaDescription from 'laravel-estarter/mixins/MetaDescriptionMixin'
 import {AuthorizationMixin} from 'laravel-estarter/mixins/AuthorizationMixin'
 import {RestDataSourcesMixin} from 'laravel-estarter/mixins/RestDataSourcesMixin'
 
+import Vue from 'vue'
+import VueFormGenerator from 'vue-form-generator'
+import 'vue-form-generator/dist/vfg.css'
+import PasswordChecker from "laravel-estarter/components/widgets/form/fields/PasswordComponent"
+Vue.component("fieldPasswordChecker", PasswordChecker)
+Vue.use(VueFormGenerator)
+
 export const BaseMixin = {
     mixins: [
         breadcrumbs,

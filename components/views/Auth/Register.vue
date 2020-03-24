@@ -2,73 +2,17 @@
     <section id="register-page" class="container">
         <h1>Register</h1>
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <form v-if="!created">
-                    <fieldset>
-                        <legend>Créez votre compte</legend>
 
-                        <div class="form-group" v-bind:class="{'has-error' : errors.name}">
-                            <label for="name" class="control-label">
-                                Nom  <span class='required'>*</span>
-                            </label>
-                            <input id="name"
-                                   type="text"
-                                   class="form-control"
-                                   :class="{'is-invalid' : errors && errors.name }"
-                                   name="name"
-                                   autocomplete='name'
-                                   v-model="fieldSet.name"
-                                   required
-                                   autofocus />
-                            <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
+                    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+
+                    <div class="form-group">
+                        <div class="flot-right">
+                            <input type="submit" value="Valider" @click.prevent="submitForm" class="btn btn-primary" />
                         </div>
+                    </div>
 
-                        <div class="form-group" v-bind:class="{'has-error' : errors.email}">
-                            <label for="email" class="control-label">
-                                Email  <span class='required'>*</span>
-                            </label>
-                            <input id="email"
-                                   type="email"
-                                   class="form-control"
-                                   :class="{'is-invalid' : errors && errors.email }"
-                                   name="email"
-                                   placeholder="adresse@e-mail.com"
-                                   aria-required="true"
-                                   pattern="[^ @]*@[^ @]*\.[a-zA-Z]*"
-                                   v-model="fieldSet.email"
-                                   autocomplete='email'
-                                   required />
-                            <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-                        </div>
-
-                        <div class="form-group" v-bind:class="{'has-error' : errors.password}">
-                            <label for="password" class="control-label">
-                                Mot de passe  <span class='required'>*</span>
-                            </label>
-                            <div class="form-group">
-                                <password-component id="password" name="password"
-                                                    v-on:update:password-password="fieldSet.password = $event" />
-                                <div v-if="errors && errors.password" class="text-danger">{{ errors.password[0] }}</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="control-label">
-                                Confirmation du mot de passe  <span class='required'>*</span>
-                            </label>
-                            <div class="form-group">
-                                <password-component id="password-confirm" name="password-confirm" v-bind:is-checkstrength="false"
-                                                    v-on:update:password-password-confirm="fieldSet.password_confirmation = $event" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="flot-right">
-                                <input type="submit" value="Valider" @click.prevent="submitForm" class="btn btn-primary" />
-                            </div>
-                        </div>
-
-                    </fieldset>
                 </form>
 
                 <div v-if="created">
@@ -89,21 +33,69 @@
     export default {
         name: 'Register',
         mixins: [BaseMixin],
-        components: {
-            PasswordComponent: () => import('laravel-estarter/components/widgets/PasswordComponent')
-        },
         created() {
             this.setBreadcrumb(this.$route.meta.breadcrumb)
         },
         data () {
             return {
-                fieldSet: {
+                // fieldSet: {
+                //     name: '',
+                //     email: '',
+                //     password: '',
+                //     password_confirmation: ''
+                // },
+                model: {
                     name: '',
                     email: '',
                     password: '',
                     password_confirmation: ''
                 },
-                errors: {},
+                schema: {
+                    fields: [
+                        {
+                            type: 'input',
+                            inputType: 'text',
+                            label: 'Nom',
+                            model: 'name',
+                            required: true,
+                            validator: ["required"]
+                        },
+                        {
+                            type: 'input',
+                            inputType: 'email',
+                            inputName: 'email',
+                            label: 'Email',
+                            model: 'email',
+                            placeholder: 'email@exemple.com',
+                            required: true,
+                            validator: ["email"]
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password',
+                            label: 'Password',
+                            model: 'password',
+                            required: true,
+                            isCheckstrength: true,
+                            validator: ["required"]
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password-confirm',
+                            label: 'Confirmation Password',
+                            model: 'password_confirmation',
+                            required: true,
+                            isCheckstrength: false,
+                            validator: ["required"]
+                        }
+                    ]
+                },
+                formOptions: {
+                    validateAfterLoad: false,
+                    validateAfterChanged: true,
+                    validateAsync: true
+                },
+               // errors: {},
                 created: false
             }
         },
@@ -113,11 +105,11 @@
             ]),
 
             submitForm() {
-                this['auth/registerUser'](this.fieldSet)
+                this['auth/registerUser'](this.model)
             },
             handleSuccess() {
                 this.created = true
-            },
+            }
         }
     }
 </script>
