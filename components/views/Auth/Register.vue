@@ -69,7 +69,7 @@
                         {
                             type: 'passwordChecker',
                             inputName: 'password',
-                            label: 'Password',
+                            label: 'Mot de passe',
                             model: 'password',
                             required: true,
                             isCheckstrength: true,
@@ -78,7 +78,7 @@
                         {
                             type: 'passwordChecker',
                             inputName: 'password-confirm',
-                            label: 'Confirmation Password',
+                            label: 'Confirmation du mot de passe',
                             model: 'password_confirmation',
                             required: true,
                             isCheckstrength: false,
