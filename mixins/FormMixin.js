@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
-//import 'vue-form-generator/dist/vfg.css'
 import PasswordChecker from "laravel-estarter/components/widgets/form/fields/PasswordComponent"
 Vue.component("fieldPasswordChecker", PasswordChecker)
 Vue.use(VueFormGenerator)
@@ -28,11 +27,11 @@ export const FormMixin = {
                 return resp.length == 0
             })
         },
-        serverSideErrors(err, formRef) {
+        serverSideFormErrors(err, formRef) {
             formRef.clearValidationErrors()
             const errors =  err.response.data.errors;
             for ( const error in errors) {
-                this.$refs.child.errors.push({
+                formRef.errors.push({
                     error: errors[error][0],
                     field: _.find(this.schema.fields, {'inputName': error})
                 })

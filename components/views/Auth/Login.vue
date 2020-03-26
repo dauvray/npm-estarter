@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-md-6">
                 <form id="login-form">
-                    <vue-form-generator ref="child" :schema="schema" :model="model" :options="formOptions" @validated="updateValidationFormClasses()"></vue-form-generator>
+                    <vue-form-generator ref="child" :schema="schema" :model="model" :options="formOptions"
+                                        @validated="updateValidationFormClasses()"></vue-form-generator>
                     <div class="form-group">
                         <button type="submit" @click.prevent="loginPost" class="btn btn-primary">
                             Valider
@@ -60,9 +61,7 @@
                             validator: ["required"]
                         }
                     ]
-
                 },
-
                 formOptions: {
                     validateAfterLoad: false,
                     validateAfterChanged: true,
@@ -102,7 +101,7 @@
                 })
             },
             handleError(err) {
-                this.serverSideErrors(err, this.$refs.child)
+                this.serverSideFormErrors(err, this.$refs.child)
             },
         }
     }
