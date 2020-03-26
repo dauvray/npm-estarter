@@ -105,7 +105,7 @@
                 const errors =  err.response.data.errors;
                 for ( const error in errors) {
                     this.$refs.child.errors.push({
-                        error: errors[error],
+                        error: errors[error][0],
                         field: _.find(this.schema.fields, {'inputName': error})
                     })
                     let el = document.querySelector(`input[name=${error}]`)
