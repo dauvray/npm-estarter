@@ -47,6 +47,7 @@
                             label: 'Email',
                             model: 'email',
                             placeholder: 'email@exemple.com',
+                            autocomplete: 'off',
                             required: true,
                             validator: ["email"]
                         },

@@ -54,6 +54,7 @@
                             label: 'Nom',
                             model: 'name',
                             required: true,
+                            autocomplete: 'off',
                             validator: ["required"]
                         },
                         {
@@ -64,6 +65,7 @@
                             model: 'email',
                             placeholder: 'email@exemple.com',
                             required: true,
+                            autocomplete: 'off',
                             validator: ["email"]
                         },
                         {
