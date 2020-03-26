@@ -23,10 +23,11 @@
 
     import { mapActions, mapGetters} from 'vuex'
     import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
 
     export default {
         name: 'Login',
-        mixins: [BaseMixin],
+        mixins: [BaseMixin, FormMixin],
         created() {
             this.setBreadcrumb(this.$route.meta.breadcrumb)
         },
@@ -101,17 +102,7 @@
                 })
             },
             handleError(err) {
-                this.$refs.child.clearValidationErrors()
-                const errors =  err.response.data.errors;
-                for ( const error in errors) {
-                    this.$refs.child.errors.push({
-                        error: errors[error][0],
-                        field: _.find(this.schema.fields, {'inputName': error})
-                    })
-                    let el = document.querySelector(`input[name=${error}]`)
-                    el.classList.remove("is-valid")
-                    el.classList.add("is-invalid")
-                }
+                this.serverSideErrors(err, this.$refs.child)
             },
         }
     }
