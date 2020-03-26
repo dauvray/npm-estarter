@@ -23,8 +23,7 @@
         methods: {
             processData(resp) {
                 this.page = resp.data
-                // todo erreur
-                this.$route.meta.breadcrumb[1].name = this.page.name
+                this.$route.meta.breadcrumb[0] = { 'name': this.page.name}
                 this.setBreadcrumb(this.$route.meta.breadcrumb)
             }
         },
