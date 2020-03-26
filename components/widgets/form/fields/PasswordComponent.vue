@@ -30,6 +30,7 @@
                 <input :type="type"
                        :name="schema.inputName"
                        class="form-control"
+                       :class="schema.fieldClasses"
                        v-model="value"
                        @input="checkStrength"
                        autocomplete='password' />

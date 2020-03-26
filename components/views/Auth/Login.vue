@@ -3,8 +3,8 @@
         <h1>Login</h1>
         <div class="row">
             <div class="col-md-6">
-                <form>
-                    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+                <form id="login-form">
+                    <vue-form-generator ref="child" :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
                     <div class="form-group">
                         <button type="submit" @click.prevent="loginPost" class="btn btn-primary">
                             Valider
@@ -16,7 +16,6 @@
                 </form>
             </div>
         </div>
-
     </section>
 </template>
 
@@ -48,23 +47,25 @@
                             model: 'email',
                             placeholder: 'email@exemple.com',
                             required: true,
+                            validator: ["email"]
                         },
                         {
                             type: 'passwordChecker',
                             inputType: 'password',
                             inputName: 'password',
-                            label: 'Password',
+                            label: 'Mot de passe',
                             model: 'password',
                             required: true,
+                            validator: ["required"]
                         }
                     ]
 
                 },
 
                 formOptions: {
-                    validateAfterLoad: true,
+                    validateAfterLoad: false,
                     validateAfterChanged: true,
-                    validateAsync: true
+                    validateAsync: false
                 }
             }
         },
@@ -86,16 +87,30 @@
                 'auth/login',
             ]),
             loginPost() {
-                this['auth/login'](this.model)
-                .then(response => {
-                    if(this.previousPath) {
-                        this.$router.push(this.previousPath).catch(err => {})
-                    } else {
-                        this.$router.push({'name' : 'user_profile'}).catch(err => {})
-                    }
-
-                })
-            }
+                if(this.isValidForm('login-form')) {
+                    this['auth/login'](this.model)
+                    .then(response => {
+                        if(this.previousPath) {
+                            this.$router.push(this.previousPath).catch(err => {})
+                        } else {
+                            this.$router.push({'name' : 'user_profile'}).catch(err => {})
+                        }
+                    })
+                }
+            },
+            handleError(err) {
+                this.$refs.child.clearValidationErrors()
+                const errors =  err.response.data.errors;
+                for ( const error in errors) {
+                    this.$refs.child.errors.push({
+                        error: errors[error],
+                        field: _.find(this.schema.fields, {'inputName': error})
+                    })
+                    let el = document.querySelector(`input[name=${error}]`)
+                    el.classList.remove("is-valid")
+                    el.classList.add("is-invalid")
+                }
+            },
         }
     }
 </script>
