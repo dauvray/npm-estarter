@@ -87,7 +87,7 @@
                 'auth/login',
             ]),
             loginPost() {
-                if(this.isValidForm('login-form')) {
+                if(this.isValidForm(this.$refs.child, 'login-form')) {
                     this['auth/login'](this.model)
                     .then(response => {
                         if(this.previousPath) {

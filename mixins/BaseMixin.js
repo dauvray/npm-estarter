@@ -35,25 +35,20 @@ export const BaseMixin = {
         handleSuccess() {
             this.errors = {}
         },
-        isValidForm(formId) {
-
-            this.$refs.child.validate()
-
-            if (document
-                .getElementById(formId)
-                .querySelectorAll(".is-invalid").length > 0)
-            {
-                return false
-            }
-
-            if (document
-                .getElementById(formId)
-                .querySelectorAll(".is-valid").length == 0)
-            {
-                return false
-            }
-
-            return true
+        isValidForm(formRef, formID = null) {
+            const formEl = formID != null ? document.getElementById(formID) : document
+            let result = formRef.validate()
+            setTimeout(function(){
+                let errorFields = formEl.querySelectorAll(".form-group.error")
+                let validFields = formEl.querySelectorAll(".form-group.valid")
+                errorFields.forEach(function(item) {
+                    item.querySelector('.form-control').classList.toggle('is-invalid')
+                })
+                validFields.forEach(function(item) {
+                    item.querySelector('.form-control').classList.toggle('is-valid')
+                })
+                return result
+            }, 100);
         }
     }
 }
