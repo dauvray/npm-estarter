@@ -35,20 +35,26 @@ export const BaseMixin = {
         handleSuccess() {
             this.errors = {}
         },
-        isValidForm(formRef, formID = null) {
+        updateValidationFormClasses(formID = null) {
             const formEl = formID != null ? document.getElementById(formID) : document
-            let result = formRef.validate()
             setTimeout(function(){
                 let errorFields = formEl.querySelectorAll(".form-group.error")
                 let validFields = formEl.querySelectorAll(".form-group.valid")
                 errorFields.forEach(function(item) {
-                    item.querySelector('.form-control').classList.toggle('is-invalid')
+                    item.querySelector('.form-control').classList.remove('is-valid')
+                    item.querySelector('.form-control').classList.add('is-invalid')
                 })
                 validFields.forEach(function(item) {
-                    item.querySelector('.form-control').classList.toggle('is-valid')
+                    item.querySelector('.form-control').classList.remove('is-invalid')
+                    item.querySelector('.form-control').classList.add('is-valid')
                 })
-                return result
             }, 100);
+        },
+        isFormValid(formRef) {
+            formRef.validate().then(resp => {
+                console.log(resp.length == 0)
+                return resp.length == 0
+            })
         }
     }
 }

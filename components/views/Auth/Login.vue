@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6">
                 <form id="login-form">
-                    <vue-form-generator ref="child" :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+                    <vue-form-generator ref="child" :schema="schema" :model="model" :options="formOptions" @validated="updateValidationFormClasses()"></vue-form-generator>
                     <div class="form-group">
                         <button type="submit" @click.prevent="loginPost" class="btn btn-primary">
                             Valider
@@ -65,7 +65,7 @@
                 formOptions: {
                     validateAfterLoad: false,
                     validateAfterChanged: true,
-                    validateAsync: false
+                    validateAsync: true
                 }
             }
         },
@@ -87,16 +87,18 @@
                 'auth/login',
             ]),
             loginPost() {
-                if(this.isValidForm(this.$refs.child, 'login-form')) {
-                    this['auth/login'](this.model)
-                    .then(response => {
-                        if(this.previousPath) {
-                            this.$router.push(this.previousPath).catch(err => {})
-                        } else {
-                            this.$router.push({'name' : 'user_profile'}).catch(err => {})
-                        }
-                    })
-                }
+                this.$refs.child.validate().then( resp => {
+                    if(resp.length == 0) {
+                        this['auth/login'](this.model)
+                        .then(response => {
+                            if(this.previousPath) {
+                                this.$router.push(this.previousPath).catch(err => {})
+                            } else {
+                                this.$router.push({'name' : 'user_profile'}).catch(err => {})
+                            }
+                        })
+                    }
+                })
             },
             handleError(err) {
                 this.$refs.child.clearValidationErrors()
