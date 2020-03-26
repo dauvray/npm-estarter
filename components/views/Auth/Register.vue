@@ -5,7 +5,8 @@
             <div class="col-md-6">
                 <form v-if="!created">
 
-                    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+                    <vue-form-generator ref="registerForm" :schema="schema" :model="model" :options="formOptions"
+                                        @validated="updateValidationFormClasses()"></vue-form-generator>
 
                     <div class="form-group">
                         <div class="flot-right">
@@ -28,22 +29,17 @@
 
 <script>
     import { mapActions, mapGetters} from 'vuex'
-    import {BaseMixin} from '../../../mixins/BaseMixin'
+    import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
 
     export default {
         name: 'Register',
-        mixins: [BaseMixin],
+        mixins: [BaseMixin, FormMixin],
         created() {
             this.setBreadcrumb(this.$route.meta.breadcrumb)
         },
         data () {
             return {
-                // fieldSet: {
-                //     name: '',
-                //     email: '',
-                //     password: '',
-                //     password_confirmation: ''
-                // },
                 model: {
                     name: '',
                     email: '',
@@ -90,12 +86,6 @@
                         }
                     ]
                 },
-                formOptions: {
-                    validateAfterLoad: false,
-                    validateAfterChanged: true,
-                    validateAsync: true
-                },
-               // errors: {},
                 created: false
             }
         },
@@ -103,13 +93,19 @@
             ...mapActions([
                 'auth/registerUser',
             ]),
-
             submitForm() {
-                this['auth/registerUser'](this.model)
+                this.$refs.registerForm.validate().then( resp => {
+                    if (resp.length == 0) {
+                        this['auth/registerUser'](this.model)
+                    }
+                })
             },
             handleSuccess() {
                 this.created = true
-            }
+            },
+            handleError(err) {
+                this.serverSideFormErrors(err, this.$refs.registerForm)
+            },
         }
     }
 </script>

@@ -3,57 +3,19 @@
     <section id="reset-password-page" class="container">
         <h1>Nouveau mot de passe</h1>
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <form v-if="!reseted">
-                    <fieldset>
-                        <legend>Choisir un nouveau mot de passe</legend>
+                    <vue-form-generator ref="resetPasswordForm" :schema="schema" :model="model" :options="formOptions"
+                                        @validated="updateValidationFormClasses()"></vue-form-generator>
 
-                        <div class="form-group" v-bind:class="{'has-error' : errors.email}">
-                            <label for="email" class="col-md-4 control-label">
-                                Email  <span class='required'>*</span>
-                            </label>
-                            <input id="email"
-                                   type="text"
-                                   class="form-control"
-                                   name="email"
-                                   autocomplete='email'
-                                   v-model="fieldSet.email"
-                                   required
-                                   autofocus />
-                            <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-                        </div>
-
-                        <div class="form-group" v-bind:class="{'has-error' : errors.password}">
-                            <label for="password" class="col-md-4 control-label">
-                                Mot de passe  <span class='required'>*</span>
-                            </label>
-                            <div class="form-group">
-                                <password-component id="password" name="password"
-                                                    v-on:update:password-password="fieldSet.password = $event" />
-                            </div>
-                            <div v-if="errors && errors.password" class="text-danger">{{ errors.password[0] }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">
-                                Confirmation du mot de passe  <span class='required'>*</span>
-                            </label>
-                            <div class="form-group">
-                                <password-component id="password-confirm" name="password-confirm" v-bind:is-checkstrength="false"
-                                                    v-on:update:password-password-confirm="fieldSet.password_confirmation = $event" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <input type="submit" value="Valider" @click.prevent="submitForm" class="btn btn-primary" />
-                            </div>
-                        </div>
-
-                    </fieldset>
+                    <div class="form-group">
+                        <input type="submit" value="Valider" @click.prevent="submitForm" class="btn btn-primary" />
+                    </div>
                 </form>
-                <div v-if="reseted" class="alert alert-success" role="alert">
-                    Votre mot de passe a été réinitialisé. Vous pouvez de nouveau vous identifier.
+                <div v-else class="alert alert-success" role="alert">
+                    <p>
+                        Votre mot de passe a été réinitialisé. Vous pouvez de nouveau vous identifier.
+                    </p>
                     <p>
                         <router-link :to="$estarterRoutes.login">Connexion</router-link>
                     </p>
@@ -68,27 +30,55 @@
 
     import { mapActions } from 'vuex'
     import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
 
     export default {
         name:'ResetPassword',
-        mixins: [BaseMixin],
-        components: {
-            PasswordComponent: () => import('laravel-estarter/components/widgets/PasswordComponent')
-        },
+        mixins: [BaseMixin, FormMixin],
         data() {
             return {
-                fieldSet: {
+                model: {
                     email: '',
                     password: '',
-                    password_confirmation: '',
-                    token: null
+                    password_confirmation: ''
+                },
+                schema: {
+                    fields: [
+                        {
+                            type: 'input',
+                            inputType: 'email',
+                            inputName: 'email',
+                            label: 'Email',
+                            model: 'email',
+                            placeholder: 'email@exemple.com',
+                            required: true,
+                            validator: ["email"]
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password',
+                            label: 'Password',
+                            model: 'password',
+                            required: true,
+                            isCheckstrength: true,
+                            validator: ["required"]
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password-confirm',
+                            label: 'Confirmation Password',
+                            model: 'password_confirmation',
+                            required: true,
+                            isCheckstrength: false,
+                            validator: ["required"]
+                        }
+                    ]
                 },
                 reseted: false
             }
         },
         created() {
-            this.fieldSet.email = this.$route.query.email
-            this.fieldSet.token = this.$route.params.token
+            this.model.email = this.$route.query.email
             this.setBreadcrumb(this.$route.meta.breadcrumb)
         },
         methods: {
@@ -96,15 +86,21 @@
                 'auth/resetPassword',
             ]),
             submitForm() {
-                this['auth/resetPassword'](this.fieldSet)
-                .then(response => {
-
-                    if(response.status === 'passwords.reset') {
-                        this.reseted = true
-                        this.handleSuccess()
+                this.$refs.resetPasswordForm.validate().then( resp => {
+                    if (resp.length == 0) {
+                        this['auth/resetPassword'](this.model)
+                        .then(response => {
+                            if (response.status === 'passwords.reset') {
+                                this.reseted = true
+                                this.handleSuccess()
+                            }
+                        })
                     }
                 })
-            }
+            },
+            handleError(err) {
+                this.serverSideFormErrors(err, this.$refs.resetPasswordForm)
+            },
         },
     }
 </script>

@@ -5,6 +5,15 @@ Vue.component("fieldPasswordChecker", PasswordChecker)
 Vue.use(VueFormGenerator)
 
 export const FormMixin = {
+    data() {
+        return {
+            formOptions: {
+                validateAfterLoad: false,
+                validateAfterChanged: true,
+                validateAsync: true
+            }
+        }
+    },
     methods: {
         updateValidationFormClasses(formID = null) {
             const formEl = formID != null ? document.getElementById(formID) : document
@@ -23,13 +32,12 @@ export const FormMixin = {
         },
         isFormValid(formRef) {
             formRef.validate().then(resp => {
-                console.log(resp.length == 0)
                 return resp.length == 0
             })
         },
         serverSideFormErrors(err, formRef) {
             formRef.clearValidationErrors()
-            const errors =  err.response.data.errors;
+            const errors = err.response.data.errors;
             for ( const error in errors) {
                 formRef.errors.push({
                     error: errors[error][0],

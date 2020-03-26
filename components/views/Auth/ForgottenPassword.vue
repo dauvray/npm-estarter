@@ -3,40 +3,22 @@
     <section id="forgotten-password-page" class=" container">
         <h1>Mot de passe oublié</h1>
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div v-if="sentResetLink">
                     <div class="alert alert-success" role="alert">
                         Un email vient de vous être envoyé afin de réinitialiser votre mot de passe
                     </div>
                 </div>
-
                 <form v-else>
-                    <fieldset>
-                        <legend>Obtenir un lien de réinitialisation</legend>
+                    <vue-form-generator ref="forgottenPasswordForm" :schema="schema" :model="model" :options="formOptions"
+                                        @validated="updateValidationFormClasses()"></vue-form-generator>
 
-                        <div class="form-group" :class="{'has-error' : errors.email}">
-                            <label for="email" class="control-label">Email</label>
-                            <input type="email"
-                                   id="email"
-                                   class="form-control"
-                                   :class="{'is-invalid' : errors && errors.email }"
-                                   placeholder="adresse@e-mail.com"
-                                   aria-required="true"
-                                   pattern="[^ @]*@[^ @]*\.[a-zA-Z]*"
-                                   name="email"
-                                   autocomplete='email'
-                                   v-model="email"
-                                   required autofocus/>
-                            <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-                        </div>
+                    <div class="form-group">
+                        <button type="submit" @click.prevent="postEmail" class="btn btn-primary">
+                            Valider
+                        </button>
+                    </div>
 
-                        <div class="form-group">
-                            <button type="submit" @click.prevent="postEmail" class="btn btn-primary">
-                                Valider
-                            </button>
-                        </div>
-
-                    </fieldset>
                 </form>
             </div>
         </div>
@@ -48,14 +30,31 @@
 
     import { mapActions } from 'vuex'
     import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
 
     export default {
         name: 'ForgottenPassword',
-        mixins: [BaseMixin],
+        mixins: [BaseMixin, FormMixin],
         data() {
             return {
-                email: null,
-                sentResetLink: false
+                sentResetLink: false,
+                model: {
+                    email: '',
+                },
+                schema: {
+                    fields: [
+                        {
+                            type: 'input',
+                            inputType: 'email',
+                            inputName: 'email',
+                            label: 'Email',
+                            model: 'email',
+                            placeholder: 'email@exemple.com',
+                            required: true,
+                            validator: ["email"]
+                        }
+                    ]
+                }
             }
         },
         created() {
@@ -66,14 +65,20 @@
                 'auth/forgottenPasword',
             ]),
             postEmail() {
-                this['auth/forgottenPasword']({"email": this.email})
-                .then(response => {
-                    if(response.status === "passwords.sent") {
-                        this.sentResetLink = true
-                        this.errors = {}
+                this.$refs.forgottenPasswordForm.validate().then( resp => {
+                    if (resp.length == 0) {
+                        this['auth/forgottenPasword']({"email": this.model.email})
+                        .then(response => {
+                            if (response.status === "passwords.sent") {
+                                this.sentResetLink = true
+                            }
+                        })
                     }
                 })
-            }
+            },
+            handleError(err) {
+                this.serverSideFormErrors(err, this.$refs.forgottenPasswordForm)
+            },
         }
     }
 </script>
