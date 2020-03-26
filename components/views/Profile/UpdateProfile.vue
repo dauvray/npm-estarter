@@ -5,53 +5,15 @@
         </div>
         <div class="card-body">
             <form @submit.prevent="updateProfile">
-            <fieldset>
-                <legend>Mes informations</legend>
 
-            <div class="form-group" v-bind:class="{'has-error' : errors.name}">
-                <label for="name">Nom</label>
-                <input type="text"
-                       class="form-control"
-                       id="name"
-                       aria-describedby="nameHelp"
-                       v-model="localUser.name"
-                       placeholder="Votre nom" />
-                <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
-            </div>
+                <vue-form-generator ref="updateProfileForm" :schema="schema"
+                                    :model="model" :options="formOptions"
+                                    @validated="updateValidationFormClasses()"></vue-form-generator>
 
-            <div class="form-group" v-bind:class="{'has-error' : errors.email}">
-                <label for="email">Email</label>
-                <input type="email"
-                       class="form-control"
-                       id="email"
-                       aria-describedby="emailHelp"
-                       v-model="localUser.email"
-                       placeholder="Votre email" />
-                <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-            </div>
+                    <input type="button" class="btn btn-primary" value="Annuler" @click="cancelUpdate" />
+                    <input type="submit" class="btn btn-primary" value="Envoyer" />
 
-            <div class="form-group" v-bind:class="{'has-error' : errors.password}">
-                <label for="password">Mot de passe</label>
-                <input type="password"
-                       class="form-control"
-                       id="password"
-                       placeholder="Password" />
-                <div v-if="errors && errors.password" class="text-danger">{{ errors.password[0] }}</div>
-            </div>
-
-            <div class="form-group">
-                <label for="confirm-password">Confirmation assword</label>
-                <input type="password"
-                       class="form-control"
-                       id="confirm-password"
-                       placeholder="Password" />
-            </div>
-
-            <input type="button" class="btn btn-primary" value="Annuler" @click="cancelUpdate" />
-            <input type="submit" class="btn btn-primary" value="Envoyer" />
-
-            </fieldset>
-        </form>
+            </form>
         </div>
     </div>
 </template>
@@ -60,13 +22,55 @@
 
     import { mapActions, mapGetters} from 'vuex'
     import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
 
     export default {
         name: 'UpdateProfile',
-        mixins: [BaseMixin],
+        mixins: [BaseMixin, FormMixin],
         data() {
             return {
-                localUser: {}
+                model: {
+                    name: '',
+                    email: '',
+                },
+                schema: {
+                    fields: [
+                        {
+                            type: 'input',
+                            inputType: 'text',
+                            label: 'Nom',
+                            model: 'name',
+                            required: true,
+                            validator: ["required"]
+                        },
+                        {
+                            type: 'input',
+                            inputType: 'email',
+                            inputName: 'email',
+                            label: 'Email',
+                            model: 'email',
+                            placeholder: 'email@exemple.com',
+                            required: true,
+                            validator: ["email"]
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password',
+                            label: 'Password',
+                            model: 'password',
+                            required: false,
+                            isCheckstrength: true,
+                        },
+                        {
+                            type: 'passwordChecker',
+                            inputName: 'password-confirm',
+                            label: 'Confirmation Password',
+                            model: 'password_confirmation',
+                            required: false,
+                            isCheckstrength: false,
+                        }
+                    ]
+                },
             }
         },
         computed: {
@@ -75,7 +79,7 @@
             }),
         },
         created() {
-            this.localUser = {...this.user}
+            this.model = {...this.user}
             this.eventBus.$on("httpError", this.handleError)
             this.eventBus.$on("httpSuccess", this.handleSuccess)
             this.setBreadcrumb(this.$route.meta.breadcrumb)
@@ -88,10 +92,14 @@
                 this.$router.push({name: 'user_profile'})
             },
             updateProfile (e) {
-                this['auth/updateUser'](this.localUser)
+                this.$refs.updateProfileForm.validate().then( resp => {
+                    if (resp.length == 0) {
+                        this['auth/updateUser'](this.model)
+                    }
+                })
             },
             handleError(err) {
-                this.errors = err.response.data.errors
+                this.serverSideFormErrors(err, this.$refs.updateProfileForm)
             },
             handleSuccess(msg) {
                 this.errors = {}

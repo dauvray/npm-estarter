@@ -3,13 +3,12 @@
         <h1>Login</h1>
         <div class="row">
             <div class="col-md-6">
-                <form id="login-form">
-                    <vue-form-generator ref="loginForm" :schema="schema" :model="model" :options="formOptions"
+                <form id="login-form" @submit.prevent="loginPost">
+                    <vue-form-generator ref="loginForm" :schema="schema"
+                                        :model="model" :options="formOptions"
                                         @validated="updateValidationFormClasses()"></vue-form-generator>
                     <div class="form-group">
-                        <button type="submit" @click.prevent="loginPost" class="btn btn-primary">
-                            Valider
-                        </button>
+                        <input type="submit" class="btn btn-primary" value="Valider" />
                         <router-link :to="{ name: 'password_request', params: {} }">
                             Mot de passe oublié
                         </router-link>
