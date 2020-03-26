@@ -2,6 +2,28 @@ import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
 import PasswordChecker from "laravel-estarter/components/widgets/form/fields/PasswordComponent"
 Vue.component("fieldPasswordChecker", PasswordChecker)
+
+VueFormGenerator.validators.resources.fieldIsRequired = "Ce champ est obligatoire"
+VueFormGenerator.validators.resources.invalidFormat = "Format invalide"
+VueFormGenerator.validators.resources.numberTooSmall = "Le nombre est trop petit, minimum: {0}"
+VueFormGenerator.validators.resources.numberTooBig = "Le nombre est trop grand, maximum: {0}"
+VueFormGenerator.validators.resources.invalidNumber = "Nombre invalide"
+VueFormGenerator.validators.resources.invalidInteger = "La valeur attendue est un nombre"
+VueFormGenerator.validators.resources.textTooSmall = "Le texte est trop court. Actuel: {0}, Minimum: {1}"
+VueFormGenerator.validators.resources.textTooBig = "Le texte est trop long. Actuel: {0}, Maximum: {1}"
+VueFormGenerator.validators.resources.thisNotText = "Texte attendu"
+VueFormGenerator.validators.resources.thisNotArray = "Tableau attendu"
+VueFormGenerator.validators.resources.selectMinItems = "Sélectionnez au moins {0} éléments"
+VueFormGenerator.validators.resources.selectMaxItems = "Sélectionnez au maximum {0} éléments"
+VueFormGenerator.validators.resources.invalidDate = "Date invalide"
+VueFormGenerator.validators.resources.dateIsEarly = "La date est trop proche. Actuelle: {0}, Minimum: {1}"
+VueFormGenerator.validators.resources.dateIsLate = "La date est trop éloignée. Actuelle: {0}, Maximum: {1}"
+VueFormGenerator.validators.resources.invalidEmail = "Format d'email invalide"
+VueFormGenerator.validators.resources.invalidURL = "URL invalide"
+VueFormGenerator.validators.resources.invalidCard = "Format de carte invalide"
+VueFormGenerator.validators.resources.invalidCardNumber = "Numéro de carte invalide"
+VueFormGenerator.validators.resources.invalidTextContainNumber = "Texte invalide, ne peut contenir de chiffre ou de caractères spéciaux"
+VueFormGenerator.validators.resources.invalidTextContainSpec = "Texte invalide, ne peut contenir de caractères spéciaux"
 Vue.use(VueFormGenerator)
 
 export const FormMixin = {
