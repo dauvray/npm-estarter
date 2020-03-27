@@ -51,7 +51,7 @@ export const actions = {
     },
 
     async login(context, credentials){
-        await RestDataSourcesMixin.methods.requestApi('/airlock/csrf-cookie')
+        await RestDataSourcesMixin.methods.requestApi('/sanctum/csrf-cookie')
         await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.login}`,
             'post', credentials, {err: null, msg: null})
 
