@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { EventBus } from 'laravel-estarter/services/eventBus';
+import { EventBus } from 'vuejs-estarter/services/eventBus';
 
 export const RestDataSourcesMixin = {
     methods: {

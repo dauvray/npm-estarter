@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // Adds a loading bar at the top during page loads.
 import NProgress from 'nprogress/nprogress'
 import 'nprogress/nprogress.css'
-import store from 'laravel-estarter/state/store'
+import store from 'vuejs-estarter/state/store'
 
 Vue.use(Router)
 

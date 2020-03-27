@@ -16,10 +16,10 @@
     export default {
         name: 'Header',
         components: {
-            MenuWidget: () => import('laravel-estarter/components/widgets/menu/Menu.vue'),
-            ConnectionWidget: () => import('laravel-estarter/components/widgets/Connection.vue'),
-            AlertWidget: () => import('laravel-estarter/components/widgets/Alert.vue'),
-            BreadcrumbsWidget: () => import('laravel-estarter/components/widgets/Breadcrumbs.vue')
+            MenuWidget: () => import('vuejs-estarter/components/widgets/menu/Menu.vue'),
+            ConnectionWidget: () => import('vuejs-estarter/components/widgets/Connection.vue'),
+            AlertWidget: () => import('vuejs-estarter/components/widgets/Alert.vue'),
+            BreadcrumbsWidget: () => import('vuejs-estarter/components/widgets/Breadcrumbs.vue')
         }
     }
 </script>

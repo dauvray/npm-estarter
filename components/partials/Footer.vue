@@ -8,7 +8,7 @@
      export default {
          name: 'Footer',
          components: {
-             MenuWidget: () => import('laravel-estarter/components/widgets/menu/Menu.vue'),
+             MenuWidget: () => import('vuejs-estarter/components/widgets/menu/Menu.vue'),
          },
          data() {
              return {}

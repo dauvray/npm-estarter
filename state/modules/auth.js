@@ -1,4 +1,4 @@
-import {RestDataSourcesMixin} from 'laravel-estarter/mixins/RestDataSourcesMixin'
+import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin'
 
 export const state = {
     user: {},                   // main user

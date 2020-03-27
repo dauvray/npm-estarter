@@ -4,14 +4,14 @@
 
 <script>
 
-    import {AuthorizationMixin} from 'laravel-estarter/mixins/AuthorizationMixin'
+    import {AuthorizationMixin} from 'vuejs-estarter/mixins/AuthorizationMixin'
 
     export default {
         name: 'Menu',
         mixins: [AuthorizationMixin],
         inject: ['estarterViews'],
         components: {
-            ItemList: () => import('laravel-estarter/components/widgets/menu/ItemList.vue'),
+            ItemList: () => import('vuejs-estarter/components/widgets/menu/ItemList.vue'),
         },
         data() {
             return {

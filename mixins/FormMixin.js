@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
-import PasswordChecker from "laravel-estarter/components/widgets/form/fields/PasswordComponent"
+import PasswordChecker from "vuejs-estarter/components/widgets/form/fields/PasswordComponent"
 Vue.component("fieldPasswordChecker", PasswordChecker)
 
 VueFormGenerator.validators.resources.fieldIsRequired = "Ce champ est obligatoire"

@@ -27,7 +27,7 @@
     export default {
         name: 'ProfileUser',
         components: {
-            GravatarWidget: () => import('laravel-estarter/components/widgets/Gravatar'),
+            GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
         },
         props: {
             user: {

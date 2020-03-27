@@ -7,7 +7,7 @@
 
 <script>
 
-    import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
 
     export default {
         name: 'Page',

@@ -1,7 +1,7 @@
-import breadcrumbs from 'laravel-estarter/mixins/BreadcrumbsMixin'
-import MetaDescription from 'laravel-estarter/mixins/MetaDescriptionMixin'
-import {AuthorizationMixin} from 'laravel-estarter/mixins/AuthorizationMixin'
-import {RestDataSourcesMixin} from 'laravel-estarter/mixins/RestDataSourcesMixin'
+import breadcrumbs from 'vuejs-estarter/mixins/BreadcrumbsMixin'
+import MetaDescription from 'vuejs-estarter/mixins/MetaDescriptionMixin'
+import {AuthorizationMixin} from 'vuejs-estarter/mixins/AuthorizationMixin'
+import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin'
 
 export const BaseMixin = {
     mixins: [

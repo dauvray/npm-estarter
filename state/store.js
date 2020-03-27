@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import modules from 'laravel-estarter/state/modules'
+import modules from 'vuejs-estarter/state/modules'
 
 Vue.use(Vuex);
 

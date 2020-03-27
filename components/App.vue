@@ -20,13 +20,13 @@
 
 <script>
     import { mapActions} from 'vuex'
-    import breadcrumbs from 'laravel-estarter/mixins/BreadcrumbsMixin'
+    import breadcrumbs from 'vuejs-estarter/mixins/BreadcrumbsMixin'
 
     export default {
         name: 'App',
         components: {
-            HeaderApp : () => import('laravel-estarter/components/partials/Header'),
-            FooterApp : () => import('laravel-estarter/components/partials/Footer')
+            HeaderApp : () => import('vuejs-estarter/components/partials/Header'),
+            FooterApp : () => import('vuejs-estarter/components/partials/Footer')
         },
         inject: ["eventBus"],
         mixins: [breadcrumbs],

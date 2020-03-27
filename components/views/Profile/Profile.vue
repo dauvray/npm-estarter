@@ -18,14 +18,14 @@
 <script>
 
     import {mapGetters} from 'vuex'
-    import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
+    import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
 
     export default {
         name: 'Profile',
         mixins: [BaseMixin],
         components: {
-            GravatarWidget: () => import('laravel-estarter/components/widgets/Gravatar'),
-            ProfileUser: () => import('laravel-estarter/components/widgets/ProfileUser'),
+            GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
+            ProfileUser: () => import('vuejs-estarter/components/widgets/ProfileUser'),
         },
         data() {
             return {

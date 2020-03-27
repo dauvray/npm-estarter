@@ -29,8 +29,8 @@
 <script>
 
     import { mapActions } from 'vuex'
-    import {BaseMixin} from 'laravel-estarter/mixins/BaseMixin'
-    import {FormMixin} from 'laravel-estarter/mixins/FormMixin'
+    import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
+    import {FormMixin} from 'vuejs-estarter/mixins/FormMixin'
 
     export default {
         name: 'ForgottenPassword',

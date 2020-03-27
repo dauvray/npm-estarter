@@ -19,7 +19,7 @@
 
 <script>
 
-    import {AuthorizationMixin} from 'laravel-estarter/mixins/AuthorizationMixin'
+    import {AuthorizationMixin} from 'vuejs-estarter/mixins/AuthorizationMixin'
 
     export default {
         name: 'Connection',

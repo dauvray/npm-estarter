@@ -1,0 +1,23 @@
+{
+  "name": "laravel-estarter",
+  "version": "1.0.0",
+  "description": "vuejs components for laravel-estarter php package",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dauvray/vuejs-estarter.git"
+  },
+  "keywords": [
+    "laravel-estater",
+    "vuejs"
+  ],
+  "author": "dauvray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dauvray/vuejs-estarter/issues"
+  },
+  "homepage": "https://github.com/dauvray/vuejs-estarter#readme"
+}
