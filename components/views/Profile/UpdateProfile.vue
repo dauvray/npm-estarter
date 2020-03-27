@@ -29,6 +29,9 @@
                 model: {
                     name: '',
                     email: '',
+                    password: '',
+                    password_confirmation: '',
+                    avatar: ''
                 },
                 schema: {
                     groups: [
@@ -52,6 +55,13 @@
                                     placeholder: 'email@exemple.com',
                                     required: true,
                                     validator: ["email"]
+                                },
+                                {
+                                    type: "image",
+                                    label: "Avatar",
+                                    model: "avatar",
+                                    required: true,
+                                    preview: true
                                 }
                             ]
                         },

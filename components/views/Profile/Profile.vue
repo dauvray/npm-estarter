@@ -1,7 +1,7 @@
 <template>
     <div>
+        <gravatar-widget :user="user" class="float-left pr-2" />
         <h1>
-            <gravatar-widget :user="user" class="float-left pr-2" />
             {{user.name }}
         </h1>
         <router-link :to="$estarterRoutes.user_edit">Modifier</router-link>
@@ -32,7 +32,7 @@
         },
         data() {
             return {
-
+                transitionName: ''
             }
         },
         watch: {
