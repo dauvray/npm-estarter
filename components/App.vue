@@ -7,9 +7,13 @@
                 <!--
                 Even when routes use the same component, treat them
                 as distinct and create the component again.
-                -->
-                <transition  name="fade" mode="out-in" >
+                                <transition :name="transitionName" mode="out-in" >
                     <router-view :key="$route.fullPath" />
+                    <router-view></router-view>
+                </transition>
+                -->
+                <transition>
+                    <router-view></router-view>
                 </transition>
             </main>
         </div>
@@ -38,13 +42,6 @@
         },
         data() {
             return {
-            }
-        },
-        watch: {
-            '$route' () {
-                // on refresh the main component is Home
-                // todo
-               // this.setBreadcrumb(this.$route.meta.breadcrumb)
             }
         },
         methods: {
@@ -80,7 +77,6 @@
 <style lang="scss" >
 
     #app {
-
         .fade-enter-active,
         .fade-leave-active {
             transition-duration: 0.3s;

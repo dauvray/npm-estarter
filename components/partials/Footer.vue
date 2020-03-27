@@ -1,5 +1,5 @@
 <template>
-    <footer class="estarter-footer navbar navbar-expand-lg navbar-dark bg-dark">
+    <footer class="estarter-footer navbar navbar-expand-lg navbar-dark bg-dark mt-3">
         <menu-widget name="Menu footer"/>
     </footer>
 </template>

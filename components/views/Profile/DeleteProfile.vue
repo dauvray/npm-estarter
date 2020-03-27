@@ -1,5 +1,8 @@
 <template>
-    <button type="button" @click="deleteProfile" class="btn btn-danger">Supprimer mon compte définitivement</button>
+    <div>
+        <input type="button" @click="cancelDelete" class="btn btn-warning" value="Annuler" />
+        <input type="button" @click="deleteProfile" class="btn btn-danger" value="Supprimer mon compte définitivement" />
+    </div>
 </template>
 
 <script>
@@ -22,7 +25,6 @@
             ...mapActions([
                 'auth/deleteUser',
             ]),
-
             deleteProfile() {
                 if (confirm('Are you sure you want to delete you account?')) {
                     this['auth/deleteUser']().then(response => {
@@ -32,7 +34,10 @@
                         }
                     })
                 }
-            }
+            },
+            cancelDelete() {
+                this.$router.push({name: 'user_profile'})
+            },
         }
     }
 </script>

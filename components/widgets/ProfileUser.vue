@@ -4,12 +4,14 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <h2 class="card-title">
-                        <gravatar-widget :user="user" />
+                        <gravatar-widget :user="user" class="float-left pr-2" />
                         {{user.name }}
                     </h2>
                 </li>
                 <li class="list-group-item">
-                    <h6 class="card-subtitle mb-2 text-muted">{{user.email}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Email : {{user.email}}
+                    </h6>
                 </li>
                 <li class="list-group-item">
                     Inscrit depuis le : {{user.created_at}}
