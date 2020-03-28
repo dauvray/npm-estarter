@@ -13,16 +13,11 @@
             </form>
 
             <form @submit.prevent="submitForm">
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" name="filename" class="custom-file-input" id="inputFileUpload"
-                               v-on:change="onFileChange">
-                        <label class="custom-file-label" for="inputFileUpload">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                        <input type="submit" class="btn btn-primary" value="Upload">
-                    </div>
-                </div>
+
+                <input type="file" name="filename" placeholder="Sélectionnez un fichier" @change="onFileChange">
+                <input type="submit" class="btn btn-primary" value="Valider">
+
+
             </form>
 
         </div>
