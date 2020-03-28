@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import 'es6-promise/auto'
 import EstarterSettings from 'vuejs-estarter/plugins/EstarterSettings'
-import EstarterViews from 'vuejs-estarter/components/views'
-import store from 'vuejs-estarter/state/store'
-import router from 'vuejs-estarter/router'
-import App from 'vuejs-estarter/components/App'
+import EstarterViews from './components/views'
+import store from './state/store'
+import router from './router'
+import App from './components/App'
 import { EventBus } from 'vuejs-estarter/services/eventBus'
 import VueNoty from 'vuejs-noty'
 import VueMeta from 'vue-meta'
@@ -29,6 +29,7 @@ try {
 
 // AXIOS API TOKEN CONFIGURATION
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 //axios.defaults.baseURL = '/api/'
 let token = document.head.querySelector('meta[name="csrf-token"]')
 

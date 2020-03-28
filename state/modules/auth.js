@@ -120,6 +120,13 @@ export const actions = {
         return response
     },
 
+    async updateAvatar({ commit, state }, data){
+        let user = await RestDataSourcesMixin.methods.requestApi('/update-avatar',
+            'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
+        commit('retrieveUser', user)
+        return response
+    },
+
     setPreviousPath({ commit }, path) {
         commit('setPreviousPath', path)
     }

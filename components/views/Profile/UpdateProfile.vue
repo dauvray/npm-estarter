@@ -11,6 +11,20 @@
                 <input type="button" class="btn btn-warning" value="Annuler" @click="cancelUpdate" />
                 <input type="submit" class="btn btn-success" value="Envoyer" />
             </form>
+
+            <form @submit.prevent="submitForm">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="filename" class="custom-file-input" id="inputFileUpload"
+                               v-on:change="onFileChange">
+                        <label class="custom-file-label" for="inputFileUpload">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-primary" value="Upload">
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </template>
@@ -31,7 +45,6 @@
                     email: '',
                     password: '',
                     password_confirmation: '',
-                    avatar: ''
                 },
                 schema: {
                     groups: [
@@ -55,13 +68,6 @@
                                     placeholder: 'email@exemple.com',
                                     required: true,
                                     validator: ["email"]
-                                },
-                                {
-                                    type: "image",
-                                    label: "Avatar",
-                                    model: "avatar",
-                                    required: true,
-                                    preview: true
                                 }
                             ]
                         },
@@ -90,6 +96,8 @@
                         }
                     ],
                 },
+
+                file: ''
             }
         },
         computed: {
@@ -106,6 +114,7 @@
         methods: {
             ...mapActions([
                 'auth/updateUser',
+                'auth/updateAvatar'
             ]),
             cancelUpdate() {
                 this.$router.push({name: 'user_profile'})
@@ -121,9 +130,18 @@
                 this.serverSideFormErrors(err, this.$refs.updateProfileForm)
             },
             handleSuccess(msg) {
-                this.errors = {}
                 this.$router.push({name: 'user_profile'})
             },
+
+
+            onFileChange(e) {
+                this.file = e.target.files[0];
+            },
+            submitForm(e) {
+                let formData = new FormData();
+                formData.append('file', this.file);
+                this['auth/updateAvatar'](formData)
+            }
         }
     }
 </script>
