@@ -4,21 +4,40 @@
             <h3>Mon compte</h3>
         </div>
         <div class="card-body">
-            <form @submit.prevent="updateProfile">
-                <vue-form-generator ref="updateProfileForm" :schema="schema"
-                    :model="model" :options="formOptions"
-                    @validated="updateValidationFormClasses()"></vue-form-generator>
-                <input type="button" class="btn btn-warning" value="Annuler" @click="cancelUpdate" />
-                <input type="submit" class="btn btn-success" value="Envoyer" />
-            </form>
 
-            <form @submit.prevent="submitForm">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">Général</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Mot de passe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="avatar-tab" data-toggle="tab" href="#avatar" role="tab" aria-controls="avatar" aria-selected="false">Avatar</a>
+                </li>
+            </ul>
 
-                <input type="file" name="filename" placeholder="Sélectionnez un fichier" @change="onFileChange">
-                <input type="submit" class="btn btn-primary" value="Valider">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                    <form @submit.prevent="updateProfile">
+                        <vue-form-generator ref="updateProfileForm" :schema="schema"
+                                            :model="model" :options="formOptions"
+                                            @validated="updateValidationFormClasses()"></vue-form-generator>
+                        <input type="button" class="btn btn-warning" value="Annuler" @click="cancelUpdate" />
+                        <input type="submit" class="btn btn-success" value="Envoyer" />
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    <forgotten-password-form></forgotten-password-form>
+                </div>
+                <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
+                    <form @submit.prevent="submitForm">
+                        <input type="file" name="filename" placeholder="Sélectionnez un fichier" @change="onFileChange">
+                        <input type="submit" class="btn btn-primary" value="Valider">
+                    </form>
+                </div>
+            </div>
 
-
-            </form>
 
         </div>
     </div>
@@ -33,13 +52,16 @@
     export default {
         name: 'UpdateProfile',
         mixins: [BaseMixin, FormMixin],
+        components: {
+            ForgottenPasswordForm: () => import('vuejs-estarter/components/widgets/form/ForgottenPassword')
+        },
         data() {
             return {
                 model: {
                     name: '',
                     email: '',
-                    password: '',
-                    password_confirmation: '',
+                    // password: '',
+                    // password_confirmation: '',
                 },
                 schema: {
                     groups: [
@@ -65,33 +87,36 @@
                                     validator: ["email"]
                                 }
                             ]
-                        },
-                        {
-                            legend: "Gestion du mot de passe",
-                            fields: [
-                                {
-                                    type: 'passwordChecker',
-                                    inputName: 'password',
-                                    label: 'Mot de passe',
-                                    model: 'password',
-                                    required: false,
-                                    isCheckstrength: true,
-                                    hint: 'Laisser vide si vous ne souhaitez pas modifier votre mot de passe'
-                                },
-                                {
-                                    type: 'passwordChecker',
-                                    inputName: 'password-confirm',
-                                    label: 'Confirmation du mot de passe',
-                                    model: 'password_confirmation',
-                                    required: false,
-                                    isCheckstrength: false,
-                                    hint: 'Laisser vide si vous ne souhaitez pas modifier votre mot de passe'
-                                }
-                            ]
                         }
                     ],
                 },
-
+                // schema2: {
+                //     groups: [
+                //         {
+                //             legend: "Gestion du mot de passe",
+                //             fields: [
+                //                 {
+                //                     type: 'passwordChecker',
+                //                     inputName: 'password',
+                //                     label: 'Mot de passe',
+                //                     model: 'password',
+                //                     required: false,
+                //                     isCheckstrength: true,
+                //                     hint: 'Laisser vide si vous ne souhaitez pas modifier votre mot de passe'
+                //                 },
+                //                 {
+                //                     type: 'passwordChecker',
+                //                     inputName: 'password-confirm',
+                //                     label: 'Confirmation du mot de passe',
+                //                     model: 'password_confirmation',
+                //                     required: false,
+                //                     isCheckstrength: false,
+                //                     hint: 'Laisser vide si vous ne souhaitez pas modifier votre mot de passe'
+                //                 }
+                //             ]
+                //         }
+                //     ],
+                // },
                 file: ''
             }
         },
@@ -111,6 +136,13 @@
                 'auth/updateUser',
                 'auth/updateAvatar'
             ]),
+            handleError(err) {
+                this.serverSideFormErrors(err, this.$refs.updateProfileForm)
+            },
+            handleSuccess(msg) {
+                this.$router.push({name: 'user_profile'})
+            },
+            // General
             cancelUpdate() {
                 this.$router.push({name: 'user_profile'})
             },
@@ -121,14 +153,9 @@
                     }
                 })
             },
-            handleError(err) {
-                this.serverSideFormErrors(err, this.$refs.updateProfileForm)
-            },
-            handleSuccess(msg) {
-                this.$router.push({name: 'user_profile'})
-            },
+            // Password
 
-
+            // Avatar
             onFileChange(e) {
                 this.file = e.target.files[0];
             },
