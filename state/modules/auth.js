@@ -67,8 +67,8 @@ export const actions = {
 
     async logout({ commit, state }){
         let response = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.logout}`)
-       commit('setLogout');
-       return response
+        commit('setLogout');
+        return response
     },
 
     async retrieveUser({ commit, state }){
@@ -124,7 +124,7 @@ export const actions = {
         let user = await RestDataSourcesMixin.methods.requestApi('/update-avatar',
             'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
         commit('retrieveUser', user)
-        return response
+        return user
     },
 
     setPreviousPath({ commit }, path) {
