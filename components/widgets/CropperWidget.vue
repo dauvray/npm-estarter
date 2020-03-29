@@ -22,8 +22,8 @@
                 <input type="file" ref="file" @change="uploadImage($event)" accept="image/*">
                 1 - Sélectionner une image
             </span>
-            <input type="button" class="btn btn-secondary" @click="crop" value="2 - Redimensionner" />
-            <input type="submit" class="btn btn-primary" @click="returnPicture" value="3 - Valider" />
+            <input type="button" class="btn btn-secondary" v-if="image" @click="crop" value="2 - Redimensionner" />
+            <input type="submit" class="btn btn-primary" v-if="image && file" @click="returnPicture" value="3 - Valider" />
         </div>
 
     </div>
