@@ -38,7 +38,7 @@
                 return 'id-' + Math.random().toString(36).substr(2, 16);
             },
             goto(ev) {
-                this.$router.push({ path: ev.target.dataset.path })
+                this.$router.push({ path: ev.target.dataset.path }).catch(err => {})
             }
         }
     }
