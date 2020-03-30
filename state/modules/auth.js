@@ -82,7 +82,7 @@ export const actions = {
         let user = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.user_update}`,
             'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
         commit('retrieveUser', user)
-        return response
+        return user
     },
 
     async deleteUser({ commit}){
