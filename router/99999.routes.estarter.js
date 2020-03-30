@@ -2,14 +2,13 @@
 THIS FILE MUST BE THE LAST FILE REGSITERED
  */
 
-//import Views from '../components/views'
-import Vue from 'vue'
+import Views from 'vuejs-estarter/components/views'
 
 export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'home',
-        component: window.estarterViews.Home,
+        component: Views.Home,
         meta: {
             breadcrumb: [
                 {name: 'Accueil', link: '/'},
@@ -19,7 +18,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'password_request',
-        component: window.estarterViews.ForgottenPassword,
+        component: Views.ForgottenPassword,
         meta: {
             requiresVisitor: true,
             parent: 'home',
@@ -31,7 +30,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'user_confirm_inscription',
-        component: window.estarterViews.ConfirmInscription,
+        component: Views.ConfirmInscription,
         meta: {
             requiresVisitor: true,
             parent: 'home',
@@ -43,7 +42,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'password_reset',
-        component: window.estarterViews.ResetPassword,
+        component: Views.ResetPassword,
         meta: {
             requiresVisitor: true
         }
@@ -51,7 +50,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'login',
-        component: window.estarterViews.Login,
+        component: Views.Login,
         meta: {
             requiresVisitor: true,
             parent: 'home',
@@ -63,7 +62,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'register',
-        component: window.estarterViews.Register,
+        component: Views.Register,
         meta: {
             requiresVisitor: true,
             parent: 'home',
@@ -75,7 +74,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'user_profile',
-        component: window.estarterViews.Profile,
+        component: Views.Profile,
         meta: {
             requiresAuth: true,
             parent: 'home',
@@ -89,7 +88,7 @@ export default [
                 // when /user/:id/profile is matched
                 path: 'CONFIG_ME_IN_ESTARTER',
                 name: 'user_edit',
-                component: window.estarterViews.UpdateProfile,
+                component: Views.UpdateProfile,
                 meta: {
                     requiresAuth: true,
                     parent: 'home',
@@ -104,7 +103,7 @@ export default [
                 // when /user/:id/posts is matched
                 path: 'CONFIG_ME_IN_ESTARTER',
                 name: 'user_delete',
-                component: window.estarterViews.DeleteProfile,
+                component: Views.DeleteProfile,
                 meta: {
                     requiresAuth: true,
                     parent: 'home',
@@ -119,7 +118,7 @@ export default [
     {
         path: 'CONFIG_ME_IN_ESTARTER',
         name: 'logout',
-        component: window.estarterViews.Logout,
+        component: Views.Logout,
         meta: {
             requiresAuth: true
         }
@@ -127,7 +126,7 @@ export default [
     {
         path: '*',
         name: 'page',
-        component: window.estarterViews.Page,
+        component: Views.Page,
         meta: {
             parent: 'home',
             breadcrumb: [
@@ -138,7 +137,7 @@ export default [
     {
         path: '/404',
         name: '404',
-        component: window.estarterViews.NotFoundComponent,
+        component: Views.NotFoundComponent,
         meta: {
             breadcrumb: [
                 { name: 'Accueil', link: '/' },
