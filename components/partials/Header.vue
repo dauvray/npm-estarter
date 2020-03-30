@@ -20,6 +20,11 @@
             ConnectionWidget: () => import('vuejs-estarter/components/widgets/Connection.vue'),
             AlertWidget: () => import('vuejs-estarter/components/widgets/Alert.vue'),
             BreadcrumbsWidget: () => import('vuejs-estarter/components/widgets/Breadcrumbs.vue')
+        },
+        data() {
+            return {
+                menuName: 'Menu principal'
+            }
         }
     }
 </script>

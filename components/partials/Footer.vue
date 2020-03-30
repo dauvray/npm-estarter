@@ -11,7 +11,9 @@
              MenuWidget: () => import('vuejs-estarter/components/widgets/menu/Menu.vue'),
          },
          data() {
-             return {}
-         },
+             return {
+                 menuName: 'Menu footer'
+             }
+         }
      }
 </script>
