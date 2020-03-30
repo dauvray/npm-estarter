@@ -36,6 +36,11 @@ export const FormMixin = {
             }
         }
     },
+    mounted: function() {
+        document.querySelectorAll('.form-group').forEach(function(item) {
+            item.classList.remove('valid')
+        })
+    },
     methods: {
         updateValidationFormClasses(formID = null) {
             const formEl = formID != null ? document.getElementById(formID) : document
