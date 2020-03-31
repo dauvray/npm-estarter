@@ -1,9 +1,11 @@
 <template>
     <div>
-        <gravatar-widget :user="user" class="float-left pr-2" />
-        <h1>
-            {{user.name }}
-        </h1>
+        <div class="d-flex align-items-center">
+            <gravatar-widget :user="user" class="float-left pr-2" />
+            <h1>
+                {{user.name }}
+            </h1>
+        </div>
         <router-link :to="$estarterRoutes.user_edit">Modifier</router-link>
         <router-link :to="$estarterRoutes.user_delete">Supprimer</router-link>
         <div class="row">
@@ -54,9 +56,7 @@
                 user: 'auth/getUser'
             }),
         },
-        methods: {
-
-        }
+        methods: {}
     }
 </script>
 

@@ -1,13 +1,13 @@
 <template>
 
-    <div id="app">
+    <div id="app" :class="[isVisible ? 'visible' : 'invisible']">
         <div class="top-content">
             <header-app />
             <main class="container-fluid">
                 <!--
                 Even when routes use the same component, treat them
                 as distinct and create the component again.
-                                <transition :name="transitionName" mode="out-in" >
+                <transition :name="transitionName" mode="out-in" >
                     <router-view :key="$route.fullPath" />
                     <router-view></router-view>
                 </transition>
@@ -17,13 +17,18 @@
                 </transition>
             </main>
         </div>
+        <div class="d-flex justify-content-center" :class="[!isVisible ? 'visible' : 'invisible']">
+            <div class="spinner-border text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <footer-app />
     </div>
 
 </template>
 
 <script>
-    import { mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import breadcrumbs from 'vuejs-estarter/mixins/BreadcrumbsMixin'
 
     export default {
@@ -42,25 +47,29 @@
         },
         data() {
             return {
+                'isVisible': false
             }
         },
         methods: {
             ...mapActions([
                 'auth/checkUser',
                 'auth/retrieveUser',
-            ]),
+            ])
         },
         created() {
 
             // after page refresh check if user is loggedin.
             try {
                 this['auth/checkUser']()
-                    .then(response => {
+                .then(response => {
                     if(response){
                         this['auth/retrieveUser']()
-//                        .then(response => {
-//                            this.$router.push({'name' : 'user_profile'});
-//                        });
+                        .then(response => {
+                          // this.$router.push({'name' : 'user_profile'});
+                          setTimeout(() => {
+                              this.isVisible = true
+                          }, 1000);
+                       });
                     }
                 })
             }

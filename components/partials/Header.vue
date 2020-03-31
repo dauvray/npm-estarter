@@ -5,7 +5,7 @@
             <img :src="this.$estarterSettings.website_logo" />
             </router-link>
             <menu-widget name="Menu principal" />
-            <connection-widget />
+            <connection-widget v-if="showConnectionWidget"/>
         </header>
         <alert-widget />
         <breadcrumbs-widget />
@@ -23,7 +23,8 @@
         },
         data() {
             return {
-                menuName: 'Menu principal'
+                menuName: 'Menu principal',
+                showConnectionWidget: true
             }
         }
     }

@@ -23,16 +23,16 @@ export const getters = {
 
 export const mutations = {
     setLogin(state, status) {
-        state.isLoggedin = status;
+        state.isLoggedin = status
     },
     setLogout(state) {
-        state.isLoggedin = false;
-        state.user = {};
-        state.tmpUserFields = {};
+        state.isLoggedin = false
+        state.user = {}
+        state.tmpUserFields = {}
     },
     retrieveUser(state, user) {
-        state.user = user;
-        state.tmpUserFields = {...user};
+        state.user = user
+        state.tmpUserFields = {...user}
     },
     setPreviousPath(state, path) {
         state.previousPath = path
@@ -67,7 +67,7 @@ export const actions = {
 
     async logout({ commit, state }){
         let response = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.logout}`)
-        commit('setLogout');
+        commit('setLogout')
         return response
     },
 
