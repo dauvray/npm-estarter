@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row" v-if="image">
             <div class="col-8">
                 <div class="upload-example">
                     <div :style="{backgroundImage: 'url(' + image + ')'}" class="cropper-background"></div>
