@@ -65,11 +65,14 @@
                     if(response){
                         this['auth/retrieveUser']()
                         .then(response => {
-                          // this.$router.push({'name' : 'user_profile'});
                           setTimeout(() => {
                               this.isVisible = true
                           }, 1000);
                        });
+                    } else {
+                        setTimeout(() => {
+                            this.isVisible = true
+                        }, 1000);
                     }
                 })
             }
