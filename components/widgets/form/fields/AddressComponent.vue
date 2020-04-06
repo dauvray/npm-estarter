@@ -17,6 +17,8 @@
                 appId: 'plU39WL34594',
                 apiKey: '75e0a6a31b9c80c4a3ef1aba2aace355',
                 container: document.querySelector('#address-input')
+            }).configure({
+                countries: ['fr']
             })
             placesAutocomplete.on('change', function(e) {
                 console.log(e.suggestion)
