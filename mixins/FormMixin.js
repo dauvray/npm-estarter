@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
 import PasswordChecker from "vuejs-estarter/components/widgets/form/fields/PasswordComponent"
+import AddressComponent from "vuejs-estarter/components/widgets/form/fields/AddressComponent"
 Vue.component("fieldPasswordChecker", PasswordChecker)
+Vue.component("fieldAddressComponent", AddressComponent)
 
 VueFormGenerator.validators.resources.fieldIsRequired = "Ce champ est obligatoire"
 VueFormGenerator.validators.resources.invalidFormat = "Format invalide"

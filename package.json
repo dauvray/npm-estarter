@@ -16,7 +16,8 @@
   ],
   "dependencies": {
     "vue-form-generator": "^2.3.4",
-    "vue-advanced-cropper": "^0.16.1"
+    "vue-advanced-cropper": "^0.16.1",
+    "places.js": "^1.18.1"
   },
   "author": "dauvray",
   "license": "ISC",

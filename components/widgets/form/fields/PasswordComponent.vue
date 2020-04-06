@@ -60,7 +60,7 @@
 </template>
 
 <script>
-    import { abstractField } from "vue-form-generator";
+    import { abstractField } from "vue-form-generator"
 
     export default {
         name : 'PasswordComponent',
