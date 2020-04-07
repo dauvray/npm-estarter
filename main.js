@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import 'es6-promise/auto'
 import EstarterSettings from 'vuejs-estarter/plugins/EstarterSettings'
+import EstarterCredentials from 'vuejs-estarter/plugins/EstarterCredentials'
 import EstarterViews from './components/views'
 import store from './state/store'
 import router from './router'
@@ -46,6 +47,7 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
 Vue.use(VueNoty)
 Vue.use(EstarterSettings)
+Vue.use(EstarterCredentials)
 Vue.use(Moment, {moment})
 Vue.use(VueMeta)
 Vue.use(VueAxios, axios)

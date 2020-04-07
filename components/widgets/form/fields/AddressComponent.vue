@@ -14,8 +14,8 @@
         mixins: [abstractField],
         mounted() {
             let placesAutocomplete = places({
-                appId: 'plU39WL34594',
-                apiKey: '75e0a6a31b9c80c4a3ef1aba2aace355',
+                appId: this.$estarterCredentials.algoliaAppId,
+                apiKey: this.$estarterCredentials.algoliapiKey,
                 container: document.querySelector('#address-input')
             }).configure({
                 countries: ['fr']
