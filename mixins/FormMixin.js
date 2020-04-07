@@ -50,12 +50,16 @@ export const FormMixin = {
                 let errorFields = formEl.querySelectorAll(".form-group.error")
                 let validFields = formEl.querySelectorAll(".form-group.valid")
                 errorFields.forEach(function(item) {
-                    item.querySelector('.form-control').classList.remove('is-valid')
-                    item.querySelector('.form-control').classList.add('is-invalid')
+                    if(item.querySelector('.form-control')){
+                        item.querySelector('.form-control').classList.remove('is-valid')
+                        item.querySelector('.form-control').classList.add('is-invalid')
+                    }
                 })
                 validFields.forEach(function(item) {
-                    item.querySelector('.form-control').classList.remove('is-invalid')
-                    item.querySelector('.form-control').classList.add('is-valid')
+                    if(item.querySelector('.form-control')) {
+                        item.querySelector('.form-control').classList.remove('is-invalid')
+                        item.querySelector('.form-control').classList.add('is-valid')
+                    }
                 })
             }, 100);
         },
