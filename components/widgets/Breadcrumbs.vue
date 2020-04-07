@@ -25,7 +25,7 @@
         methods: {
             routeTo (pRouteTo) {
                 if (this.breadCrumbs[pRouteTo].link) {
-                    this.$router.push(this.breadCrumbs[pRouteTo].link)
+                    this.$router.push(this.breadCrumbs[pRouteTo].link).catch(err => {})
                 }
             },
         }
