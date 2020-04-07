@@ -1,7 +1,6 @@
 <template>
     <div>
         <input type="search" id="address-input" placeholder="Where are we going?" />
-        <input type="hidden" value="" name="address-input-json" />
     </div>
 </template>
 
@@ -20,8 +19,8 @@
             }).configure({
                 countries: ['fr']
             })
-            placesAutocomplete.on('change', function(e) {
-                console.log(e.suggestion)
+            placesAutocomplete.on('change', (e) => {
+                this.updateModelValue(e.suggestion);
             });
         },
     }
