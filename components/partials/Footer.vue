@@ -1,6 +1,6 @@
 <template>
     <footer class="estarter-footer navbar navbar-expand-lg navbar-dark bg-dark mt-3">
-        <menu-widget name="Menu footer"/>
+        <menu-widget v-if="showMenu" :name="menuName"/>
     </footer>
 </template>
 
@@ -12,7 +12,8 @@
          },
          data() {
              return {
-                 menuName: 'Menu footer'
+                 menuName: 'Menu footer',
+                 showMenu: true
              }
          }
      }
