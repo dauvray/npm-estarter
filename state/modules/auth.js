@@ -10,11 +10,14 @@ export const getters = {
     loggedIn(state) {
         return state.isLoggedin
     },
-    getToken(state) {
-        return state.accessToken
-    },
+    // getToken(state) {
+    //     return state.accessToken
+    // },
     getUser(state) {
         return state.user
+    },
+    getUserId(state) {
+        return state.user.id
     },
     getPreviousPath(state) {
         return state.previousPath

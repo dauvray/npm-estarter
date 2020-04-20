@@ -6,7 +6,7 @@ import Views from 'vuejs-estarter/components/views'
 
 export default [
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'home',
         component: Views.Home,
         meta: {
@@ -16,7 +16,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'password_request',
         component: Views.ForgottenPassword,
         meta: {
@@ -28,7 +28,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'user_confirm_inscription',
         component: Views.ConfirmInscription,
         meta: {
@@ -40,7 +40,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'password_reset',
         component: Views.ResetPassword,
         meta: {
@@ -48,7 +48,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'login',
         component: Views.Login,
         meta: {
@@ -60,7 +60,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'register',
         component: Views.Register,
         meta: {
@@ -72,7 +72,7 @@ export default [
         }
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'user_profile',
         component: Views.Profile,
         meta: {
@@ -86,7 +86,7 @@ export default [
             {
                 // UserProfile will be rendered inside User's <router-view>
                 // when /user/:id/profile is matched
-                path: 'CONFIG_ME_IN_ESTARTER',
+                path: '/CONFIG_ME_IN_ESTARTER',
                 name: 'user_edit',
                 component: Views.UpdateProfile,
                 meta: {
@@ -101,7 +101,7 @@ export default [
             {
                 // UserPosts will be rendered inside User's <router-view>
                 // when /user/:id/posts is matched
-                path: 'CONFIG_ME_IN_ESTARTER',
+                path: '/CONFIG_ME_IN_ESTARTER',
                 name: 'user_delete',
                 component: Views.DeleteProfile,
                 meta: {
@@ -116,7 +116,7 @@ export default [
         ]
     },
     {
-        path: 'CONFIG_ME_IN_ESTARTER',
+        path: '/CONFIG_ME_IN_ESTARTER',
         name: 'logout',
         component: Views.Logout,
         meta: {

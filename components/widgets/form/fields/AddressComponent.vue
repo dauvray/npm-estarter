@@ -12,8 +12,10 @@
     export default {
         name: 'AddressComponent',
         mixins: [abstractField],
-        props: {
-
+        data() {
+            return {
+                hint: '',
+            }
         },
         mounted() {
             let placesAutocomplete = places({
