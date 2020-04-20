@@ -1,6 +1,7 @@
 <template>
     <div>
-        <input type="search" id="address-input" placeholder="Where are we going?" />
+        <input type="search" id="address-input" :placeholder="schema.placeholder"/>
+        {{hint}}
     </div>
 </template>
 
@@ -11,6 +12,9 @@
     export default {
         name: 'AddressComponent',
         mixins: [abstractField],
+        props: {
+
+        },
         mounted() {
             let placesAutocomplete = places({
                 appId: this.$estarterCredentials.algoliaAppId,
