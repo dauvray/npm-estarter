@@ -4,14 +4,14 @@
         <li class="nav-item" v-for="(item, idx) in this.items" :class="{ dropdown: item.children.length }" :key="idx">
 
             <!-- no children -->
-            <a class="nav-link" @click="goto" :data-path="item.link" v-if="!item.children.length">{{ item.name }}</a>
+            <a class="nav-link" :class="item.extras.class" @click="goto" :data-path="item.link" v-if="!item.children.length">{{ item.name }}</a>
 
             <!-- has children -->
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="false"
                v-if="item.children.length">{{ item.name }}</a>
 
             <div v-if="item.children.length" class="dropdown-menu" aria-labelledby="themes">
-                <a v-for="(child, idx) in item.children"  @click="goto" :data-path="child.link" class="dropdown-item" >{{ child.name }}</a>
+                <a v-for="(child, idx) in item.children" @click="goto" :data-path="child.link" class="dropdown-item" >{{ child.name }}</a>
             </div>
 
         </li>

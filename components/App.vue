@@ -89,6 +89,9 @@
 <style lang="scss" >
 
     #app {
+
+        overflow: hidden;
+
         .fade-enter-active,
         .fade-leave-active {
             transition-duration: 0.3s;
