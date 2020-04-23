@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="search" id="address-input" :placeholder="schema.placeholder"/>
+        <input type="search" id="address-input" :placeholder="schema.placeholder" />
         {{hint}}
     </div>
 </template>
@@ -26,8 +26,9 @@
                 countries: ['fr']
             })
             placesAutocomplete.on('change', (e) => {
-                this.updateModelValue(e.suggestion);
-            });
+                this.updateModelValue(e.suggestion)
+            })
+            placesAutocomplete.setVal(this.schema.default())
         },
     }
 </script>

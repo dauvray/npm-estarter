@@ -25,10 +25,12 @@
             handleError(err) {
                 if(err.response){
                     this.$noty.error(err.response.data.message)
+                    for(const error in err.response.data.errors) {
+                        this.$noty.error(`${err.response.data.errors[error]}`)
+                    }
                 } else {
                     this.$noty.error(err)
                 }
-
             },
 
             handleSuccess(msg) {

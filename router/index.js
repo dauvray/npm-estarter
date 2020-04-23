@@ -75,6 +75,7 @@ router.beforeEach((to, from, next) => {
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!store.getters['auth/loggedIn']) {
+            sessionStorage.setItem('redirect_path', to.path)
             next({
                 name: 'login',
             })

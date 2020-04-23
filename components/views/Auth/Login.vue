@@ -73,7 +73,14 @@
         watch: {
             loggedIn: function (newState, oldState) {
                 if(newState){
-                    this.$router.push({'name' : 'user_profile'});
+                    // see in router/index.js
+                    let redirect_path = sessionStorage.getItem('redirect_path')
+                    if(redirect_path) {
+                      //  sessionStorage.removeItem('redirect_path')
+                        this.$router.push({'path' : redirect_path}).catch(err => {})
+                    } else {
+                        this.$router.push({'name' : 'user_profile'}).catch(err => {})
+                    }
                 }
             }
         },
@@ -86,9 +93,18 @@
                     if(resp.length == 0) {
                         this['auth/login'](this.model)
                         .then(response => {
+                            let redirect_path = sessionStorage.getItem('redirect_path')
+
+                            // login suite après une navigation interne protégée
                             if(this.previousPath) {
                                 this.$router.push(this.previousPath).catch(err => {})
-                            } else {
+                            }
+                            // login suite a un accès direct via url
+                            else if(redirect_path) {
+                                sessionStorage.removeItem('redirect_path')
+                                this.$router.push({'path' : redirect_path}).catch(err => {})
+                            }
+                            else {
                                 this.$router.push({'name' : 'user_profile'}).catch(err => {})
                             }
                         })

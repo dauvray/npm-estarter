@@ -17,7 +17,7 @@
                 </transition>
             </main>
         </div>
-        <div class="d-flex justify-content-center" :class="[!isVisible ? 'visible' : 'invisible']">
+        <div v-if="!isVisible" class="d-flex justify-content-center visible">
             <div class="spinner-border text-warning" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
