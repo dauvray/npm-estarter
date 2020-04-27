@@ -28,7 +28,9 @@
             placesAutocomplete.on('change', (e) => {
                 this.updateModelValue(e.suggestion)
             })
-            placesAutocomplete.setVal(this.schema.default())
+            if (typeof this.schema.default === "function") {
+                placesAutocomplete.setVal(this.schema.default())
+            }
         },
     }
 </script>

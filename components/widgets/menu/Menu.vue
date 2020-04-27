@@ -60,14 +60,10 @@
                     method: 'get',
                     url: `/menu/${this.name}`,
                 }).then(response => {
-
                     this.processData(response)
-
                 }).catch(error => {
-
                     console.log(error)
                 });
-
             },
             onLogin() {
                 this.getItems()

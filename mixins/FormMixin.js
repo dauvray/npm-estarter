@@ -80,6 +80,9 @@ export const FormMixin = {
                 el.classList.remove("is-valid")
                 el.classList.add("is-invalid")
             }
-        }
+        },
+        onUpdatedModel(newVal, schema) {
+            this.$emit("model-updated", newVal, schema)
+        },
     }
 }
