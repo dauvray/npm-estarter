@@ -12,7 +12,6 @@ export const RestDataSourcesMixin = {
                     data: data
                 })
                 .then((response) => {
-
                     if(response.status == 200){
                         if(noty.msg !== null){
                             EventBus.$emit("httpSuccess", noty.msg)
@@ -26,17 +25,17 @@ export const RestDataSourcesMixin = {
                 })
                 .catch(error => {
                     if (error.response) {
-                        if(error.response.data.status == '404') {
-                            EventBus.$emit("httpNotFound", error);
+                        if(error.response.status == '404') {
+                            EventBus.$emit("httpNotFound", error)
                         } else {
                             if(error.response.data.error === 'passwords.token') {
                                 error.response.data.message = 'Le lien de réinitialisation n\'est plus valide. Veuillez en recréer un.'
                             }
-                            EventBus.$emit("httpError", error);
+                            EventBus.$emit("httpError", error)
                         }
                     }
                     if(noty.err !== null){
-                        EventBus.$emit("httpError", noty.err);
+                        EventBus.$emit("httpError", noty.err)
                     }
                     reject(error);
                 })

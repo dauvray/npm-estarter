@@ -69,16 +69,18 @@ export const FormMixin = {
             })
         },
         serverSideFormErrors(err, formRef) {
-            formRef.clearValidationErrors()
-            const errors = err.response.data.errors;
-            for ( const error in errors) {
-                formRef.errors.push({
-                    error: errors[error][0],
-                    field: _.find(this.schema.fields, {'inputName': error})
-                })
-                let el = document.querySelector(`input[name=${error}]`)
-                el.classList.remove("is-valid")
-                el.classList.add("is-invalid")
+            if (formRef !== undefined) {
+                formRef.clearValidationErrors()
+                const errors = err.response.data.errors;
+                for (const error in errors) {
+                    formRef.errors.push({
+                        error: errors[error][0],
+                        field: _.find(this.schema.fields, {'inputName': error})
+                    })
+                    let el = document.querySelector(`input[name=${error}]`)
+                    el.classList.remove("is-valid")
+                    el.classList.add("is-invalid")
+                }
             }
         },
         onUpdatedModel(newVal, schema) {

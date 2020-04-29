@@ -19,6 +19,7 @@ export const BaseMixin = {
     created() {
         this.eventBus.$on("httpError", this.handleError)
         this.eventBus.$on("httpSuccess", this.handleSuccess)
+        this.eventBus.$on("httpNotFound", this.handleNotFound)
     },
     methods: {
         // event bus methods
@@ -27,6 +28,9 @@ export const BaseMixin = {
         },
         handleSuccess() {
             this.errors = {}
+        },
+        handleNotFound() {
+            this.$router.push({name: '404'}).catch(err => {})
         }
     }
 }
