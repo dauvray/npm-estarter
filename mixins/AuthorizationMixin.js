@@ -9,14 +9,14 @@ export const AuthorizationMixin = {
     created() {
         this.unsubscribe = this.$store.subscribe((mutation, state) => {
             if(mutation.type === 'auth/setLogin'){
-                if(state.isLoggedin) {
-                    this.onLogin();
+                if(state.auth.isLoggedin) {
+                    this.onLogin()
                 }
             }
 
             if(mutation.type === 'auth/setLogout'){
-                if(!state.isLoggedin) {
-                    this.onLogout();
+                if(!state.auth.isLoggedin) {
+                    this.onLogout()
                 }
             }
         })

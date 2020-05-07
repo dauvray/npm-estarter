@@ -31,6 +31,12 @@ export const RestDataSourcesMixin = {
                         if(error.response.status == '403') {
                             EventBus.$emit("httpError", 'Accès interdit')
                         }
+                        if(error.response.status == '401') {
+                            document.location.reload()
+                        }
+                        if(error.response.status == '419') {
+                            document.location.reload()
+                        }
                         else {
                             if(error.response.data.error === 'passwords.token') {
                                 error.response.data.message = 'Le lien de réinitialisation n\'est plus valide. Veuillez en recréer un.'
