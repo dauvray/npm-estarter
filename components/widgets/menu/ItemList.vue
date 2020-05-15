@@ -1,6 +1,6 @@
 <template>
 
-    <ul class="estarter-menu navbar-nav">
+    <ul class="estarter-menu nav">
         <li class="nav-item" v-for="(item, idx) in this.items" :class="{ dropdown: item.children.length }" :key="idx">
 
             <!-- no children -->
