@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="search" id="address-input" :placeholder="schema.placeholder" />
+        <input type="search" :id="AddressInputId" :placeholder="schema.placeholder" />
         {{hint}}
     </div>
 </template>
@@ -15,13 +15,14 @@
         data() {
             return {
                 hint: '',
+                AddressInputId: `address${Math.floor(Math.random() * Date.now())}`
             }
         },
         mounted() {
             let placesAutocomplete = places({
                 appId: this.$estarterCredentials.algoliaAppId,
                 apiKey: this.$estarterCredentials.algoliapiKey,
-                container: document.querySelector('#address-input')
+                container: document.querySelector(`#${this.AddressInputId}`)
             }).configure({
                 countries: ['fr']
             })
@@ -31,6 +32,10 @@
 
             if (typeof this.schema.default === "function") {
                 placesAutocomplete.setVal(this.schema.default())
+            }
+
+            if(this.model[this.schema.model].value !== undefined) {
+                placesAutocomplete.setVal(this.model[this.schema.model].value)
             }
         },
     }
