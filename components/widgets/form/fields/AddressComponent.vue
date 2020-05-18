@@ -30,12 +30,8 @@
                 this.updateModelValue(e.suggestion)
             })
 
-            if (typeof this.schema.default === "function") {
-                placesAutocomplete.setVal(this.schema.default())
-            }
-
-            if(this.model[this.schema.model].value !== undefined) {
-                placesAutocomplete.setVal(this.model[this.schema.model].value)
+            if(this.model[this.schema.model]) {
+                placesAutocomplete.setVal(this.model[this.schema.model].value || this.model[this.schema.model])
             }
         },
     }
