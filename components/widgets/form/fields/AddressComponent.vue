@@ -30,7 +30,7 @@
                 this.updateModelValue(e.suggestion)
             })
 
-            if(this.model[this.schema.model]) {
+            if(this.model && this.model[this.schema.model]) {
                 placesAutocomplete.setVal(this.model[this.schema.model].value || this.model[this.schema.model])
             }
         },
