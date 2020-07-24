@@ -38,7 +38,8 @@
             // if come from external URL
             } else {
                 let slug = this.$route.path.replace("/", "")
-                this.requestApi(`/${slug}`)
+                slug = slug.replace(".html", "")
+                this.requestApi(`/page/${slug}`)
                 .then( response => {
                     this.processData(response)}
                 )

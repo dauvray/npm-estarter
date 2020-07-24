@@ -58,14 +58,12 @@ export const actions = {
         await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.login}`,
             'post', credentials, {err: null, msg: null})
 
-        let response = RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.user_profile}`,
-            'get', null, {err: 'Identification impossible', msg: 'Connexion établie'})
-            .then(resp => {
-                context.commit('setLogin', true)
-                context.commit('retrieveUser', resp.user)
-            })
+        if(context.dispatch('retrieveUser')) {
+            context.commit('setLogin', true)
+            return true
+        }
 
-        return response
+         return false
     },
 
     async logout({ commit, state }){
@@ -75,7 +73,7 @@ export const actions = {
     },
 
     async retrieveUser({ commit, state }){
-        let response = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.user_profile}`,
+        let response = await RestDataSourcesMixin.methods.requestApi('/get-user-data',
             'get', null, {err: 'Identification impossible', msg: 'Connexion établie'})
         commit('retrieveUser', response.user)
         return response

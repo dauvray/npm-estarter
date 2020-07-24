@@ -4,6 +4,14 @@ THIS FILE MUST BE THE LAST FILE REGSITERED
 
 import Views from 'vuejs-estarter/components/views'
 
+/**
+ * /CONFIG_ME_IN_ESTARTER : in config/estarter.php ( laravel )
+ * There is a route config to translate the url
+ * the 'name' here is equal to the routes.front indexes
+ *
+ * customViews : you can overwrite the estarter components in your app
+ */
+
 export default function(customViews) {
 
     return [

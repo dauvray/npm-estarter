@@ -8,7 +8,8 @@
                                         :model="model" :options="formOptions"
                                         @validated="updateValidationFormClasses()"></vue-form-generator>
                     <div class="form-group">
-                        <input type="submit" value="Valider" @click.prevent="loginPost" class="btn btn-primary" />
+                        <input type="submit" value="Valider" class="btn btn-primary"
+                               @click.prevent="loginPost" />
                         <router-link :to="{ name: 'password_request', params: {} }">
                             Mot de passe oublié
                         </router-link>
@@ -93,19 +94,21 @@
                     if(resp.length == 0) {
                         this['auth/login'](this.model)
                         .then(response => {
-                            let redirect_path = sessionStorage.getItem('redirect_path')
+                            if(response) {
+                                let redirect_path = sessionStorage.getItem('redirect_path')
 
-                            // login suite après une navigation interne protégée
-                            if(this.previousPath) {
-                                this.$router.push(this.previousPath).catch(err => {})
-                            }
-                            // login suite a un accès direct via url
-                            else if(redirect_path) {
-                                sessionStorage.removeItem('redirect_path')
-                                this.$router.push({'path' : redirect_path}).catch(err => {})
-                            }
-                            else {
-                                this.$router.push({'name' : 'user_profile'}).catch(err => {})
+                                // login suite après une navigation interne protégée
+                                if(this.previousPath) {
+                                    this.$router.push(this.previousPath).catch(err => {})
+                                }
+                                // login suite a un accès direct via url
+                                else if(redirect_path) {
+                                    sessionStorage.removeItem('redirect_path')
+                                    this.$router.push({'path' : redirect_path}).catch(err => {})
+                                }
+                                else {
+                                    this.$router.push({'name' : 'user_profile'}).catch(err => {})
+                                }
                             }
                         })
                     }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="user">
         <div class="d-flex align-items-center">
             <gravatar-widget :user="user" class="float-left pr-2" />
             <h1>
