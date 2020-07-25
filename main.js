@@ -33,14 +33,14 @@ try {
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 //axios.defaults.baseURL = '/api/'
-let token = document.head.querySelector('meta[name="csrf-token"]')
-
-if (token) {
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
-    axios.defaults.headers.post['Content-Type'] = 'application/json'
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
-}
+// let token = document.head.querySelector('meta[name="csrf-token"]')
+//
+// if (token) {
+//     axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+//     axios.defaults.headers.post['Content-Type'] = 'application/json'
+// } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
+// }
 
 // VUEJS
 // Don't warn about using the dev version of Vue in development.

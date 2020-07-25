@@ -63,7 +63,7 @@ export const actions = {
             return true
         }
 
-         return false
+         return true
     },
 
     async logout({ commit, state }){

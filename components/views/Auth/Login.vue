@@ -25,6 +25,7 @@
     import { mapActions, mapGetters} from 'vuex'
     import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
     import {FormMixin} from 'vuejs-estarter/mixins/FormMixin'
+    import {EventBus} from "vuejs-eblogger/components/widgets/Comment/Comments";
 
     export default {
         name: 'Login',
