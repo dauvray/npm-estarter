@@ -4,11 +4,8 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import EstarterSettings from 'vuejs-estarter/plugins/EstarterSettings'
 import EstarterCredentials from 'vuejs-estarter/plugins/EstarterCredentials'
-
 import EstarterCustomViews from './components/views'
 import EstarterViews from 'vuejs-estarter/components/views'
-const allViews = Object.assign(EstarterViews, EstarterCustomViews);
-
 import store from './state/store'
 import router from './router'
 import App from './components/App'
@@ -65,7 +62,7 @@ new Vue({
     provide: function() {
         return {
             eventBus: EventBus,
-            estarterViews: allViews,
+            estarterViews: Object.assign(EstarterViews, EstarterCustomViews),
             initComponent() {
                 this.eventBus.$emit("ResetErrors")
             }
