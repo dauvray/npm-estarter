@@ -8,7 +8,7 @@
             this['auth/logout']()
                 .then(response => {
                     this.$router.push({name: 'home'});
-                    document.location.reload(true);
+                    //document.location.reload(true);
                 });
         },
         methods: {
