@@ -18,6 +18,8 @@ import Moment from 'vue-moment'
 const moment = require('moment')
 require('moment/locale/fr')
 
+let allViews = Object.assign(EstarterViews, EstarterCustomViews)
+
 // LIBRARIES
 window._ = require('lodash')
 window.axios = axios
@@ -62,7 +64,7 @@ new Vue({
     provide: function() {
         return {
             eventBus: EventBus,
-            estarterViews: Object.assign(EstarterViews, EstarterCustomViews),
+            estarterViews: allViews,
             initComponent() {
                 this.eventBus.$emit("ResetErrors")
             }
