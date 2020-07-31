@@ -47,7 +47,8 @@ export default {
              $('#changeavatar').modal('hide')
 
              // classic version or vuejs
-             if(this.estarterSettings === 'undefined') {
+             if(typeof this.estarterSettings === 'undefined') {
+                 console.log('toto')
                  axios.post('/update-avatar', formData)
                      .then((response) => {
                          this.urlPicture = `${response.data.image}.${this.size}.jpg` || response.data.gravatar
