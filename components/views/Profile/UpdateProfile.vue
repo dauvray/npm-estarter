@@ -31,7 +31,9 @@
                     <forgotten-password-form></forgotten-password-form>
                 </div>
                 <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                    <cropper-widget @onCroppedPicture="submitCroppedPicture"></cropper-widget>
+                    <avatar-cropper :avatarurl="user.image || user.gravatar" size="medium"
+                                    @onCroppedPicture="submitCroppedPicture"
+                    ></avatar-cropper>
                 </div>
             </div>
 
@@ -50,7 +52,7 @@
         mixins: [BaseMixin, FormMixin],
         components: {
             ForgottenPasswordForm: () => import('vuejs-estarter/components/widgets/form/ForgottenPassword'),
-            CropperWidget: () => import('vuejs-estarter/components/widgets/CropperWidget')
+            AvatarCropper: () => import('vuejs-estarter/components/widgets/AvatarCropper'),
         },
         data() {
             return {

@@ -21,7 +21,7 @@ export const getters = {
     },
     getPreviousPath(state) {
         return state.previousPath
-    }
+    },
 }
 
 export const mutations = {

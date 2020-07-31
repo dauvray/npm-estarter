@@ -32,21 +32,32 @@ export default {
     },
     data() {
         return {
-            urlPicture: this.avatarurl
+            urlPicture: null
         }
+    },
+    created() {
+        this.urlPicture = this.avatarurl
     },
     methods: {
          onSaveModalChanges() {
-            let formData = new FormData();
-            formData.append('file', this.$refs.cropper.file);
-            axios.post('/update-avatar', formData)
-            .then((response) => {
-                this.urlPicture = `${response.data.image}.${this.size}.jpg` || response.data.gravatar;
-                $('#changeavatar').modal('hide')
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            let formData = new FormData()
+            let file = this.$refs.cropper.file
+            formData.append('file', file )
+             // TODO: vanilliaJs
+             $('#changeavatar').modal('hide')
+
+             // classic version or vuejs
+             if(this.estarterSettings === 'undefined') {
+                 axios.post('/update-avatar', formData)
+                     .then((response) => {
+                         this.urlPicture = `${response.data.image}.${this.size}.jpg` || response.data.gravatar
+                     })
+                     .catch((error) => {
+                         console.log(error);
+                     });
+             } else {
+                 this.$emit('onCroppedPicture', file)
+             }
         },
     }
 }
