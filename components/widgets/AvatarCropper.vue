@@ -43,12 +43,9 @@ export default {
             let formData = new FormData()
             let file = this.$refs.cropper.file
             formData.append('file', file )
-             // TODO: vanilliaJs
-             $('#changeavatar').modal('hide')
 
-             // classic version or vuejs
-             if(typeof this.estarterSettings === 'undefined') {
-                 console.log('toto')
+             // is in vuejs-estarter framework ?
+             if(typeof this.$estarterSettings === 'undefined') {
                  axios.post('/update-avatar', formData)
                      .then((response) => {
                          this.urlPicture = `${response.data.image}.${this.size}.jpg` || response.data.gravatar
@@ -59,6 +56,9 @@ export default {
              } else {
                  this.$emit('onCroppedPicture', file)
              }
+
+             // TODO: vanilliaJs
+             $('#changeavatar').modal('hide')
         },
     }
 }
