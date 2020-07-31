@@ -20,7 +20,7 @@
                     <div class="modal-footer">
                         <slot name="footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button v-if="canValidate" type="button" class="btn btn-primary" @click="saveChanges">Save changes</button>
                         </slot>
                     </div>
                 </div>
@@ -43,5 +43,21 @@ export default {
             default: "btn btn-primary"
         }
     },
+    data() {
+        return {
+            canValidate: false
+        }
+    },
+    created() {
+        this.$on('canValidate', this.onShowValidButton)
+    },
+    methods : {
+        onShowValidButton(value) {
+            this.canValidate = value
+        },
+        saveChanges() {
+            this.$emit('saveModalChanges')
+        }
+    }
 }
 </script>

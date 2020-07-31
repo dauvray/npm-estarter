@@ -1,31 +1,31 @@
 <template>
     <div>
-        <div class="row" v-if="image">
+        <div class="row" >
+            <div class="col-4">
+                <img :src="croppedImage" style="max-width: 100%;" />
+            </div>
             <div class="col-8">
-                <div class="upload-example">
+                <div class="button-wrapper">
+                    <span class="button" @click="$refs.file.click()">
+                        <input type="file" ref="file" @change="uploadImage($event)" accept="image/*">
+                        <i class="fas fa-file-upload"></i> Sélectionner une image
+                    </span>
+<!--                    <input v-if="file" type="submit" class="btn btn-primary"-->
+<!--                           @click="returnPicture" value="Valider" />-->
+                </div>
+                <div v-if="image" class="upload-example">
                     <div :style="{backgroundImage: 'url(' + image + ')'}" class="cropper-background"></div>
                     <cropper
                         classname="upload-example-cropper"
                         :src="image"
                         ref="cropper"
                         :stencilComponent="$options.components.CircleStencil"
-                        :stencil-props="{aspectRatio: 10/10}"></cropper>
+                        :stencil-props="{aspectRatio: 10/10}"
+                        @change="crop"
+                    ></cropper>
                 </div>
             </div>
-            <div class="col-4">
-                <img :src="croppedImage" style="max-width: 100%;"/>
-            </div>
         </div>
-
-        <div class="button-wrapper">
-            <span class="button" @click="$refs.file.click()">
-                <input type="file" ref="file" @change="uploadImage($event)" accept="image/*">
-                1 - Sélectionner une image
-            </span>
-            <input type="button" class="btn btn-secondary" v-if="image" @click="crop" value="2 - Redimensionner" />
-            <input type="submit" class="btn btn-primary" v-if="image && file" @click="returnPicture" value="3 - Valider" />
-        </div>
-
     </div>
 </template>
 
@@ -38,17 +38,30 @@
             Cropper,
             CircleStencil
         },
+        props: {
+           currentimage: {
+               default: null
+           }
+        },
         data() {
             return {
                 image: null,
                 file: '',
-                croppedImage: null,
+                croppedImage: this.currentimage,
                 coordinates: {
                     width: 0,
                     height: 0,
                     left: 0,
                     top: 0
                 },
+            }
+        },
+        watch: {
+            file: function (newValue, oldValue) {
+                // the first time only
+                if(newValue && !oldValue) {
+                    this.$parent.$emit('canValidate', true)
+                }
             }
         },
         methods: {
