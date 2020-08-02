@@ -1,7 +1,7 @@
 <template>
-    <modal-widget target="changeavatar" btnclass="btn btn-link" @saveModalChanges="onSaveModalChanges">
+    <modal-widget v-if="item" target="changeavatar" btnclass="btn btn-link" @saveModalChanges="onSaveModalChanges">
         <template #button>
-            <img :src="urlPicture" class="estarter-avatar img-fluid rounded-circle"/>
+            <gravatar-widget :user="item" :path="path" class="float-left pr-2" />
         </template>
         <template #header>
             Modifier mon avatar
@@ -19,24 +19,35 @@ export default {
     components: {
         ModalWidget: () => import('vuejs-estarter/components/widgets/Modal'),
         CropperWidget: () => import('vuejs-estarter/components/widgets/CropperWidget'),
+        GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
     },
     props: {
-        avatarurl: {
-            type: String,
+        user: {
+            type: Object,
             required: true
         },
         size: {
             type: String,
             default: 'medium'
+        },
+        path: {
+            type: String,
+            default: '/storage/users'
         }
     },
     data() {
         return {
-            urlPicture: null
+            item: this.user
         }
     },
-    created() {
-        this.urlPicture = this.avatarurl
+    computed: {
+        urlPicture: function () {
+            if(this.item.image) {
+                return `${this.path}/${this.item.image}.${this.size}.jpg`
+            } else {
+                return `${this.path}/${this.item.gravatar}`
+            }
+        }
     },
     methods: {
          onSaveModalChanges() {
@@ -48,7 +59,7 @@ export default {
              if(typeof this.$estarterSettings === 'undefined') {
                  axios.post('/update-avatar', formData)
                      .then((response) => {
-                         this.urlPicture = `${response.data.image}.${this.size}.jpg` || response.data.gravatar
+                         this.item = response.data
                      })
                      .catch((error) => {
                          console.log(error);
