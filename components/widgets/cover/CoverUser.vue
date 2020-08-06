@@ -1,17 +1,19 @@
 <template>
-    <div class="d-flex align-items-end" :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
+    <div class="d-flex align-items-end p-3" :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
         <avatar-cropper :size="size" :user="item"
                         @onCroppedAvatar="onCroppedAvatar"
         ></avatar-cropper>
         <div class="mr-2 pb-1 bg-opacity-dark-3">
-            <h2 class="text-white p-2">{{ item.name }}</h2>
+            <h2 class="text-white m-0 p-2">{{ item.name }}</h2>
             <i class="text-white p-2">{{ item.email }}</i>
         </div>
-        <a class="mr-2 btn btn-primary" role="button" @click.prevent="editProfil" href="#">
+        <a class="mr-2 btn btn-primary" role="button"
+           @click.prevent="editProfil" href="#">
             <i class="fas fa-pencil-alt"></i>
         </a>
         <div class="flex-grow-1">
-            <modal-widget v-if="item" target="changecover" @saveModalChanges="onSaveModalChanges">
+            <modal-widget v-if="item" target="changecover" class="d-flex justify-content-end"
+                          @saveModalChanges="onSaveModalChanges">
                 <template #button>
                         <i class="fas fa-camera"></i>
                 </template>
