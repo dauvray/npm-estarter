@@ -32,7 +32,7 @@
                 </div>
                 <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
                     <avatar-cropper :avatarurl="user.image || user.gravatar" size="medium"
-                                    @onCroppedPicture="submitCroppedPicture"
+                                    @onCroppedAvatar="submitCroppedAvatar"
                     ></avatar-cropper>
                 </div>
             </div>
@@ -124,10 +124,17 @@
             },
 
             // Avatar
-            submitCroppedPicture(file) {
+            submitCroppedAvatar(file) {
                 let formData = new FormData();
                 formData.append('file', file);
                 this['auth/updateAvatar'](formData)
+            },
+
+            // Cover
+            submitCroppedAvatar(file) {
+                let formData = new FormData();
+                formData.append('file', file);
+                this['auth/updateCover'](formData)
             }
         }
     }

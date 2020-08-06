@@ -10,11 +10,9 @@
                         <input type="file" ref="file" @change="uploadImage($event)" accept="image/*">
                         <i class="fas fa-file-upload"></i> Sélectionner une image
                     </span>
-<!--                    <input v-if="file" type="submit" class="btn btn-primary"-->
-<!--                           @click="returnPicture" value="Valider" />-->
                 </div>
                 <div v-if="image" class="upload-example">
-                    <div :style="{backgroundImage: 'url(' + image + ')'}" class="cropper-background"></div>
+                    <div :style="{backgroundImage: `url(${image})`}" class="cropper-background"></div>
                     <cropper
                         classname="upload-example-cropper"
                         :src="image"
@@ -47,7 +45,7 @@
             return {
                 image: null,
                 file: '',
-                croppedImage: this.currentimage,
+                croppedImage: `/storage/covers/${this.currentimage}`,
                 coordinates: {
                     width: 0,
                     height: 0,
@@ -76,6 +74,7 @@
                     .then(res => res.blob())
                     .then(blob => {
                         this.file = new File([blob], "File name",{ type: "image/png" })
+                        this.$emit('onCroppedPicture', this.file)
                     })
             },
             uploadImage(event) {
@@ -95,9 +94,6 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             },
-            returnPicture() {
-                this.$emit('onCroppedPicture', this.file)
-            }
         }
     }
 </script>

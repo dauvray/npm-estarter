@@ -1,5 +1,6 @@
 <template>
-    <modal-widget v-if="item" target="changeavatar" btnclass="btn btn-link" @saveModalChanges="onSaveModalChanges">
+    <modal-widget v-if="item" target="changeavatar" btnclass="btn btn-link"
+                  @saveModalChanges="onSaveModalChanges">
         <template #button>
             <gravatar-widget :user="item" :path="path" class="float-left pr-2" />
         </template>
@@ -7,7 +8,9 @@
             Modifier mon avatar
         </template>
         <template #body>
-            <cropper-widget ref="cropper" :currentimage="urlPicture"></cropper-widget>
+            <cropper-widget ref="cropper" :currentimage="urlPicture"
+                            @onCroppedPicture="onCroppedCover"
+            ></cropper-widget>
         </template>
     </modal-widget>
 </template>
@@ -37,7 +40,8 @@ export default {
     },
     data() {
         return {
-            item: this.user
+            item: this.user,
+            file: null,
         }
     },
     computed: {
@@ -50,10 +54,12 @@ export default {
         }
     },
     methods: {
+        onCroppedCover(file) {
+            this.file = file
+        },
          onSaveModalChanges() {
             let formData = new FormData()
-            let file = this.$refs.cropper.file
-            formData.append('file', file )
+            formData.append('file', this.file )
 
              // is in vuejs-estarter framework ?
              if(typeof this.$estarterSettings === 'undefined') {
@@ -65,7 +71,7 @@ export default {
                          console.log(error);
                      });
              } else {
-                 this.$emit('onCroppedPicture', file)
+                 this.$emit('onCroppedAvatar', this.file)
              }
 
              // TODO: vanilliaJs
