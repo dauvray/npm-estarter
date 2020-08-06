@@ -45,7 +45,7 @@
             return {
                 image: null,
                 file: '',
-                croppedImage: `/storage/covers/${this.currentimage}`,
+                croppedImage: this.currentimage,
                 coordinates: {
                     width: 0,
                     height: 0,
