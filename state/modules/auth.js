@@ -10,9 +10,6 @@ export const getters = {
     loggedIn(state) {
         return state.isLoggedin
     },
-    // getToken(state) {
-    //     return state.accessToken
-    // },
     getUser(state) {
         return state.user
     },
@@ -34,7 +31,7 @@ export const mutations = {
         state.tmpUserFields = {}
     },
     retrieveUser(state, user) {
-        state.user = user
+        state.user = {...user}
         state.tmpUserFields = {...user}
     },
     setPreviousPath(state, path) {
@@ -57,12 +54,10 @@ export const actions = {
         await RestDataSourcesMixin.methods.requestApi('/sanctum/csrf-cookie')
         await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.login}`,
             'post', credentials, {err: null, msg: null})
-
         if(context.dispatch('retrieveUser')) {
             context.commit('setLogin', true)
             return true
         }
-
          return true
     },
 
@@ -123,6 +118,13 @@ export const actions = {
 
     async updateAvatar({ commit, state }, data){
         let user = await RestDataSourcesMixin.methods.requestApi('/update-avatar',
+            'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
+        commit('retrieveUser', user)
+        return user
+    },
+
+    async updateCover({ commit, state }, data){
+        let user = await RestDataSourcesMixin.methods.requestApi('/update-cover',
             'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
         commit('retrieveUser', user)
         return user

@@ -25,7 +25,7 @@ export default {
         GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
     },
     props: {
-        user: {
+        item: {
             type: Object,
             required: true
         },
@@ -40,7 +40,6 @@ export default {
     },
     data() {
         return {
-            item: this.user,
             file: null,
         }
     },

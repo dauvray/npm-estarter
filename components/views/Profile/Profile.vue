@@ -1,13 +1,9 @@
 <template>
     <div v-if="user">
-        <div class="d-flex align-items-center">
-            <gravatar-widget :user="user" class="float-left pr-2" />
-            <h1>
-                {{user.name }}
-            </h1>
-        </div>
-        <router-link :to="$estarterRoutes.user_edit">Modifier</router-link>
-        <router-link :to="$estarterRoutes.user_delete">Supprimer</router-link>
+        <cover-user size="medium" :user="user" editroute="/"
+                    @onCroppedCover="submitCroppedCover"
+                    @onCroppedAvatar="submitCroppedAvatar"
+        ></cover-user>
         <div class="row">
             <div class="col-3">
 
@@ -23,7 +19,7 @@
 
 <script>
 
-    import {mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
 
     export default {
@@ -31,6 +27,7 @@
         mixins: [BaseMixin],
         components: {
             GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
+            CoverUser: () => import('vuejs-estarter/components/widgets/cover/CoverUser'),
         },
         data() {
             return {
@@ -56,7 +53,24 @@
                 user: 'auth/getUser',
             }),
         },
-        methods: {}
+        methods: {
+            ...mapActions([
+                'auth/updateCover',
+                'auth/updateAvatar'
+            ]),
+            // Avatar
+            submitCroppedAvatar(file) {
+                let formData = new FormData();
+                formData.append('file', file);
+                this['auth/updateAvatar'](formData)
+            },
+            // Cover
+            submitCroppedCover(file) {
+                let formData = new FormData();
+                formData.append('file', file);
+                this['auth/updateCover'](formData)
+            }
+        }
     }
 </script>
 

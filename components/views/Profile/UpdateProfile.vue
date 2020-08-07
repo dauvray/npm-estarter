@@ -43,7 +43,7 @@
 
 <script>
 
-    import { mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
     import {FormMixin} from 'vuejs-estarter/mixins/FormMixin'
 
@@ -103,7 +103,6 @@
         methods: {
             ...mapActions([
                 'auth/updateUser',
-                'auth/updateAvatar'
             ]),
             handleError(err) {
                 this.serverSideFormErrors(err, this.$refs.updateProfileForm)
@@ -122,20 +121,6 @@
                     }
                 })
             },
-
-            // Avatar
-            submitCroppedAvatar(file) {
-                let formData = new FormData();
-                formData.append('file', file);
-                this['auth/updateAvatar'](formData)
-            },
-
-            // Cover
-            submitCroppedAvatar(file) {
-                let formData = new FormData();
-                formData.append('file', file);
-                this['auth/updateCover'](formData)
-            }
         }
     }
 </script>

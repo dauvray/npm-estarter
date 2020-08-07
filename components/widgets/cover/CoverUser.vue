@@ -1,18 +1,19 @@
 <template>
-    <div class="d-flex align-items-end p-3" :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
-        <avatar-cropper :size="size" :user="item"
+    <div class="d-flex align-items-end p-3"
+         :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
+        <avatar-cropper :size="size" :item="user"
                         @onCroppedAvatar="onCroppedAvatar"
         ></avatar-cropper>
         <div class="mr-2 pb-1 bg-opacity-dark-3">
-            <h2 class="text-white m-0 p-2">{{ item.name }}</h2>
-            <i class="text-white p-2">{{ item.email }}</i>
+            <h2 class="text-white m-0 p-2">{{ user.name }}</h2>
+            <i class="text-white p-2">{{ user.email }}</i>
         </div>
         <a class="mr-2 btn btn-primary" role="button"
            @click.prevent="editProfil" href="#">
             <i class="fas fa-pencil-alt"></i>
         </a>
         <div class="flex-grow-1">
-            <modal-widget v-if="item" target="changecover" class="d-flex justify-content-end"
+            <modal-widget target="changecover" class="d-flex justify-content-end"
                           @saveModalChanges="onSaveModalChanges">
                 <template #button>
                         <i class="fas fa-camera"></i>
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+
     export default {
         name: 'CoverUser',
         components: {
@@ -55,7 +57,6 @@
         data() {
           return {
               file: null,
-              item: this.user,
               backgroundSize: 'cover'
           }
         },
@@ -64,8 +65,8 @@
                 return `url(${this.coverUrl})`
             },
             coverUrl: function() {
-                return `/storage/covers/${this.item.cover}`
-            }
+                return `/storage/covers/${this.user.cover}`
+            },
         },
         methods: {
             onCroppedCover(file) {
@@ -82,7 +83,7 @@
                 if(typeof this.$estarterSettings === 'undefined') {
                     axios.post('/update-cover', formData)
                         .then((response) => {
-                            this.item = response.data
+                            this.user = response.data
                         })
                         .catch((error) => {
                             console.log(error);
