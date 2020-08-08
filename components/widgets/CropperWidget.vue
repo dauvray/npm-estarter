@@ -17,8 +17,8 @@
                         classname="upload-example-cropper"
                         :src="image"
                         ref="cropper"
-                        :stencilComponent="$options.components.CircleStencil"
-                        :stencil-props="{aspectRatio: 10/10}"
+                        :stencilComponent="currentStencil"
+                        :stencil-props="currentRationStencil"
                         @change="crop"
                     ></cropper>
                 </div>
@@ -28,18 +28,23 @@
 </template>
 
 <script>
-    import { Cropper, CircleStencil } from 'vue-advanced-cropper'
+    import { Cropper, RectangleStencil, CircleStencil } from 'vue-advanced-cropper'
 
     export default {
         name: 'CropperWidget',
         components: {
             Cropper,
-            CircleStencil
+            CircleStencil,
+            RectangleStencil
         },
         props: {
            currentimage: {
                default: null
-           }
+           },
+            stencil: {
+               type: String,
+                default: 'avatar'
+            }
         },
         data() {
             return {
@@ -52,6 +57,32 @@
                     left: 0,
                     top: 0
                 },
+            }
+        },
+        computed: {
+            currentStencil: function() {
+                switch (this.stencil) {
+                    case 'avatar':
+                        return CircleStencil
+                        break
+                    case 'cover':
+                        return RectangleStencil
+                        break
+                    default:
+                        return RectangleStencil
+                }
+            },
+            currentRationStencil: function() {
+                switch (this.stencil) {
+                    case 'avatar':
+                        return {aspectRatio: 10/10}
+                        break
+                    case 'cover':
+                        return {aspectRatio: 10/2}
+                        break
+                    default:
+                        return {aspectRatio: 10/10}
+                }
             }
         },
         watch: {

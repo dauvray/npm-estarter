@@ -1,12 +1,12 @@
 <template>
     <div class="d-flex align-items-end p-3"
          :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
-        <avatar-cropper :size="size" :item="user"
+        <avatar-cropper :size="size" :item="item"
                         @onCroppedAvatar="onCroppedAvatar"
         ></avatar-cropper>
         <div class="mr-2 pb-1 bg-opacity-dark-3">
-            <h2 class="text-white m-0 p-2">{{ user.name }}</h2>
-            <i class="text-white p-2">{{ user.email }}</i>
+            <h2 class="text-white m-0 p-2">{{ item.name }}</h2>
+            <i class="text-white p-2">{{ item.email }}</i>
         </div>
         <a class="mr-2 btn btn-primary" role="button"
            @click.prevent="editProfil" href="#">
@@ -22,7 +22,7 @@
                     Modifier couverture
                 </template>
                 <template #body>
-                    <cropper-widget ref="cropper" :currentimage="coverUrl"
+                    <cropper-widget ref="cropper" :currentimage="coverUrl" stencil="cover"
                                     @onCroppedPicture="onCroppedCover"
                     ></cropper-widget>
                 </template>
@@ -57,7 +57,8 @@
         data() {
           return {
               file: null,
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
+              item: this.user,
           }
         },
         computed: {
@@ -65,7 +66,7 @@
                 return `url(${this.coverUrl})`
             },
             coverUrl: function() {
-                return `/storage/covers/${this.user.cover}`
+                return `/storage/covers/${this.item.cover}`
             },
         },
         methods: {
@@ -83,7 +84,7 @@
                 if(typeof this.$estarterSettings === 'undefined') {
                     axios.post('/update-cover', formData)
                         .then((response) => {
-                            this.user = response.data
+                            this.item = response.data
                         })
                         .catch((error) => {
                             console.log(error);
