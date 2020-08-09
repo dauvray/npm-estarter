@@ -89,7 +89,7 @@ export default function(customViews) {
                 requiresAuth: true,
                 parent: 'home',
                 breadcrumb: [
-                    {name: 'mon compte'},
+                    { name: 'mon compte'},
                 ]
             },
             children: [
@@ -98,31 +98,17 @@ export default function(customViews) {
                     // when /user/:id/profile is matched
                     path: '/CONFIG_ME_IN_ESTARTER',
                     name: 'user_edit',
-                    component: customViews.UpdateProfile || Views.UpdateProfile,
-                    meta: {
-                        requiresAuth: true,
-                        parent: 'home',
-                        breadcrumb: [
-                            { name: 'Mon compte', link: window.estarter.routes.user_profile},
-                            { name: 'Mise à jour' }
-                        ]
-                    }
+                    // Keep this for documentation
+                   // component: customViews.UpdateProfile || Views.UpdateProfile,
+                   //  meta: {
+                   //      requiresAuth: true,
+                   //      parent: 'home',
+                   //      breadcrumb: [
+                   //          { name: 'Mon compte', link: window.estarter.routes.user_profile},
+                   //          { name: 'Mise à jour' }
+                   //      ]
+                   //  }
                 },
-                {
-                    // UserPosts will be rendered inside User's <router-view>
-                    // when /user/:id/posts is matched
-                    path: '/CONFIG_ME_IN_ESTARTER',
-                    name: 'user_delete',
-                    component: customViews.DeleteProfile || Views.DeleteProfile,
-                    meta: {
-                        requiresAuth: true,
-                        parent: 'home',
-                        breadcrumb: [
-                            { name: 'Mon compte', link: window.estarter.routes.user_profile},
-                            { name: 'Suppression' }
-                        ]
-                    }
-                }
             ]
         },
         {

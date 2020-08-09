@@ -70,6 +70,7 @@
                           }, 1000);
                        });
                     } else {
+                        this.$router.push({'name' : 'login'}).catch(err => {})
                         setTimeout(() => {
                             this.isVisible = true
                         }, 1000);

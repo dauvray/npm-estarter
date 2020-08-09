@@ -28,11 +28,9 @@ export const mutations = {
     setLogout(state) {
         state.isLoggedin = false
         state.user = {}
-        state.tmpUserFields = {}
     },
     retrieveUser(state, user) {
         state.user = {...user}
-        state.tmpUserFields = {...user}
     },
     setPreviousPath(state, path) {
         state.previousPath = path
@@ -71,21 +69,6 @@ export const actions = {
         let response = await RestDataSourcesMixin.methods.requestApi('/get-user-data',
             'get', null, {err: 'Identification impossible', msg: 'Connexion établie'})
         commit('retrieveUser', response.user)
-        return response
-    },
-
-    async updateUser({ commit, state }, data){
-        let user = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.user_update}`,
-            'post', data, {err: 'Mise à jour impossible', msg: 'Mise à jour enregistrée'})
-        commit('retrieveUser', user)
-        return user
-    },
-
-    async deleteUser({ commit}){
-        let response = await RestDataSourcesMixin.methods.requestApi(`${this._vm.$estarterRoutes.user_delete}`)
-        if(response.status === "ok"){
-            commit('destroyToken')
-        }
         return response
     },
 

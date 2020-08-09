@@ -1,5 +1,5 @@
 <template>
-    <modal-widget v-if="item" target="changeavatar" btnclass="btn btn-link"
+    <modal-widget target="changeavatar" btnclass="btn btn-link"
                   @saveModalChanges="onSaveModalChanges">
         <template #button>
             <gravatar-widget :user="item" :path="path" class="float-left pr-2" />
@@ -48,9 +48,9 @@ export default {
             if(this.item.image) {
                 return `${this.path}/${this.item.image}.${this.size}.jpg`
             } else {
-                return `${this.path}/${this.item.gravatar}`
+                return this.item.gravatar
             }
-        }
+        },
     },
     methods: {
         onCroppedCover(file) {
@@ -72,8 +72,6 @@ export default {
              } else {
                  this.$emit('onCroppedAvatar', this.file)
              }
-
-             // TODO: vanilliaJs
              $('#changeavatar').modal('hide')
         },
     }

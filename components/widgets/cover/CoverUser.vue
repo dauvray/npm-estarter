@@ -58,7 +58,6 @@
           return {
               file: null,
               backgroundSize: 'cover',
-              item: this.user,
           }
         },
         computed: {
@@ -66,8 +65,13 @@
                 return `url(${this.coverUrl})`
             },
             coverUrl: function() {
-                return `/storage/covers/${this.item.cover}`
+                return this.item.cover
+                    ? `/storage/covers/${this.item.cover}`
+                    : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
             },
+            item: function() {
+                return this.user
+            }
         },
         methods: {
             onCroppedCover(file) {

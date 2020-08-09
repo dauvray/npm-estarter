@@ -2,7 +2,7 @@
     <div>
         <div class="row" >
             <div class="col-4">
-                <img :src="croppedImage" style="max-width: 100%;" />
+                <img :src="croppedImage" class="img-fluid" />
             </div>
             <div class="col-8">
                 <div class="button-wrapper">
@@ -39,6 +39,7 @@
         },
         props: {
            currentimage: {
+               type: String,
                default: null
            },
             stencil: {
@@ -50,7 +51,7 @@
             return {
                 image: null,
                 file: '',
-                croppedImage: this.currentimage,
+                croppedImageUpdated: null,
                 coordinates: {
                     width: 0,
                     height: 0,
@@ -83,6 +84,9 @@
                     default:
                         return {aspectRatio: 10/10}
                 }
+            },
+            croppedImage: function() {
+                return this.croppedImageUpdated || this.currentimage
             }
         },
         watch: {
@@ -99,7 +103,7 @@
                 this.coordinates = coordinates
                 // You able to do different manipulations at a canvas
                 // but there we just get a cropped image
-                this.croppedImage = canvas.toDataURL()
+                this.croppedImageUpdated = canvas.toDataURL()
 
                 fetch(this.croppedImage)
                     .then(res => res.blob())

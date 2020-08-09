@@ -76,11 +76,19 @@
             loggedIn: function (newState, oldState) {
                 if(newState){
                     // see in router/index.js
+                    // from vuejs version ?
                     let redirect_path = sessionStorage.getItem('redirect_path')
-                    if(redirect_path) {
-                      //  sessionStorage.removeItem('redirect_path')
+                    // from classic version ?
+                    let previous = document.querySelector("#previousUrl")
+
+                    if (previous) {
+                        window.location = previous.getAttribute('data-previous-url')
+                    }
+                    else if(redirect_path) {
+                         //  sessionStorage.removeItem('redirect_path')
                         this.$router.push({'path' : redirect_path}).catch(err => {})
-                    } else {
+                    }
+                    else {
                         this.$router.push({'name' : 'user_profile'}).catch(err => {})
                     }
                 }

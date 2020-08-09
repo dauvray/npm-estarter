@@ -1,6 +1,6 @@
 <template>
-    <div v-if="user">
-        <cover-user size="medium" :user="user" editroute="/"
+    <div>
+        <cover-user size="medium" :user="user" :editroute="getEditUserUrl()"
                     @onCroppedCover="submitCroppedCover"
                     @onCroppedAvatar="submitCroppedAvatar"
         ></cover-user>
@@ -58,6 +58,12 @@
                 'auth/updateCover',
                 'auth/updateAvatar'
             ]),
+            // edit user url
+            getEditUserUrl() {
+                let parent = _.find(this.$router.options.routes, {'name': 'user_profile'})
+                let item = _.find(parent.children, {'name': 'user_edit'})
+                return item.path
+            },
             // Avatar
             submitCroppedAvatar(file) {
                 let formData = new FormData();
