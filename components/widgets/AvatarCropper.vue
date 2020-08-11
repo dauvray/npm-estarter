@@ -2,7 +2,7 @@
     <modal-widget target="changeavatar" btnclass="btn btn-link"
                   @saveModalChanges="onSaveModalChanges">
         <template #button>
-            <gravatar-widget :user="item" :path="path" class="float-left pr-2" />
+            <gravatar-widget :user="itemComputed" :path="path" class="float-left pr-2" />
         </template>
         <template #header>
             Modifier mon avatar
@@ -41,16 +41,20 @@ export default {
     data() {
         return {
             file: null,
+            element: this.item
         }
     },
     computed: {
         urlPicture: function () {
             if(this.item.image) {
-                return `${this.path}/${this.item.image}.${this.size}.jpg`
+                return `${this.path}/${this.itemComputed.image}.${this.size}.jpg`
             } else {
-                return this.item.gravatar
+                return this.itemComputed.gravatar
             }
         },
+        itemComputed: function() {
+            return this.element
+        }
     },
     methods: {
         onCroppedCover(file) {
@@ -64,7 +68,7 @@ export default {
              if(typeof this.$estarterSettings === 'undefined') {
                  axios.post('/update-avatar', formData)
                      .then((response) => {
-                         this.item = response.data
+                         this.element = response.data
                      })
                      .catch((error) => {
                          console.log(error);
