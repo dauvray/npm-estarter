@@ -58,10 +58,11 @@
           return {
               file: null,
               backgroundSize: 'cover',
+              element: this.user
           }
         },
         computed: {
-            BackgroundImage: function () {
+            BackgroundImage: function() {
                 return `url(${this.coverUrl})`
             },
             coverUrl: function() {
@@ -70,7 +71,7 @@
                     : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
             },
             item: function() {
-                return this.user
+                return this.element
             }
         },
         methods: {
@@ -88,7 +89,7 @@
                 if(typeof this.$estarterSettings === 'undefined') {
                     axios.post('/update-cover', formData)
                         .then((response) => {
-                            this.item = response.data
+                            this.element = response.data
                         })
                         .catch((error) => {
                             console.log(error);
