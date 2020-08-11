@@ -56,6 +56,11 @@ export default {
             return this.element
         }
     },
+    watch: {
+        item: function (newValue, oldValue) {
+            this.element = newValue
+        }
+    },
     methods: {
         onCroppedCover(file) {
             this.file = file

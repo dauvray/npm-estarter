@@ -74,6 +74,11 @@
                 return this.element
             }
         },
+        watch: {
+            user: function (newValue, oldValue) {
+                this.element = newValue
+            }
+        },
         methods: {
             onCroppedCover(file) {
                 this.file = file
@@ -98,7 +103,6 @@
                     this.$emit('onCroppedCover', this.file)
                 }
 
-                // TODO: vanilliaJs
                 $('#changecover').modal('hide')
             },
             onCroppedAvatar(file) {
