@@ -27,37 +27,36 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
-export default {
-    name: "Modal",
-    props: {
-        target: {
-            type: String,
-            defaut: "exampleModal"
+    export default {
+        name: "Modal",
+        props: {
+            target: {
+                type: String,
+                defaut: "exampleModal"
+            },
+            btnclass: {
+                type: String,
+                default: "btn btn-primary"
+            }
         },
-        btnclass: {
-            type: String,
-            default: "btn btn-primary"
-        }
-    },
-    data() {
-        return {
-            canValidate: false
-        }
-    },
-    created() {
-        this.$on('canValidate', this.onShowValidButton)
-    },
-    methods : {
-        onShowValidButton(value) {
-            this.canValidate = value
+        data() {
+            return {
+                canValidate: false
+            }
         },
-        saveChanges() {
-            this.$emit('saveModalChanges')
+        created() {
+            this.$on('canValidate', this.onShowValidButton)
+        },
+        methods : {
+            onShowValidButton(value) {
+                this.canValidate = value
+            },
+            saveChanges() {
+                this.$emit('saveModalChanges')
+            }
         }
     }
-}
 </script>
