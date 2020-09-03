@@ -1,8 +1,10 @@
 <template>
     <div class="d-flex align-items-end p-3"
          :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
-        <avatar-cropper :size="size" :item="item"
-                        @onCroppedAvatar="onCroppedAvatar"
+        <avatar-cropper
+            :size="size"
+            :item="item"
+             @onCroppedAvatar="onCroppedAvatar"
         ></avatar-cropper>
         <div class="mr-2 pb-1 bg-opacity-dark-3">
             <h2 class="text-white m-0 p-2">{{ item.name }}</h2>
@@ -13,8 +15,10 @@
             <i class="fas fa-pencil-alt"></i>
         </a>
         <div class="flex-grow-1">
-            <modal-widget target="changecover" class="d-flex justify-content-end"
-                          @saveModalChanges="onSaveModalChanges">
+            <modal-widget
+                target="changecover"
+                class="d-flex justify-content-end"
+                @saveModalChanges="onSaveModalChanges">
                 <template #button>
                         <i class="fas fa-camera"></i>
                 </template>
@@ -22,8 +26,11 @@
                     Modifier couverture
                 </template>
                 <template #body>
-                    <cropper-widget ref="cropper" :currentimage="coverUrl" stencil="cover"
-                                    @onCroppedPicture="onCroppedCover"
+                    <cropper-widget
+                        ref="cropper"
+                        :currentimage="coverUrl"
+                        stencil="cover"
+                        @onCroppedPicture="onCroppedCover"
                     ></cropper-widget>
                 </template>
             </modal-widget>
