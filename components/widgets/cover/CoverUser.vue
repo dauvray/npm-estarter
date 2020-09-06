@@ -2,20 +2,26 @@
     <div class="d-flex align-items-end p-3"
          :style="{backgroundImage: BackgroundImage, backgroundSize: backgroundSize}">
         <avatar-cropper
+            v-if="editable"
             :size="size"
             :item="item"
              @onCroppedAvatar="onCroppedAvatar"
         ></avatar-cropper>
+        <gravatar-widget v-else
+            class="float-left pr-2"
+            :user="user"
+        ></gravatar-widget>
         <div class="mr-2 pb-1 bg-opacity-dark-3">
             <h2 class="text-white m-0 p-2">{{ item.name }}</h2>
             <i class="text-white p-2">{{ item.email }}</i>
         </div>
-        <a class="mr-2 btn btn-primary" role="button"
+        <a v-if="editable" class="mr-2 btn btn-primary" role="button"
            @click.prevent="editProfil" href="#">
             <i class="fas fa-pencil-alt"></i>
         </a>
         <div class="flex-grow-1">
             <modal-widget
+                v-if="editable"
                 target="changecover"
                 class="d-flex justify-content-end"
                 @saveModalChanges="onSaveModalChanges">
@@ -44,6 +50,7 @@
         name: 'CoverUser',
         components: {
             AvatarCropper: () => import('vuejs-estarter/components/widgets/AvatarCropper'),
+            GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
             ModalWidget: () => import('vuejs-estarter/components/widgets/Modal'),
             CropperWidget: () => import('vuejs-estarter/components/widgets/CropperWidget'),
         },
@@ -58,7 +65,11 @@
             },
             editroute: {
                 type: String,
-                required: true
+                required: false
+            },
+            editable: {
+                type: Boolean,
+                default: false
             },
         },
         data() {
