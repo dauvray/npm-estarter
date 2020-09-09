@@ -50,6 +50,12 @@
         created() {
             this.$on('canValidate', this.onShowValidButton)
         },
+        mounted() {
+            const modal = document.querySelector(`#${this.target}`)
+            const bodyContainer = document.querySelector('body')
+            modal.parentNode.removeChild(modal)
+            bodyContainer.append(modal)
+        },
         methods : {
             onShowValidButton(value) {
                 this.canValidate = value
