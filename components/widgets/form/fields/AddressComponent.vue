@@ -12,6 +12,16 @@
     export default {
         name: 'AddressComponent',
         mixins: [abstractField],
+        props: {
+            appId: {
+                type: String,
+                default: '******'
+            },
+            apiKey: {
+                type: String,
+                default: '******'
+            }
+        },
         data() {
             return {
                 hint: '',
@@ -20,8 +30,8 @@
         },
         mounted() {
             let placesAutocomplete = places({
-                appId: this.$estarterCredentials.algoliaAppId,
-                apiKey: this.$estarterCredentials.algoliapiKey,
+                appId: this.appId,
+                apiKey: this.apiKey,
                 container: document.querySelector(`#${this.AddressInputId}`)
             }).configure({
                 countries: ['fr']
