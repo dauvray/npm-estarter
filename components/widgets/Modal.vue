@@ -51,10 +51,16 @@
             this.$on('canValidate', this.onShowValidButton)
         },
         mounted() {
+            // see : https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
             const modal = document.querySelector(`#${this.target}`)
             const bodyContainer = document.querySelector('body')
             modal.parentNode.removeChild(modal)
             bodyContainer.append(modal)
+        },
+        beforeDestroy() {
+            const modal = document.querySelector(`#${this.target}`)
+            const bodyContainer = document.querySelector('body')
+            bodyContainer.removeChild(modal)
         },
         methods : {
             onShowValidButton(value) {
