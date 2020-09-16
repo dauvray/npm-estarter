@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" :class="btnclass" data-toggle="modal" :data-target="`#${target}`">
+        <button v-if="showBtn" type="button" :class="btnclass" data-toggle="modal" :data-target="`#${target}`">
             <slot name="button">Open modal</slot>
         </button>
         <div class="modal fade" :id="`${target}`" tabindex="-1" role="dialog" :aria-labelledby="`#${target}Label`" aria-hidden="true">
@@ -35,16 +35,43 @@
         props: {
             target: {
                 type: String,
+                required: false,
                 defaut: "exampleModal"
             },
             btnclass: {
                 type: String,
+                required: false,
                 default: "btn btn-primary"
+            },
+            showBtn: {
+                type: Boolean,
+                required: false,
+                default: true
+            },
+            trigger: {
+                type: Boolean,
+                required: false,
+                default: false
+            }
+        },
+        watch: {
+            trigger: {
+                handler (newStatus, oldStatus) {
+                    if(newStatus) {
+                        setTimeout( () => {
+                            $(`#${this.target}`).modal('show')
+                        }, 100)
+                    } else {
+                        $(`#${this.target}`).modal('hide')
+                    }
+                }
             }
         },
         data() {
             return {
-                canValidate: false
+                canValidate: false,
+                modal: `#${this.target}`,
+                bodyContainer: document.querySelector('body')
             }
         },
         created() {
@@ -52,19 +79,26 @@
         },
         mounted() {
             // Hack - see : https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
-            const modal = document.querySelector(`#${this.target}`)
-            const bodyContainer = document.querySelector('body')
+            let modal = document.querySelector(this.modal)
             modal.parentNode.removeChild(modal)
-            bodyContainer.append(modal)
+            this.bodyContainer.append(modal)
 
-            $(modal).on('show.bs.modal', (e) => {
-                this.$emit('showModal')
+            $(this.modal).on('show.bs.modal', (e) => {
+                this.$emit('show')
+            })
+            $(this.modal).on('show.bs.modal', (e) => {
+                this.$emit('shown')
+            })
+            $(this.modal).on('hide.bs.modal', (e) => {
+                this.$emit('hide')
+            })
+            $(this.modal).on('hidden.bs.modal', (e) => {
+                this.$emit('hidden')
             })
         },
         beforeDestroy() {
-            const modal = document.querySelector(`#${this.target}`)
-            const bodyContainer = document.querySelector('body')
-            bodyContainer.removeChild(modal)
+            let modal = document.querySelector(this.modal)
+            modal.parentNode.removeChild(modal)
         },
         methods : {
             onShowValidButton(value) {
