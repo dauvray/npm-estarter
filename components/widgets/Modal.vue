@@ -19,7 +19,7 @@
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelChanges">Close</button>
                             <button v-if="canValidate" type="button" class="btn btn-primary" @click="saveChanges">Save changes</button>
                         </slot>
                     </div>
@@ -52,30 +52,34 @@
                 type: Boolean,
                 required: false,
                 default: false
+            },
+            canValidate: {
+                type: Boolean,
+                required: false,
+                default: false
             }
         },
         watch: {
             trigger: {
+                immediate: true,
                 handler (newStatus, oldStatus) {
                     if(newStatus) {
                         setTimeout( () => {
                             $(`#${this.target}`).modal('show')
                         }, 100)
                     } else {
-                        $(`#${this.target}`).modal('hide')
+                        setTimeout( () => {
+                            $(`#${this.target}`).modal('hide')
+                        }, 100)
                     }
                 }
             }
         },
         data() {
             return {
-                canValidate: false,
                 modal: `#${this.target}`,
                 bodyContainer: document.querySelector('body')
             }
-        },
-        created() {
-            this.$on('canValidate', this.onShowValidButton)
         },
         mounted() {
             // Hack - see : https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
@@ -97,15 +101,16 @@
             })
         },
         beforeDestroy() {
+            $(`#${this.target}`).modal('hide')
             let modal = document.querySelector(this.modal)
             modal.parentNode.removeChild(modal)
         },
         methods : {
-            onShowValidButton(value) {
-                this.canValidate = value
-            },
             saveChanges() {
                 this.$emit('saveModalChanges')
+            },
+            cancelChanges() {
+                this.$emit('cancelModalChanges')
             }
         }
     }
