@@ -1,15 +1,25 @@
 <template>
-    <modal-widget target="changeavatar" btnclass="btn btn-link"
-                  @saveModalChanges="onSaveModalChanges">
+    <modal-widget
+        target="changeavatar"
+        btnclass="btn btn-link"
+        :canValidate="canValidateAvatar"
+        @saveModalChanges="onSaveModalChanges">
         <template #button>
-            <gravatar-widget :user="itemComputed" :path="path" class="float-left pr-2" />
+            <gravatar-widget
+                class="float-left pr-2"
+                :user="itemComputed"
+                :path="path"
+            ></gravatar-widget>
         </template>
         <template #header>
             Modifier mon avatar
         </template>
         <template #body>
-            <cropper-widget ref="cropper" :currentimage="urlPicture"
-                            @onCroppedPicture="onCroppedCover"
+            <cropper-widget
+                ref="cropper"
+                :currentimage="urlPicture"
+                @onCroppedPicture="onCroppedCover"
+                @canValidate="canValidateAvatar = true"
             ></cropper-widget>
         </template>
     </modal-widget>
@@ -41,7 +51,8 @@ export default {
     data() {
         return {
             file: null,
-            element: this.item
+            element: this.item,
+            canValidateAvatar: false
         }
     },
     computed: {

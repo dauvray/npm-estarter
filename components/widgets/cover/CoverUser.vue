@@ -24,6 +24,7 @@
                 v-if="editable"
                 target="changecover"
                 class="d-flex justify-content-end"
+                :canValidate="canValidateCover"
                 @saveModalChanges="onSaveModalChanges">
                 <template #button>
                         <i class="fas fa-camera"></i>
@@ -34,8 +35,10 @@
                 <template #body>
                     <cropper-widget
                         ref="cropper"
-                        :currentimage="coverUrl"
                         stencil="cover"
+                        :currentimage="coverUrl"
+                        :canValidate="canValidateCover"
+                        @canValidate="canValidateCover = true"
                         @onCroppedPicture="onCroppedCover"
                     ></cropper-widget>
                 </template>
@@ -76,7 +79,8 @@
           return {
               file: null,
               backgroundSize: 'cover',
-              element: this.user
+              element: this.user,
+              canValidateCover: false
           }
         },
         computed: {

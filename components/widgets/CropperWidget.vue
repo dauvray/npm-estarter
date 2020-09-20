@@ -93,7 +93,7 @@
             file: function (newValue, oldValue) {
                 // the first time only
                 if(newValue && !oldValue) {
-                    this.$parent.$emit('canValidate', true)
+                    this.$emit('canValidate', true)
                 }
             }
         },
