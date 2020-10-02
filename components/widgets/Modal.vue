@@ -20,7 +20,7 @@
                     <div class="modal-footer">
                         <slot name="footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelChanges">Close</button>
-                            <button v-if="canValidate" type="button" class="btn btn-primary" @click="saveChanges">Save changes</button>
+                            <button v-if="canValidate" type="button" class="btn btn-primary" data-dismiss="modal" @click="saveChanges">Save changes</button>
                         </slot>
                     </div>
                 </div>
