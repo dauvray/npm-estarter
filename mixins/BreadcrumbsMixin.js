@@ -3,7 +3,7 @@ import {mapActions} from 'vuex'
 export default {
     methods: {
         ...mapActions([
-            'breadcrumbs/setBreadcrumbs'
+            'application/setBreadcrumbs'
         ]),
         generateUrl (route, params = {}) {
             // breadcrumbs
@@ -33,10 +33,7 @@ export default {
                     }
                 })
             }
-            this['breadcrumbs/setBreadcrumbs'](breadcrumb)
+            this['application/setBreadcrumbs'](breadcrumb)
         }
     },
-    created() {
-      //  ...
-    }
 }

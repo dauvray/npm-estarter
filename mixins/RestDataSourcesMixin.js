@@ -31,6 +31,9 @@ export const RestDataSourcesMixin = {
                         if(error.response.status == '403') {
                             EventBus.$emit("httpError", 'Accès interdit')
                         }
+                        if(error.response.status == '413') {
+                            EventBus.$emit("httpError", 'Fichier trop volumineux')
+                        }
                         if(error.response.status == '401') {
                             document.location.reload()
                         }

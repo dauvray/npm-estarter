@@ -17,7 +17,7 @@
         </div>
         <a v-if="editable" class="mr-2 btn btn-primary" role="button"
            @click.prevent="editProfil" href="#">
-            <i class="fas fa-pencil-alt"></i>
+            <i class="las la-pencil-alt"></i>
         </a>
         <div class="flex-grow-1">
             <modal-widget
@@ -27,7 +27,7 @@
                 :canValidate="canValidateCover"
                 @saveModalChanges="onSaveModalChanges">
                 <template #button>
-                        <i class="fas fa-camera"></i>
+                    <i class="las la-camera"></i>
                 </template>
                 <template #header>
                     Modifier couverture
@@ -51,6 +51,7 @@
 
     export default {
         name: 'CoverUser',
+        inject: ["eventBus"],
         components: {
             AvatarCropper: () => import('vuejs-estarter/components/widgets/AvatarCropper'),
             GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
@@ -119,7 +120,7 @@
                             this.element = response.data
                         })
                         .catch((error) => {
-                            console.log(error);
+                            this.eventBus.$emit("httpError", 'Fichier non valide')
                         });
                 } else {
                     this.$emit('onCroppedCover', this.file)

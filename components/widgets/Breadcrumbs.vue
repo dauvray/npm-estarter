@@ -1,12 +1,10 @@
 <template>
-    <div class="breadcrumb" v-if="breadCrumbs.length">
-        <ul>
-            <li v-for="(breadcrumb, idx) in breadCrumbs" :key="idx" @click="routeTo(idx)"
-                :class="{'linked': !!breadcrumb.link}">
-                {{ breadcrumb.name }}
-            </li>
-        </ul>
-    </div>
+    <ul class="breadcrumb" v-if="breadCrumbs.length">
+        <li v-for="(breadcrumb, idx) in breadCrumbs" :key="idx" @click="routeTo(idx)"
+            :class="{'linked': !!breadcrumb.link}">
+            {{ breadcrumb.name }}
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -19,7 +17,7 @@
         },
         computed: {
             ...mapGetters({
-                breadCrumbs: 'breadcrumbs/getBreadcrumbs'
+                breadCrumbs: 'application/getBreadcrumbs'
             }),
         },
         methods: {
@@ -38,10 +36,7 @@
     }
     ul {
         display: flex;
-        justify-content: center;
         list-style-type: none;
-        margin: 0;
-        padding: 0;
     }
     ul > li {
         display: flex;
