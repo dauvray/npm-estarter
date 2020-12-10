@@ -5,7 +5,7 @@
         <div v-if="isCheckstrength" >
             <a role="button" aria-haspopup="true" aria-expanded="false" @click="toggle">
                 <i v-if="isPasswordSecure" class="fas fa-check-circle text-success" title="Votre mot de passe est valide"></i>
-                <i v-else="true" class="fas fa-info-circle" title="Comment définir un bon mot de passe"></i>
+                <i v-else="true" class="las la-info-circle" title="Comment définir un bon mot de passe"></i>
             </a>
 
             <div class="infos">
@@ -14,7 +14,7 @@
                         <span class="title">Un bon mot de passe doit contenir</span>
                         <ul>
                             <li v-for="rule in this.rules" class="message">
-                            <span :class="{'text-success': rule.status}"><i  v-if="rule.status" class="fas fa-check"></i>
+                            <span :class="{'text-success': rule.status}"><i  v-if="rule.status" class="las la-check"></i>
                              {{rule.name}}
                             </span>
                             </li>
@@ -124,9 +124,9 @@
         computed: {
             viewedClass() {
                 if (this.isViewed) {
-                    return 'far fa-eye toggle-password';
+                    return 'lar la-eye toggle-password';
                 } else {
-                    return "far fa-eye-slash";
+                    return "lar la-eye-slash";
                 }
             }
         },
