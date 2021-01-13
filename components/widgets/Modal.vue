@@ -112,9 +112,15 @@
         methods : {
             saveChanges() {
                 this.$emit('saveModalChanges')
+                setTimeout( () => {
+                    $(`#${this.target}`).modal('hide')
+                }, 100)
             },
             cancelChanges() {
                 this.$emit('cancelModalChanges')
+                setTimeout( () => {
+                    $(`#${this.target}`).modal('hide')
+                }, 100)
             }
         }
     }
