@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
-import PasswordChecker from "vuejs-estarter/components/widgets/form/fields/PasswordComponent"
-import AddressComponent from "vuejs-estarter/components/widgets/form/fields/AddressComponent"
+import PasswordChecker from "../components/widgets/form/fields/PasswordComponent.vue"
+import AddressComponent from "../components/widgets/form/fields/AddressComponent.vue"
 Vue.component("fieldPasswordChecker", PasswordChecker)
 Vue.component("fieldAddressComponent", AddressComponent)
 
@@ -35,7 +35,13 @@ export const FormMixin = {
                 validateAfterLoad: false,
                 validateAfterChanged: true,
                 validateAsync: true
-            }
+            },
+            model: {},
+            schema: {
+                fields: []
+            },
+            isFormValidated: false,
+            uid: `${Math.floor(Math.random() * Date.now())}`,
         }
     },
     mounted: function() {
@@ -68,6 +74,10 @@ export const FormMixin = {
                 return resp.length == 0
             })
         },
+        onValidated(isValid, fieldErrors) {
+            this.isFormValidated = isValid
+            this.$emit('field-validated', isValid)
+        },
         serverSideFormErrors(err, formRef) {
             if (formRef !== undefined) {
                 formRef.clearValidationErrors()
@@ -86,5 +96,8 @@ export const FormMixin = {
         onUpdatedModel(newVal, schema) {
             this.$emit("model-updated", newVal, schema)
         },
+        onSaveModalChanges() {
+            this.model = {}
+        }
     }
 }

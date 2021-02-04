@@ -88,21 +88,24 @@
         mounted() {
             // Hack - see : https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
             let modal = document.querySelector(this.modal)
-            modal.parentNode.removeChild(modal)
-            this.bodyContainer.append(modal)
 
-            $(this.modal).on('show.bs.modal', (e) => {
-                this.$emit('show')
-            })
-            $(this.modal).on('show.bs.modal', (e) => {
-                this.$emit('shown')
-            })
-            $(this.modal).on('hide.bs.modal', (e) => {
-                this.$emit('hide')
-            })
-            $(this.modal).on('hidden.bs.modal', (e) => {
-                this.$emit('hidden')
-            })
+            if(modal) {
+                modal.parentNode.removeChild(modal)
+                this.bodyContainer.append(modal)
+
+                $(this.modal).on('show.bs.modal', (e) => {
+                    this.$emit('show')
+                })
+                $(this.modal).on('show.bs.modal', (e) => {
+                    this.$emit('shown')
+                })
+                $(this.modal).on('hide.bs.modal', (e) => {
+                    this.$emit('hide')
+                })
+                $(this.modal).on('hidden.bs.modal', (e) => {
+                    this.$emit('hidden')
+                })
+            }
         },
         beforeDestroy() {
             $(`#${this.target}`).modal('hide')
