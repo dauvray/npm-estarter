@@ -7,6 +7,7 @@
 
 <script>
     import { abstractField } from "vue-form-generator"
+    import {get as objGet, isFunction} from "lodash";
     const places = require('places.js');
 
     export default {
@@ -27,7 +28,7 @@
                 countries: ['fr']
             })
             placesAutocomplete.on('change', (e) => {
-                this.updateModelValue(e.suggestion)
+                this.updateModelValue(e.suggestion.value)
             })
 
             if(this.model && this.model[this.schema.model]) {
