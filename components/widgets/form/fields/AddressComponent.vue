@@ -29,23 +29,16 @@ export default {
             countries: ['fr']
         })
         placesAutocomplete.on('change', (e) => {
-            this.updateModelValue({
-                address: e.suggestion.value,
-                geo: e.suggestion.latlng
-
-            })
+            this.updateModelValue(e.suggestion.value)
+          // TODO : e.suggestion.latlng
         })
         placesAutocomplete.on('clear', (e) => {
-            this.updateModelValue({
-                address: '',
-                geo: {}
-
-            })
+            this.updateModelValue('')
         })
         setTimeout(() => {
             if(this.model && this.model[this.schema.model]) {
                 // le premier argument est pour les anciennes versions ( obsolete, disparaitra bientot )
-                placesAutocomplete.setVal(this.model[this.schema.model].value || this.model[this.schema.model].address)
+                placesAutocomplete.setVal(this.model[this.schema.model].value || this.model[this.schema.model])
             }
         }, 500);
     },
