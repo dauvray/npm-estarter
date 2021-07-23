@@ -26,28 +26,28 @@ export const RestDataSourcesMixin = {
                 .catch(error => {
                     if (error.response) {
                         if(error.response.status == '404') {
-                            EventBus.$emit("httpNotFound", error)
+                            EventBus.$emit("httpError", error)
                         }
-                        if(error.response.status == '403') {
+                        else if(error.response.status == '403') {
                             EventBus.$emit("httpError", 'Accès interdit')
                         }
-                        if(error.response.status == '413') {
+                        else if(error.response.status == '413') {
                             EventBus.$emit("httpError", 'Fichier trop volumineux')
                         }
-                        if(error.response.status == '401') {
+                        else if(error.response.status == '401') {
                             document.location.reload()
                         }
-                        if(error.response.status == '419') {
+                        else if(error.response.status == '419') {
                             document.location.reload()
                         }
                         else {
                             if(error.response.data.error === 'passwords.token') {
                                 error.response.data.message = 'Le lien de réinitialisation n\'est plus valide. Veuillez en recréer un.'
+                                EventBus.$emit("httpError", error)
                             }
-                            EventBus.$emit("httpError", error)
                         }
                     }
-                    if(noty.err !== null){
+                    else if(noty.err !== null){
                         EventBus.$emit("httpError", noty.err)
                     }
                     reject(error);
