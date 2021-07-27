@@ -15,12 +15,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <slot name="body">...</slot>
+                        <div class="card">
+                            <div class="card-body">
+                                <slot name="body">...</slot>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelChanges">Close</button>
-                            <button v-if="canValidate" type="button" class="btn btn-primary" data-dismiss="modal" @click="saveChanges">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelChanges">Annuler</button>
+                            <button v-if="canValidate" type="button" class="btn btn-primary" data-dismiss="modal" @click="saveChanges">Enregistrer</button>
                         </slot>
                     </div>
                 </div>
