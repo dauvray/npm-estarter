@@ -25,7 +25,7 @@
            mapbox: {
                type: [String, Object],
                required: false,
-               default: {}
+               default: () => {}
            },
        },
        data() {
@@ -47,7 +47,7 @@
             if(this.location.place_name) {
                 this.setLocation()
             }
-        
+
         },
         methods: {
             createGeocoder() {
@@ -60,13 +60,13 @@
                 });
 
                 geocoder.addTo('#estarter-geocoder');
-                
+
                 // Add geocoder result to container.
                 geocoder.on('result', (e) => {
                     this.location = e.result
                     this.setLocation()
                 });
-                
+
                 // Clear results container when search is cleared.
                 geocoder.on('clear', () => {
                     this.location = {}

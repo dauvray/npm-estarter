@@ -1,11 +1,10 @@
 <template>
     <div>
-        <geocoder-widget 
+        <geocoder-widget
             :mapbox="mapbox"
-            :location="location"
             @geocoder-location="onLocation"
         ></geocoder-widget>
-        <mapbox-widget :location="location"></mapbox-widget>
+        <mapbox-widget v-if="location" :location="location"></mapbox-widget>
     </div>
 </template>
 
@@ -19,14 +18,14 @@
         },
         data() {
             return {
-                location: {}
+                location: null
             }
         },
         props: {
            mapbox: {
                type: [String, Object],
                required: false,
-               default: {}
+               default: () => {}
            },
         },
         methods: {
@@ -38,19 +37,5 @@
 </script>
 
 <style >
-    #estarter-geocoder,
-    #estarter-map {
-        margin-top: 30px;
-    }
-    #estarter-geocoder {
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
-    #estarter-map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
+
 </style>
