@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueFormGenerator from 'vue-form-generator'
 import PasswordChecker from "../components/widgets/form/fields/PasswordComponent.vue"
-import AddressComponent from "../components/widgets/form/fields/AddressComponent.vue"
+import GeocoderComponent from "../components/widgets/form/fields/GeocoderComponent.vue"
 Vue.component("fieldPasswordChecker", PasswordChecker)
-Vue.component("fieldAddressComponent", AddressComponent)
+Vue.component("fieldGeocoderComponent", GeocoderComponent)
 
 VueFormGenerator.validators.resources.fieldIsRequired = "Ce champ est obligatoire"
 VueFormGenerator.validators.resources.invalidFormat = "Format invalide"

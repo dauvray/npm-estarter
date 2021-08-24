@@ -2,7 +2,7 @@
     <div>
         <geocoder-widget
             :mapbox="mapbox"
-            @geocoder-location="onLocation"
+            @model-updated="onLocation"
         ></geocoder-widget>
         <mapbox-widget v-if="location" :location="location"></mapbox-widget>
     </div>

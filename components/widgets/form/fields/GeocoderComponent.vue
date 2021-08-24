@@ -6,17 +6,19 @@
 </template>
 
 <script>
+    import { abstractField } from "vue-form-generator"
     import mapboxgl from "mapbox-gl"
     import "mapbox-gl/dist/mapbox-gl.css"
     import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
     import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
 
     export default {
-       name: 'GeocoderComponent',
-       components: {
+        name: 'GeocoderComponent',
+        mixins: [abstractField],
+        components: {
            'MapWidget': () => import('../../Mapbox')
-       },
-       props: {
+        },
+        props: {
            name: {
                type: String,
                required: false,
@@ -27,19 +29,32 @@
                required: false,
                default: () => {}
            },
-       },
-       data() {
-           return {
-               location: {},
-               access_token: process.env.MIX_MAPBOX_ACCESS_TOKEN,
+            types: {
+               type: String,
+                required: false,
+                default: 'country,region,place,postcode,locality,neighborhood,address'
             }
-       },
-       mounted() {
+        },
+        data() {
+            return {
+                location: {},
+                access_token: process.env.MIX_MAPBOX_ACCESS_TOKEN,
+            }
+        },
+        mounted() {
 
-            if(typeof this.mapbox === 'string') {
-                this.location = JSON.parse(this.mapbox)
+            // is formdesigner or standAlone ?
+            let data
+            if(_.isEmpty(this.mapbox)) {
+                data = this.value
             } else {
-                this.location = {...this.mapbox}
+                data = this.mapbox
+            }
+
+            if(typeof data === 'string') {
+                this.location = JSON.parse(data)
+            } else {
+                this.location = {...data}
             }
 
             this.createGeocoder()
@@ -56,7 +71,7 @@
 
                 const geocoder = new MapboxGeocoder({
                     accessToken: mapboxgl.accessToken,
-                    types: 'country,region,place,postcode,locality,neighborhood,address'
+                    types: this.types
                 });
 
                 geocoder.addTo('#estarter-geocoder');
@@ -74,7 +89,7 @@
             },
             setLocation() {
                 document.querySelector('.mapboxgl-ctrl-geocoder--input').value = this.location.place_name
-                this.$emit('geocoder-location', this.location)
+                this.$emit("model-updated", this.location)
             }
         }
     }
