@@ -15,9 +15,6 @@
     export default {
         name: 'GeocoderComponent',
         mixins: [abstractField],
-        components: {
-           'MapWidget': () => import('../../Mapbox')
-        },
         props: {
            name: {
                type: String,
@@ -33,6 +30,17 @@
                type: String,
                 required: false,
                 default: 'country,region,place,postcode,locality,neighborhood,address'
+            },
+        },
+        watch: {
+            // for formdesigner package
+            model: function (newModel, oldModel) {
+                if(this.value != undefined) {
+                    this.location = {...this.value}
+                    if(this.location.place_name) {
+                        this.setLocation(this.location.place_name)
+                    }
+                }
             }
         },
         data() {
@@ -41,11 +49,10 @@
                 access_token: process.env.MIX_MAPBOX_ACCESS_TOKEN,
             }
         },
-        mounted() {
-
+        created() {
             // is formdesigner or standAlone ?
             let data
-            if(_.isEmpty(this.mapbox)) {
+            if (this.mapbox === undefined) {
                 data = this.value
             } else {
                 data = this.mapbox
@@ -56,13 +63,9 @@
             } else {
                 this.location = {...data}
             }
-
+        },
+        mounted() {
             this.createGeocoder()
-
-            if(this.location.place_name) {
-                this.setLocation()
-            }
-
         },
         methods: {
             createGeocoder() {
@@ -72,24 +75,31 @@
                 const geocoder = new MapboxGeocoder({
                     accessToken: mapboxgl.accessToken,
                     types: this.types
-                });
+                })
 
                 geocoder.addTo('#estarter-geocoder');
 
                 // Add geocoder result to container.
                 geocoder.on('result', (e) => {
                     this.location = e.result
-                    this.setLocation()
-                });
+                    this.setLocation(this.location.place_name)
+                    this.$emit("model-updated", this.location)
+                })
 
                 // Clear results container when search is cleared.
                 geocoder.on('clear', () => {
                     this.location = {}
-                });
+                    this.setLocation('')
+                    this.$emit("model-updated", this.location)
+                })
+
+                if(this.location.place_name) {
+                    this.setLocation(this.location.place_name)
+                }
             },
-            setLocation() {
-                document.querySelector('.mapboxgl-ctrl-geocoder--input').value = this.location.place_name
-                this.$emit("model-updated", this.location)
+            setLocation(name) {
+                document.querySelector('.mapboxgl-ctrl-geocoder--input').value = name
+                this.$emit("location-updated", this.location)
             }
         }
     }
