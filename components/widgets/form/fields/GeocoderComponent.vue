@@ -35,11 +35,14 @@
         watch: {
             // for formdesigner package
             model: function (newModel, oldModel) {
-                if(this.value != undefined) {
+                if(this.value) {
                     this.location = {...this.value}
                     if(this.location.place_name) {
                         this.setLocation(this.location.place_name)
                     }
+                } else {
+                    this.location = {}
+                    this.setLocation('')
                 }
             }
         },
