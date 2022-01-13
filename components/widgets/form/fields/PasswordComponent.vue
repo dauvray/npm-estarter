@@ -1,11 +1,11 @@
 <template>
 
-    <div class="password-checker w-100">
+    <div class="password-checker">
 
-        <div v-if="schema.isCheckstrength" >
+        <div v-if="isCheckstrength" >
             <a role="button" aria-haspopup="true" aria-expanded="false" @click="toggle">
                 <i v-if="isPasswordSecure" class="fas fa-check-circle text-success" title="Votre mot de passe est valide"></i>
-                <i v-else="true" class="fas fa-info-circle" title="Comment définir un bon mot de passe"></i>
+                <i v-else="true" class="las la-info-circle" title="Comment définir un bon mot de passe"></i>
             </a>
 
             <div class="infos">
@@ -14,7 +14,7 @@
                         <span class="title">Un bon mot de passe doit contenir</span>
                         <ul>
                             <li v-for="rule in this.rules" class="message">
-                            <span :class="{'text-success': rule.status}"><i  v-if="rule.status" class="fas fa-check"></i>
+                            <span :class="{'text-success': rule.status}"><i  v-if="rule.status" class="las la-check"></i>
                              {{rule.name}}
                             </span>
                             </li>
@@ -27,13 +27,14 @@
 
         <div class="password-checker-container">
             <div class="w-100">
-                <input :type="type"
-                       :name="schema.inputName"
+                <input :id="name"
+                       :type="type"
+                       :name="name"
                        class="form-control"
-                       :class="schema.fieldClasses"
-                       v-model="value"
+                       :class="{'is-invalid' : error}"
+                       v-model="password"
                        @input="checkStrength"
-                       autocomplete='password' />
+                       autocomplete='password' :required="isRequired" />
             </div>
             <span toggle="#password-field"
                   style="margin-left:-25px"
@@ -42,7 +43,7 @@
                 </span>
         </div>
 
-        <div v-if="schema.isCheckstrength">
+        <div v-if="isCheckstrength">
             <div class="progress" style="height: 2px;">
                 <div :class="[progressClass, progressStatusBn]"
                      role="progressbar"
@@ -60,13 +61,11 @@
 </template>
 
 <script>
-    import { abstractField } from "vue-form-generator"
-
     export default {
         name : 'PasswordComponent',
-        mixins: [ abstractField ],
         data() {
             return {
+                password: null,                         // field value
                 message: null,                          // alert message
                 isViewed: false,                        // see plain text password
                 type: 'password',                       // field type
@@ -97,27 +96,25 @@
             }
         },
         props: {
-            // name: {
-            //     type: String,
-            //     required: true
-            // },
-            // isCheckstrength: {
-            //     type: Boolean,
-            //     default: true
-            // },
-            // error: {
-            //     type: Boolean,
-            //     default: false
-            // },
-            // isRequired: {
-            //     type: Boolean,
-            //     default: false
-            // }
+            name: {
+                type: String,
+                required: true
+            },
+            isCheckstrength: {
+                type: Boolean,
+                default: true
+            },
+            error: {
+                type: Boolean,
+                default: false
+            },
+            isRequired: {
+                type: Boolean,
+                default: false
+            }
         },
         mounted() {
-            $(function () {
-                $('[data-toggle="popover"]').popover()
-            })
+
         },
         created() {
 
@@ -125,9 +122,9 @@
         computed: {
             viewedClass() {
                 if (this.isViewed) {
-                    return 'far fa-eye toggle-password';
+                    return 'lar la-eye toggle-password';
                 } else {
-                    return "far fa-eye-slash";
+                    return "lar la-eye-slash";
                 }
             }
         },
@@ -137,49 +134,49 @@
                 // send changes to listeners
                 this.$emit(`update:password-${this.name}`, this.password);
 
-                if (!this.schema.isCheckstrength) {
+                if (!this.isCheckstrength) {
                     return;
                 }
 
                 this.progress = 0;
                 this.isPasswordSecure = false;
 
-                if (this.value.length == 0) {
+                if (this.password.length == 0) {
                     this.message = "";
                 }
-                if (this.value.length < 6) {
+                if (this.password.length < 6) {
                     this.message = "Mot de passe trop court";
                 }
 
-                if (this.value.length > 7) {
+                if (this.password.length > 7) {
                     this.progress += 20;
                     this.rules[0].status = true;
                 } else {
                     this.rules[0].status = false;
                 }
                 // If this.password contains both lower and uppercase characters, increase strength value.
-                if (this.value.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+                if (this.password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
                     this.progress += 20;
                     this.rules[1].status = true;
                 } else {
                     this.rules[1].status = false;
                 }
                 // If it has numbers and characters, increase strength value.
-                if (this.value.match(/([a-zA-Z])/) && this.value.match(/([0-9])/)) {
+                if (this.password.match(/([a-zA-Z])/) && this.password.match(/([0-9])/)) {
                     this.progress += 20;
                     this.rules[2].status = true;
                 } else {
                     this.rules[2].status = false;
                 }
                 // If it has one special character, increase strength value.
-                if (this.value.match(/([!,%,&,@,#,$,\^,*,?,_,~])/)) {
+                if (this.password.match(/([!,%,&,@,#,$,\^,*,?,_,~])/)) {
                     this.progress += 20;
                     this.rules[3].status = true;
                 } else {
                     this.rules[3].status = false;
                 }
                 // If it has two special characters, increase strength value.
-                if (this.value.match(/(.*[!,%,&,@,#,$,\^,*,?,_,~].*[!,%,&,@,#,$,\^,*,?,_,~])/)) {
+                if (this.password.match(/(.*[!,%,&,@,#,$,\^,*,?,_,~].*[!,%,&,@,#,$,\^,*,?,_,~])/)) {
                     this.progress += 20;
                 }
                 // Calculated strength value, we can return messages
