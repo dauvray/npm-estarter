@@ -1,16 +1,30 @@
 <template>
     <div>
-        <button v-if="showBtn" type="button" :class="btnclass" data-toggle="modal" :data-target="`#${target}`">
+        <button v-if="showBtn" type="button" :class="btnclass"
+                data-bs-toggle="modal"
+                :data-bs-target="`#${target}`"
+                data-toggle="modal"
+                :data-target="`#${target}`">
             <slot name="button">Open modal</slot>
         </button>
-        <div class="modal fade" :id="`${target}`" tabindex="-1" role="dialog" :aria-labelledby="`#${target}Label`" aria-hidden="true">
+        <div class="modal fade"
+             :id="`${target}`"
+             tabindex="-1"
+             role="dialog"
+             :aria-labelledby="`#${target}Label`"
+             aria-hidden="true">
             <div class="modal-dialog" :class="modalClasses" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" :id="`#${target}Label`">
                             <slot name="header">Modal title</slot>
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="cancelChanges">
+                        <button type="button"
+                                class="btn-close close"
+                                data-bs-dismiss="modal"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                @click="cancelChanges">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>

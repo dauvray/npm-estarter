@@ -25,6 +25,7 @@ export const RestDataSourcesMixin = {
                 })
                 .catch(error => {
                     if (error.response) {
+                        console.log(error)
                         if(error.response.status == '404') {
                             EventBus.$emit("httpError", error)
                         }
@@ -39,6 +40,9 @@ export const RestDataSourcesMixin = {
                         }
                         else if(error.response.status == '419') {
                             document.location.reload()
+                        }
+                        else if(error.response.status == '422') {
+                            EventBus.$emit("httpError", error)
                         }
                         else {
                             if(error.response.data.error === 'passwords.token') {
