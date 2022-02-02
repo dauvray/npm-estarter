@@ -29,6 +29,7 @@
 
 export default {
     name: "AvatarCropper",
+    inject: ["eventBus"],
     components: {
         ModalWidget: () => import('vuejs-estarter/components/widgets/Modal'),
         CropperWidget: () => import('vuejs-estarter/components/widgets/CropperWidget'),
@@ -85,6 +86,8 @@ export default {
                  axios.post('/update-avatar', formData)
                      .then((response) => {
                          this.element = response.data
+                         // to server widget
+                         this.eventBus.$emit('refresh-global-user')
                      })
                      .catch((error) => {
                          console.log(error);

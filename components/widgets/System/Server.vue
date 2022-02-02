@@ -49,6 +49,7 @@
 
             // init bus events
             this.eventBus.$on('who-am-i', this.sendUser)
+            this.eventBus.$on('refresh-global-user', this.loadUser)
         },
         methods: {
             sendUser() {
@@ -59,6 +60,7 @@
                     .then(response => {
                         sessionStorage.setItem('applicationUser', JSON.stringify(response.user))
                         this.user = response.user
+                        this.sendUser()
                     })
             }
         }
