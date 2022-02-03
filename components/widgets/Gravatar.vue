@@ -32,6 +32,11 @@ export default {
     created() {
         this.eventBus.$on('here-i-am', this.refreshUser)
     },
+    watch: {
+        user: function (newValue, oldValue) {
+            this.item = {...newValue}
+        },
+    },
     methods: {
         refreshUser(user) {
             if(user.id === this.item.id) {
