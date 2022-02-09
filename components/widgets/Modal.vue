@@ -12,6 +12,8 @@
              tabindex="-1"
              role="dialog"
              :aria-labelledby="`#${target}Label`"
+             :data-bs-backdrop="backdrop"
+             :data-bs-keyboard="keyboard"
              aria-hidden="true">
             <div class="modal-dialog" :class="modalClasses" role="document">
                 <div class="modal-content">
@@ -19,12 +21,13 @@
                         <h5 class="modal-title" :id="`#${target}Label`">
                             <slot name="header">Modal title</slot>
                         </h5>
-                        <button type="button"
-                                class="btn-close close"
-                                data-bs-dismiss="modal"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                                @click="cancelChanges">
+                        <button
+                            v-if="closebutton" type="button"
+                            class="btn-close close"
+                            data-bs-dismiss="modal"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            @click="cancelChanges">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -38,8 +41,8 @@
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelChanges">Annuler</button>
-                            <button v-if="canValidate" type="button" class="btn btn-primary" data-dismiss="modal" @click="saveChanges">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal" @click="cancelChanges">Annuler</button>
+                            <button v-if="canValidate" type="button" class="btn btn-primary" data-bs-dismiss="modal" data-dismiss="modal" @click="saveChanges">Enregistrer</button>
                         </slot>
                     </div>
                 </div>
@@ -80,6 +83,21 @@
             modalClasses: {
                 type: String,
                 default: ''
+            },
+            backdrop: {
+                type: [String, Boolean],
+                required: false,
+                default: true
+            },
+            keyboard: {
+                type: Boolean,
+                required: false,
+                default: true
+            },
+            closebutton: {
+                type: Boolean,
+                required: false,
+                default: true
             }
         },
         watch: {

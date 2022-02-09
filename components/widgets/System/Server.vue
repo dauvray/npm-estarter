@@ -1,10 +1,13 @@
 <template>
-    <div v-if="user">
+    <div v-if="user" class="d-flex">
+        <notifications-widget
+            v-if="notificationactived"
+            :user="user"
+        ></notifications-widget>
         <gravatar-status
             size="small"
             :user="user"
         ></gravatar-status>
-
     </div>
 </template>
 
@@ -15,6 +18,7 @@
         inject: ["eventBus"],
         components: {
             GravatarStatus: () => import('vuejs-estarter/components/widgets/GravatarStatus'),
+            NotificationsWidget: () => import('vuejs-estarter/components/widgets/System/Notifications')
         },
         mixins: [
             RestDataSourcesMixin
@@ -25,7 +29,12 @@
                type: Number,
                required: false,
                default: null
-           }
+           },
+            notificationactived: {
+               type: Boolean,
+                required: false,
+                default: false
+            }
         },
         data() {
             return {

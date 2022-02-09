@@ -16,7 +16,7 @@ const storeData = { modules: {} }
         // Search for files in subdirectories.
         true,
         // Include any .js files that are not this file or a unit test.
-        /^((?!index|\.unit\.).)*\.js$/
+        /^((?!index|\.spec\.|actions|getters|mutations|state).)*\.js$/
     )
 
     // For every Vuex module...
