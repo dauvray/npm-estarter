@@ -3,13 +3,14 @@ import { EventBus } from 'vuejs-estarter/services/eventBus';
 
 export const RestDataSourcesMixin = {
     methods: {
-        requestApi(url = '', method = 'get', data = {}, noty = {err: null, msg: null}) {
+        requestApi(url = '', method = 'get', data = {}, noty = {err: null, msg: null}, headers = {}) {
 
             return new Promise( (resolve, reject) => {
                 Vue.axios({
                     method: method,
                     url: url,
-                    data: data
+                    data: data,
+                    headers: headers,
                 })
                 .then((response) => {
                     if(response.status == 200){
