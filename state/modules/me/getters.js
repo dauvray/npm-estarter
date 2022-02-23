@@ -13,4 +13,7 @@ export default {
         // only mine
         return state.me.permissions.includes(permission) && state.me.id == id
     },
+    getMe(state) {
+        return state.me
+    }
 }

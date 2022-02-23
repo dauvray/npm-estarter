@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="notification-btn">
         <button
+            v-if="notifications.length"
             type="button"
-            class="btn btn-primary position-relative"
+            class="btn btn-link position-relative"
             @click="onDisplayNotifications"
         >
-            Notification
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{notifications.length}}
             <span class="visually-hidden">unread messages</span>
@@ -89,5 +89,9 @@
 </script>
 
 <style scoped>
-
+    .notification-btn{
+        position: absolute;
+        z-index: 100;
+        left: 40px;
+    }
 </style>
