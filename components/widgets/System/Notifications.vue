@@ -48,7 +48,7 @@
         },
         mounted() {
             if (!this.interval) {
-                this.interval = setInterval(this.getNotifications, 1000);
+                this.interval = setInterval(this.getNotifications, 5000);
             }
         },
         beforeDestroy() {
