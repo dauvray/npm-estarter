@@ -1,8 +1,12 @@
 <template>
-    <div>
+    <div class="position-relative">
         <img v-if="item.image" :src="`${path}/${item.image}.${size}.jpg`"
              class="author-image rounded-circle"/>
         <img v-else :src="item.gravatar" class="author-image rounded-circle"/>
+        <gravatar-status
+            :user="user"
+            :size="size"
+        ></gravatar-status>
     </div>
 </template>
 
@@ -10,6 +14,9 @@
 export default {
     name: 'Gravatar',
     inject: ["eventBus"],
+    components: {
+        GravatarStatus: () => import('vuejs-estarter/components/widgets/GravatarStatus')
+    },
     props: {
         size: {
             type: String,
@@ -46,3 +53,7 @@ export default {
     }
 }
 </script>
+
+<style>
+
+</style>

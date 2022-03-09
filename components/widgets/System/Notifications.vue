@@ -29,6 +29,7 @@
 
     export default {
         name: "Notifications",
+        inject: ["eventBus"],
         components: {
 
         },
@@ -48,7 +49,8 @@
         },
         mounted() {
             if (!this.interval) {
-                this.interval = setInterval(this.getNotifications, 5000);
+                this.getNotifications()
+                this.interval = setInterval(this.getNotifications, 5000)
             }
         },
         beforeDestroy() {
@@ -82,7 +84,7 @@
                 })
             },
             onDisplayNotifications() {
-
+                document.location.href="/notifications"
             },
         }
     }

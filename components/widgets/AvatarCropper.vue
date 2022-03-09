@@ -8,6 +8,7 @@
             <gravatar-widget
                 class="float-left pr-2"
                 :user="itemComputed"
+                :size="size"
                 :path="path"
             ></gravatar-widget>
         </template>

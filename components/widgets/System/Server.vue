@@ -19,7 +19,7 @@
         name: "Server",
         inject: ["eventBus"],
         components: {
-            GravatarStatus: () => import('vuejs-estarter/components/widgets/GravatarStatus'),
+            GravatarStatus: () => import('vuejs-estarter/components/widgets/Gravatar'),
             NotificationsWidget: () => import('vuejs-estarter/components/widgets/System/Notifications')
         },
         mixins: [

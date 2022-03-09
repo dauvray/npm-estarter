@@ -1,49 +1,53 @@
 <template>
-    <div class="gravatar-wrapper">
-        <gravatar-widget
-            class="pe-2"
-            :user="user"
-            :size="size"
-        ></gravatar-widget>
-        <i :class="{
-            'text-success': user.is_online,
-            'text-danger': !user.is_online ,
-            'h3': size == 'medium'
-            }"
-            class="status las la-dot-circle"
-        ></i>
-    </div>
+    <div  class="status-online"
+          :class="[{
+            'bg-success': user.is_online,
+            'bg-danger': !user.is_online ,
+            }, classStatus]"
+    ></div>
 </template>
 
 <script>
-
-export default {
-    'name': 'GravatarStatus',
-        components: {
-        GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
-    },
-    props: {
-        user: {
-            type: Object,
-            required: true
+    export default {
+        name: 'GravatarStatus',
+        props: {
+            user: {
+                type: Object,
+                required: true
+            },
+            size: {
+                type: String,
+                required: false,
+                default: 'small'
+            }
         },
-        size: {
-            type: String,
-            required: false,
-            default: 'small'
+        computed: {
+            classStatus: function () {
+                return {
+                    'small-status': this.size == 'small',
+                    'medium-status': this.size == 'medium'
+                }
+            }
         }
     }
-}
 </script>
 
-<style scoped>
-    .gravatar-wrapper {
-        position: relative;
-        width: fit-content;
+<style>
+    .small-status {
+        width: 16px;
+        height: 16px;
     }
-    .status {
+
+    .medium-status {
+        width: 32px;
+        height: 32px;
+    }
+
+    .status-online {
+        border-radius: 50px;
         position: absolute;
-        right: 5px;
-        bottom: 0px;
+        bottom: 0;
+        right: 0;
+        opacity: 0.6;
     }
 </style>
