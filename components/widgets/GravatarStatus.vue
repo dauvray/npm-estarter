@@ -48,6 +48,6 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        opacity: 0.6;
+        border: 2px solid #444;
     }
 </style>

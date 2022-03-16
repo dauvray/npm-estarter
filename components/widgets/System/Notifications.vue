@@ -34,10 +34,10 @@
 
         },
         props: {
-            user: {
-                type: Object,
-                required: true
-            }
+            // user: {
+            //     type: Object,
+            //     required: true
+            // }
         },
         data() {
             return {
@@ -73,7 +73,7 @@
                 this.showModal = false
             },
             getNotifications() {
-                this['notifications/loadNotifications'](this.user.id)
+                this['notifications/loadNotifications']()
                 .then(() => {
                     this.checkNotifications()
                 })
@@ -94,6 +94,6 @@
     .notification-btn{
         position: absolute;
         z-index: 100;
-        left: 40px;
+        left: 25px;
     }
 </style>

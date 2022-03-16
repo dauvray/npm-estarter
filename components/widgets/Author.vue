@@ -1,8 +1,7 @@
 <template>
-    <div class="author d-flex">
+    <div class="author d-flex align-items-center">
         <gravatar-widget :user="author" :size="size" />
         <user-link
-            class="ms-3"
             :user="author"
             :profileurl="profileurl"
         ></user-link>

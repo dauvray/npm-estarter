@@ -35,9 +35,11 @@ export default {
         },
         links: {
             type: Object,
+            required: false,
         },
         meta: {
             type: Object,
+            required: false,
         }
     },
     computed: {

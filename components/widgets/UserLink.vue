@@ -1,5 +1,5 @@
 <template>
-    <div class="user-link d-flex flex-column">
+    <div class="user-link d-flex flex-column ms-2">
         <template v-if="profileurl">
             <a class="user-name" :href="`/${profileurl}/${convertToSlug(user.name)}`">{{ user.name }}</a>
             <span class="user-function text-muted">{{ user.function}}</span>
