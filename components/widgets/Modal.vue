@@ -27,9 +27,8 @@
                             data-bs-dismiss="modal"
                             data-dismiss="modal"
                             aria-label="Close"
-                            @click="cancelChanges">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                            @click="cancelChanges"
+                        ></button>
                     </div>
                     <div class="modal-body">
                         <div class="card">
