@@ -9,7 +9,6 @@
         </button>
         <div class="modal fade"
              :id="`${target}`"
-             :ref="`${target}`"
              tabindex="-1"
              role="dialog"
              :aria-labelledby="`#${target}Label`"
@@ -42,11 +41,12 @@
                         <slot name="footer">
                             <button type="button"
                                     class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
+
                                     @click="cancelChanges">Annuler</button>
                             <button v-if="canValidate"
                                     type="button"
                                     class="btn btn-primary"
+
                                     @click="saveChanges">Enregistrer</button>
                         </slot>
                     </div>
@@ -57,8 +57,6 @@
 </template>
 
 <script>
-    import { Modal } from 'bootstrap'
-
     export default {
         name: "Modal",
         props: {
@@ -113,11 +111,11 @@
                 handler (newStatus, oldStatus) {
                     if(newStatus) {
                         setTimeout( () => {
-                            this.modal.show()
+                            $(`#${this.target}`).modal('show')
                         }, 100)
                     } else {
                         setTimeout( () => {
-                            this.modal.hide()
+                            $(`#${this.target}`).modal('hide')
                         }, 100)
                     }
                 }
@@ -125,50 +123,48 @@
         },
         data() {
             return {
-                modal: null,
-                modalEl: null,
+                modal: `#${this.target}`,
                 bodyContainer: document.querySelector('body')
             }
         },
         mounted() {
             // Hack - see : https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
-            this.modalEl = document.getElementById(this.target)
+            let modal = document.querySelector(this.modal)
 
-            if(this.modalEl) {
-                this.modalEl.parentNode.removeChild(this.modalEl)
-                this.bodyContainer.append(this.modalEl)
+            if(modal) {
+                modal.parentNode.removeChild(modal)
+                this.bodyContainer.append(modal)
 
-                this.modalEl.addEventListener('show.bs.modal', (e) => {
+                $(this.modal).on('show.bs.modal', (e) => {
                     this.$emit('show')
                 })
-                this.modalEl.addEventListener('show.bs.modal', (e) => {
+                $(this.modal).on('show.bs.modal', (e) => {
                     this.$emit('shown')
                 })
-                this.modalEl.addEventListener('hide.bs.modal', (e) => {
+                $(this.modal).on('hide.bs.modal', (e) => {
                     this.$emit('hide')
                 })
-                this.modalEl.addEventListener('hidden.bs.modal', (e) => {
+                $(this.modal).on('hidden.bs.modal', (e) => {
                     this.$emit('hidden')
                 })
             }
-
-            this.modal = new Modal(this.$refs[this.target])
         },
         beforeDestroy() {
-            this.modal.hide()
-            this.modalEl.parentNode.removeChild(this.modalEl)
+            $(`#${this.target}`).modal('hide')
+            let modal = document.querySelector(this.modal)
+            modal.parentNode.removeChild(modal)
         },
         methods : {
             saveChanges() {
                 this.$emit('saveModalChanges')
                 setTimeout( () => {
-                    this.modal.hide()
+                    $(`#${this.target}`).modal('hide')
                 }, 500)
             },
             cancelChanges() {
                 this.$emit('cancelModalChanges')
                 setTimeout( () => {
-                    this.modal.hide()
+                    $(`#${this.target}`).modal('hide')
                 }, 500)
             }
         }
