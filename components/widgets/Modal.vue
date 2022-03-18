@@ -1,10 +1,10 @@
 <template>
     <div>
-        <button v-if="showBtn" type="button" :class="btnclass"
+        <button v-if="showBtn"
+                type="button"
+                :class="btnclass"
                 data-bs-toggle="modal"
-                :data-bs-target="`#${target}`"
-                data-toggle="modal"
-                :data-target="`#${target}`">
+                :data-bs-target="`#${target}`">
             <slot name="button">Open modal</slot>
         </button>
         <div class="modal fade"
@@ -25,7 +25,6 @@
                             v-if="closebutton" type="button"
                             class="btn-close close"
                             data-bs-dismiss="modal"
-                            data-dismiss="modal"
                             aria-label="Close"
                             @click="cancelChanges"
                         ></button>
@@ -40,8 +39,15 @@
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal" @click="cancelChanges">Annuler</button>
-                            <button v-if="canValidate" type="button" class="btn btn-primary" data-bs-dismiss="modal" data-dismiss="modal" @click="saveChanges">Enregistrer</button>
+                            <button type="button"
+                                    class="btn btn-secondary"
+
+                                    @click="cancelChanges">Annuler</button>
+                            <button v-if="canValidate"
+                                    type="button"
+                                    class="btn btn-primary"
+
+                                    @click="saveChanges">Enregistrer</button>
                         </slot>
                     </div>
                 </div>
@@ -153,13 +159,13 @@
                 this.$emit('saveModalChanges')
                 setTimeout( () => {
                     $(`#${this.target}`).modal('hide')
-                }, 100)
+                }, 500)
             },
             cancelChanges() {
                 this.$emit('cancelModalChanges')
                 setTimeout( () => {
                     $(`#${this.target}`).modal('hide')
-                }, 100)
+                }, 500)
             }
         }
     }

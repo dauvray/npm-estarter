@@ -34,11 +34,11 @@ export const FormMixin = {
             formOptions: {
                 validateAfterLoad: false,
                 validateAfterChanged: true,
-                validateAsync: true
+                validateAsync: false
             },
             model: {},
             schema: {
-                fields: []
+                fields: [],
             },
             isFormValidated: false,
             uid: `${Math.floor(Math.random() * Date.now())}`,
