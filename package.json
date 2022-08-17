@@ -1,6 +1,6 @@
 {
   "name": "vuejs-estarter",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "vuejs components for laravel-estarter php package",
   "main": "main.js",
   "scripts": {
