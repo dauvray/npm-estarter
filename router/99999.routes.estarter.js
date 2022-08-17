@@ -1,22 +1,10 @@
-/*
-THIS FILE MUST BE THE LAST FILE REGSITERED
- */
 
 import Views from 'vuejs-estarter/components/views'
+import CustomViews from '~/estarter_custom_elements/views'
 
-/**
- * /CONFIG_ME_IN_ESTARTER : in config/estarter.php ( laravel )
- * There is a route config to translate the url
- * the 'name' here is equal to the routes.front indexes
- *
- * customViews : you can overwrite the estarter components in your app
- */
-
-export default function(customViews) {
-
-    return [
+export default [
         {
-            path: '/CONFIG_ME_IN_ESTARTER',
+            path: `/${router_base_url}`,
             name: 'home',
             component: customViews.Home || Views.Home,
             meta: {
@@ -142,5 +130,4 @@ export default function(customViews) {
             }
         }
     ]
-}
 
