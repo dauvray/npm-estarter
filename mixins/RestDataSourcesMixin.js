@@ -48,6 +48,9 @@ export const RestDataSourcesMixin = {
                         else if(error.response.status == '500') {
                             EventBus.$emit("httpError", error)
                         }
+                        else if(error.response.status == '302') {
+                            window.location.href = error.response.data
+                        }
                         else {
                             if(error.response.data.error === 'passwords.token') {
                                 error.response.data.message = 'Le lien de réinitialisation n\'est plus valide. Veuillez en recréer un.'
