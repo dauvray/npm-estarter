@@ -26,15 +26,14 @@ export const RestDataSourcesMixin = {
                 })
                 .catch(error => {
                     if (error.response) {
-                        console.log(error)
                         if(error.response.status == '404') {
-                            EventBus.$emit("httpError", error)
+                            EventBus.$emit("httpError", error.response.data.message || 'Element introuvable')
                         }
                         else if(error.response.status == '403') {
-                            EventBus.$emit("httpError", 'Accès interdit')
+                            EventBus.$emit("httpError", noty.err || error.response.data.message || 'Accès interdit')
                         }
                         else if(error.response.status == '413') {
-                            EventBus.$emit("httpError", 'Fichier trop volumineux')
+                            EventBus.$emit("httpError", noty.err || error.response.data.message || 'Fichier trop volumineux')
                         }
                         else if(error.response.status == '401') {
                             document.location.reload()
@@ -43,10 +42,10 @@ export const RestDataSourcesMixin = {
                             document.location.reload()
                         }
                         else if(error.response.status == '422') {
-                            EventBus.$emit("httpError", error)
+                            EventBus.$emit("httpError", noty.err || error.response.data.message || error)
                         }
                         else if(error.response.status == '500') {
-                            EventBus.$emit("httpError", error)
+                            EventBus.$emit("httpError", noty.err || error.response.data.message || error)
                         }
                         else if(error.response.status == '302') {
                             window.location.href = error.response.data
