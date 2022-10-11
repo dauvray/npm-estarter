@@ -25,14 +25,14 @@ export default {
             return words.join('/')
         },
         setBreadcrumb(breadcrumb){
-            if(this.$route.meta.hasOwnProperty('parent')){
+/*  obsolète           if(this.$route.meta.hasOwnProperty('parent')){
                 let parent = this.$route.meta.parent
                 this.$router.options.routes.forEach( item => {
                     if(item.name === parent) {
                         breadcrumb = [ ...item.meta.breadcrumb, ...breadcrumb]
                     }
                 })
-            }
+            } */
             this['application/setBreadcrumbs'](breadcrumb)
         }
     },
