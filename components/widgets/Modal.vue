@@ -16,7 +16,7 @@
              :data-bs-backdrop="backdrop"
              :data-bs-keyboard="keyboard"
              aria-hidden="true">
-            <div class="modal-dialog" :class="modalClasses" role="document">
+            <div class="modal-dialog" :class="modalTemplate" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" :id="`#${target}Label`">
@@ -89,6 +89,7 @@
             },
             modalClasses: {
                 type: String,
+                required: false,
                 default: ''
             },
             backdrop: {
@@ -107,6 +108,13 @@
                 default: true
             }
         },
+        data() {
+            return {
+                modal: null,
+                modalEl: null,
+                bodyContainer: document.querySelector('body')
+            }
+        },
         watch: {
             trigger: {
                 immediate: true,
@@ -123,11 +131,9 @@
                 }
             }
         },
-        data() {
-            return {
-                modal: null,
-                modalEl: null,
-                bodyContainer: document.querySelector('body')
+        computed: {
+            modalTemplate: function() {
+                return `${this.modalClasses} modal-fullscreen-md-down`
             }
         },
         mounted() {
