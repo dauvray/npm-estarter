@@ -1,7 +1,7 @@
 <template>
     <div class="user-link d-flex flex-column ms-2">
         <template v-if="profileurl">
-            <a class="user-name" :href="`/${profileurl}/${convertToSlug(user.name)}`">{{ user.name }}</a>
+            <a class="user-name" :href="profileurl">{{ user.name }}</a>
             <span class="user-function text-muted">{{ user.function}}</span>
         </template>
         <template v-else>
@@ -20,10 +20,10 @@ export default {
             type: Object,
             required: true
         },
-        profileurl: {
-            type: String,
-            required: false,
-            default: ''
+    },
+    computed: {
+        profileurl: function() {
+            return this.user.hasOwnProperty('profile') ? this.user.profile : false
         }
     },
     methods: {

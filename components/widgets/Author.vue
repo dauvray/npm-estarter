@@ -3,7 +3,6 @@
         <gravatar-widget :user="author" :size="size" />
         <user-link
             :user="author"
-            :profileurl="profileurl"
         ></user-link>
     </div>
 </template>
@@ -27,11 +26,6 @@
                 type: String,
                 default: 'small'
             },
-            profileurl: {
-                type: String,
-                required: false,
-                default: ''
-            }
         }
     }
 </script>

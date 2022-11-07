@@ -147,7 +147,7 @@
                 this.modalEl.addEventListener('show.bs.modal', (e) => {
                     this.$emit('show')
                 })
-                this.modalEl.addEventListener('show.bs.modal', (e) => {
+                this.modalEl.addEventListener('shown.bs.modal', (e) => {
                     this.$emit('shown')
                 })
                 this.modalEl.addEventListener('hide.bs.modal', (e) => {
