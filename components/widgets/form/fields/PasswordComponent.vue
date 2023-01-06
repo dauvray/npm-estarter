@@ -14,9 +14,10 @@
                         <span class="title">Un bon mot de passe doit contenir</span>
                         <ul>
                             <li v-for="rule in this.rules" class="message">
-                            <span :class="{'text-success': rule.status}"><i  v-if="rule.status" class="las la-check"></i>
-                             {{rule.name}}
-                            </span>
+                                <span :class="{'text-success': rule.status}">
+                                    <i v-if="rule.status" class="las la-check"></i>
+                                    {{rule.name}}
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -34,10 +35,10 @@
                        :class="{'is-invalid' : error}"
                        v-model="password"
                        @input="checkStrength"
-                       autocomplete='password' :required="isRequired" />
+                       autocomplete='password'
+                       :required="isRequired" />
             </div>
             <span toggle="#password-field"
-                  style="margin-left:-25px"
                   :class="viewedClass"
                   @click="showPassword">
                 </span>

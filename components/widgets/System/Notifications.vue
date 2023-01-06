@@ -24,7 +24,6 @@
 </template>
 
 <script>
-    import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin'
     import {mapActions, mapGetters} from 'vuex'
 
     export default {

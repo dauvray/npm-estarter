@@ -1,39 +1,52 @@
-import Vue from 'vue'
-import { EventBus } from 'vuejs-estarter/services/eventBus';
+
+import EventBus from 'vuejs-estarter/services/eventBus';
+
+const EmitEvent = (event, data, toaster, defaultLabel = '') => {
+
+    const toasterTxt = event === 'httpSuccess' ? toaster.msg : toaster.err
+    const defaultTxt = typeof data === 'string' ? data : defaultLabel
+
+    EventBus.$emit(
+        event,
+        toasterTxt || data.message || defaultTxt,
+        toaster.options || data.options || {},
+        data.errors || {}
+    )
+}
 
 export const RestDataSourcesMixin = {
+    inject: ['AWN'],
     methods: {
-        requestApi(url = '', method = 'get', data = {}, noty = {err: null, msg: null}, headers = {}) {
+        requestApi(url = '', method = 'get', data = {}, toaster = {err: null, msg: null, options: null}, headers = {}) {
 
             return new Promise( (resolve, reject) => {
-                Vue.axios({
+                axios({
                     method: method,
                     url: url,
                     data: data,
                     headers: headers,
                 })
                 .then((response) => {
-                    if(response.status == 200){
-                        if(noty.msg !== null){
-                            EventBus.$emit("httpSuccess", noty.msg)
-                        }
-                        resolve(response.data)
+                    console.log(response)
+                    if( response.status == 200 && response.data.hasOwnProperty('message') ){
+                        EmitEvent("httpSuccess", response.data, toaster)
                     }
+/*                     if(response.status == 204){
+                        resolve(response.data)
+                    } */
 
-                    if(response.status == 204){
-                        resolve(response.data)
-                    }
+                    resolve(response.data)
                 })
                 .catch(error => {
                     if (error.response) {
                         if(error.response.status == '404') {
-                            EventBus.$emit("httpError", error.response.data.message || 'Element introuvable')
+                            EmitEvent("httpError", error.response.data, toaster, 'Element introuvable')
                         }
                         else if(error.response.status == '403') {
-                            EventBus.$emit("httpError", error.response.data.message || noty.err ||  'Accès interdit')
+                            EmitEvent("httpError", error.response.data, toaster, 'Accès interdit')
                         }
                         else if(error.response.status == '413') {
-                            EventBus.$emit("httpError", error.response.data.message || noty.err ||  'Fichier trop volumineux')
+                            EmitEvent("httpError", error.response.data, toaster, 'Fichier trop volumineux')
                         }
                         else if(error.response.status == '401') {
                             document.location.reload()
@@ -42,10 +55,10 @@ export const RestDataSourcesMixin = {
                             document.location.reload()
                         }
                         else if(error.response.status == '422') {
-                            EventBus.$emit("httpError", error.response.data.message || noty.err ||  error)
+                            EmitEvent("httpError", error.response.data, toaster)
                         }
                         else if(error.response.status == '500') {
-                            EventBus.$emit("httpError",error.response.data.message || noty.err ||  error)
+                            EmitEvent("httpError", error.response.data, toaster)
                         }
                         else if(error.response.status == '302') {
                             window.location.href = error.response.data
@@ -53,12 +66,12 @@ export const RestDataSourcesMixin = {
                         else {
                             if(error.response.data.error === 'passwords.token') {
                                 error.response.data.message = 'Le lien de réinitialisation n\'est plus valide. Veuillez en recréer un.'
-                                EventBus.$emit("httpError", error)
+                                EmitEvent("httpError", error.response.data, toaster)
                             }
                         }
                     }
-                    else if(noty.err !== null){
-                        EventBus.$emit("httpError", noty.err)
+                    else if(toaster.err !== null){
+                        EventBus.$emit("httpError", toaster.err)
                     }
                     reject(error);
                 })

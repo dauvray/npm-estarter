@@ -30,7 +30,7 @@
            return {
                map: null,
                marker: null,
-               access_token: process.env.MIX_MAPBOX_ACCESS_TOKEN,
+               access_token: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
             }
        },
          watch: {

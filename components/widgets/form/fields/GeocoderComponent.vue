@@ -1,12 +1,14 @@
 <template>
-    <div>
-        <div id="estarter-geocoder"></div>
-        <input type="hidden" :name="name" :value="JSON.stringify(location)" />
-    </div>
+    <div id="estarter-geocoder"></div>
+    <input
+        type="hidden"
+        :name="name"
+        :value="JSON.stringify(location)"
+        />
 </template>
 
 <script>
-    import { abstractField } from "vue-form-generator"
+    import abstractField  from "vuejs-estarter/components/vueFormDesigner/fields/abstractField.js"
     import mapboxgl from "mapbox-gl"
     import "mapbox-gl/dist/mapbox-gl.css"
     import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
@@ -32,6 +34,7 @@
                 default: 'country,region,place,postcode,locality,neighborhood,address'
             },
         },
+        emits: ['location-updated', 'model-updated'],
         watch: {
             // for formdesigner package
             model: function (newModel, oldModel) {
@@ -49,7 +52,7 @@
         data() {
             return {
                 location: {},
-                access_token: process.env.MIX_MAPBOX_ACCESS_TOKEN,
+                access_token: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
             }
         },
         created() {
@@ -73,10 +76,8 @@
         methods: {
             createGeocoder() {
 
-                mapboxgl.accessToken = this.access_token
-
                 const geocoder = new MapboxGeocoder({
-                    accessToken: mapboxgl.accessToken,
+                    accessToken:this.access_token,
                     types: this.types
                 })
 
@@ -102,7 +103,7 @@
             },
             setLocation(name) {
                 document.querySelector('.mapboxgl-ctrl-geocoder--input').value = name
-                this.$emit("location-updated", this.location)
+                this.$emit("location-updated",uzcbosygebypomr)
             }
         }
     }

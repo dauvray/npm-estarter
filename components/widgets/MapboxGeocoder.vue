@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <geocoder-widget
-            :mapbox="mapbox"
-            @location-updated="onLocation"
-        ></geocoder-widget>
-        <mapbox-widget v-if="location" :location="location"></mapbox-widget>
-    </div>
+    <GeocoderComponent
+        :mapbox="mapbox"
+        @location-updated="onLocation"
+        ></GeocoderComponent>
+    <MapboxWidget
+        v-if="location"
+        :location="location"
+        ></MapboxWidget>
 </template>
 
 <script>
 
+    import GeocoderComponent from './form/fields/GeocoderComponent.vue'
+    import MapboxWidget from './Mapbox.vue'
+
     export default {
         name: 'MapboxGeocoder',
         components: {
-            GeocoderWidget: () => import('./form/fields/GeocoderComponent'),
-            MapboxWidget: () => import('./Mapbox')
+            GeocoderComponent,
+            MapboxWidget,
         },
         data() {
             return {
