@@ -1,18 +1,20 @@
 <template>
-    <GeocoderComponent
-        :mapbox="mapbox"
-        @location-updated="onLocation"
-        ></GeocoderComponent>
-    <MapboxWidget
-        v-if="location"
-        :location="location"
-        ></MapboxWidget>
+    <div class="mapbox-geocoder">
+        <GeocoderComponent
+            :mapbox="mapbox"
+            @location-updated="onLocation"
+            ></GeocoderComponent>
+        <MapboxWidget
+            v-if="location"
+            :location="location"
+            ></MapboxWidget>
+    </div>
 </template>
 
 <script>
 
-    import GeocoderComponent from './form/fields/GeocoderComponent.vue'
-    import MapboxWidget from './Mapbox.vue'
+    import GeocoderComponent from 'vuejs-estarter/components/widgets/form/fields/GeocoderComponent.vue'
+    import MapboxWidget from 'vuejs-estarter/components/widgets/Mapbox.vue'
 
     export default {
         name: 'MapboxGeocoder',
@@ -40,6 +42,3 @@
     }
 </script>
 
-<style >
-
-</style>

@@ -1,14 +1,11 @@
 
 import EventBus from 'vuejs-estarter/services/eventBus';
 
-const EmitEvent = (event, data, toaster, defaultLabel = '') => {
-
+const EmitEvent = (event, data, toaster) => {
     const toasterTxt = event === 'httpSuccess' ? toaster.msg : toaster.err
-    const defaultTxt = typeof data === 'string' ? data : defaultLabel
-
     EventBus.$emit(
         event,
-        toasterTxt || data.message || defaultTxt,
+        toasterTxt || data.message,
         toaster.options || data.options || {},
         data.errors || {}
     )
@@ -27,8 +24,7 @@ export const RestDataSourcesMixin = {
                     headers: headers,
                 })
                 .then((response) => {
-                    console.log(response)
-                    if( response.status == 200 && response.data.hasOwnProperty('message') ){
+                    if( response.status == 200 && (response.data.hasOwnProperty('message') || toaster.msg )){
                         EmitEvent("httpSuccess", response.data, toaster)
                     }
 /*                     if(response.status == 204){
@@ -39,28 +35,28 @@ export const RestDataSourcesMixin = {
                 })
                 .catch(error => {
                     if (error.response) {
-                        if(error.response.status == '404') {
+                        if(error.response.status == 404) {
                             EmitEvent("httpError", error.response.data, toaster, 'Element introuvable')
                         }
-                        else if(error.response.status == '403') {
+                        else if(error.response.status == 403) {
                             EmitEvent("httpError", error.response.data, toaster, 'Accès interdit')
                         }
-                        else if(error.response.status == '413') {
+                        else if(error.response.status == 413) {
                             EmitEvent("httpError", error.response.data, toaster, 'Fichier trop volumineux')
                         }
-                        else if(error.response.status == '401') {
+                        else if(error.response.status == 401) {
                             document.location.reload()
                         }
-                        else if(error.response.status == '419') {
+                        else if(error.response.status == 419) {
                             document.location.reload()
                         }
-                        else if(error.response.status == '422') {
+                        else if(error.response.status == 422) {
                             EmitEvent("httpError", error.response.data, toaster)
                         }
-                        else if(error.response.status == '500') {
+                        else if(error.response.status == 500) {
                             EmitEvent("httpError", error.response.data, toaster)
                         }
-                        else if(error.response.status == '302') {
+                        else if(error.response.status == 302) {
                             window.location.href = error.response.data
                         }
                         else {

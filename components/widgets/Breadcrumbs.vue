@@ -1,24 +1,27 @@
 <template>
     <ul class="breadcrumb" v-if="breadCrumbs.length">
-        <li v-for="(breadcrumb, idx) in breadCrumbs" :key="idx" @click="routeTo(idx)"
-            :class="{'linked': !!breadcrumb.link}">
-            {{ breadcrumb.name }}
-        </li>
+        <li v-for="(breadcrumb, idx) in breadCrumbs"
+            :key="idx"
+            @click="routeTo(idx)"
+            :class="{'linked': !!breadcrumb.link}"
+            >{{ breadcrumb.name }}</li>
     </ul>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import { mapState } from 'pinia'
+    import { useApplicationStore } from '../../stores/application.js'
 
     export default {
-        name: 'Breadcrumb',
+        name: 'Breadcrumbs',
         data () {
             return {}
         },
         computed: {
-            ...mapGetters({
-                breadCrumbs: 'application/getBreadcrumbs'
-            }),
+             ...mapState(useApplicationStore,
+                {
+                    breadCrumbs: 'getBreadcrumbs'
+                }),
         },
         methods: {
             routeTo (pRouteTo) {

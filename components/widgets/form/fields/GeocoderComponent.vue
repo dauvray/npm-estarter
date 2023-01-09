@@ -9,9 +9,10 @@
 
 <script>
     import abstractField  from "vuejs-estarter/components/vueFormDesigner/fields/abstractField.js"
+
     import mapboxgl from "mapbox-gl"
     import "mapbox-gl/dist/mapbox-gl.css"
-    import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
+    import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js"
     import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
 
     export default {
@@ -103,7 +104,7 @@
             },
             setLocation(name) {
                 document.querySelector('.mapboxgl-ctrl-geocoder--input').value = name
-                this.$emit("location-updated",uzcbosygebypomr)
+                this.$emit("location-updated", this.location)
             }
         }
     }

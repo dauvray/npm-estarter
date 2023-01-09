@@ -1,21 +1,25 @@
 <template>
     <div>
-        <button v-if="showBtn"
-                type="button"
-                :class="btnclass"
-                data-bs-toggle="offcanvas"
-                :data-bs-target="`#${target}`">
+        <button
+            v-if="showBtn"
+            type="button"
+            :class="btnclass"
+            data-bs-toggle="offcanvas"
+            :data-bs-target="`#${target}`"
+            :aria-controls="target"
+            >
             <slot name="button">Open offcanvas</slot>
         </button>
         <div :class="offcanvasTemplate"
-            :id="`${target}`"
-            :ref="`${target}`"
+            :id="target"
+            :ref="target"
             tabindex="-1"
             role="dialog"
             :aria-labelledby="`#${target}Label`"
             :data-bs-backdrop="backdrop"
             :data-bs-keyboard="keyboard"
             :data-bs-scroll="scroll"
+            data-bs-hideresize="true"
             >
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" :id="`#${target}Label`">
@@ -52,7 +56,7 @@
             target: {
                 type: String,
                 required: false,
-                defaut: "exampleOffcanvas"
+                default: "exampleOffcanvas"
             },
             btnclass: {
                 type: String,

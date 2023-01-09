@@ -1,20 +1,20 @@
 <template>
-    <div  class="status-online"
-          :class="[{
-            'bg-success': user.is_online,
-            'bg-danger': !user.is_online ,
+    <div class="status-online"
+        :class="[{
+            'bg-success': is_online,
+            'bg-danger': !is_online,
             }, classStatus]"
     ></div>
 </template>
 
 <script>
+
+    import { mapState } from 'pinia'
+    import { useMeStore } from '../../stores/me.js'
+
     export default {
         name: 'GravatarStatus',
         props: {
-            user: {
-                type: Object,
-                required: true
-            },
             size: {
                 type: String,
                 required: false,
@@ -22,6 +22,7 @@
             }
         },
         computed: {
+            ...mapState(useMeStore, ['is_online']),
             classStatus: function () {
                 return {
                     'small-status': this.size == 'small',

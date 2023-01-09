@@ -1,13 +1,16 @@
 import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin'
 
 export default {
-    loadNotifications({commit}){
-        RestDataSourcesMixin.methods.requestApi(`/get-notifications`)
-        .then(response => {
-            commit('setNotifications', response)
+    loadNotifications(){
+        return new Promise((resolve, reject) => {
+            RestDataSourcesMixin.methods.requestApi(`/get-notifications`)
+            .then(notifications => {
+                this.items = [...notifications]
+                resolve(notifications)
+            })
         })
     },
-    pushNotification({commit}, notification){
+    pushNotification(notification){
         return new Promise((resolve, reject) => {
             RestDataSourcesMixin.methods.requestApi(
                 '/set-notification',
@@ -18,7 +21,7 @@ export default {
             })
         })
     },
-    deleteNotification({commit}, notificationId) {
+    deleteNotification(notificationId) {
         new Promise((resolve, reject) => {
             RestDataSourcesMixin.methods.requestApi(`/delete-notification/${notificationId}`)
             .then(resp => {

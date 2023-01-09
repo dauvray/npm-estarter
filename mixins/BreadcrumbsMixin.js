@@ -1,9 +1,11 @@
-import {mapActions} from 'vuex'
+import { mapActions } from 'pinia'
+import { useApplicationStore } from '../stores/application.js'
+
 
 export default {
     methods: {
-        ...mapActions([
-            'application/setBreadcrumbs'
+        ...mapActions(useApplicationStore, [
+            'setBreadcrumbs'
         ]),
         generateUrl (route, params = {}) {
             // breadcrumbs
@@ -14,7 +16,7 @@ export default {
                     return item
                 } else {
 
-                    let part = item.replace(':','').replace('?', '')
+                    let part = item.replace(':', '').replace('?', '')
 
                     if(params.hasOwnProperty(part)){
                         return this.$route.params[part]
@@ -25,15 +27,7 @@ export default {
             return words.join('/')
         },
         setBreadcrumb(breadcrumb){
-/*  obsolète           if(this.$route.meta.hasOwnProperty('parent')){
-                let parent = this.$route.meta.parent
-                this.$router.options.routes.forEach( item => {
-                    if(item.name === parent) {
-                        breadcrumb = [ ...item.meta.breadcrumb, ...breadcrumb]
-                    }
-                })
-            } */
-            this['application/setBreadcrumbs'](breadcrumb)
+            this.setBreadcrumbs(breadcrumb)
         }
     },
 }

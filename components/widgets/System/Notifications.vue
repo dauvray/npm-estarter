@@ -1,47 +1,35 @@
 <template>
     <div class="notification-btn">
         <button
-            v-if="notifications.length"
-            type="button"
-            class="btn btn-link position-relative"
-            @click="onDisplayNotifications"
-        >
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {{notifications.length}}
-            <span class="visually-hidden">unread messages</span>
-          </span>
+             v-if="notifications.length"
+             type="button"
+             class="btn btn-link position-relative"
+             @click="onDisplayNotifications"
+             >
+             <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                 {{notifications.length}}
+                 <span class="visually-hidden">unread messages</span>
+             </div>
         </button>
-
-        <component
-            v-bind:is="currentModalComponent"
-            v-if="showModal"
-            :show="showModal"
-            :notification="currentNotification"
-            @hide-modal="onHideModal"
-        ></component>
-
     </div>
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
+import { defineAsyncComponent } from 'vue'
+   import { mapActions, mapState } from 'pinia'
+   import { useNotificationsStore } from 'vuejs-estarter/stores/notifications'
 
     export default {
         name: "Notifications",
         inject: ["eventBus"],
         components: {
+            OffcanvasWidget: defineAsyncComponent(() =>import('vuejs-estarter/components/widgets/Offcanvas.vue')),
+        },
 
-        },
-        props: {
-            // user: {
-            //     type: Object,
-            //     required: true
-            // }
-        },
         data() {
             return {
                 showModal: false,
-                currentModalComponent: null,
+              //  currentModalComponent: null,
                 currentNotification: null,
                 interval: null,
             }
@@ -52,19 +40,17 @@
                 this.interval = setInterval(this.getNotifications, 5000)
             }
         },
-        beforeDestroy() {
+        beforeUnmount() {
             clearInterval(this.interval)
             this.interval = null
         },
         computed: {
-            ...mapGetters({
-                notifications: 'notifications/getNotifications',
-            }),
+             ...mapState(useNotificationsStore, ['notifications']),
         },
         methods: {
-            ...mapActions([
-                'notifications/loadNotifications',
-            ]),
+             ...mapActions(useNotificationsStore, [
+                'loadNotifications'
+                ]),
             onShowModal() {
                 this.showModal = true
             },
@@ -72,7 +58,7 @@
                 this.showModal = false
             },
             getNotifications() {
-                this['notifications/loadNotifications']()
+                this.loadNotifications()
                 .then(() => {
                     this.checkNotifications()
                 })
@@ -84,6 +70,19 @@
             },
             onDisplayNotifications() {
                 document.location.href="/notifications"
+                // todo ne fonctionne pas car dejà dans un offcanvas dans le header
+                // l'idée était d'ouvrir les notifications dans un offcanvas
+            /*
+            <OffcanvasWidget
+            v-if="showModal"
+            :showBtn="false"
+            :trigger="showModal"
+            @hidden="onHideModal"
+            >
+             <template v-slot:header>Notifications</template>
+       </OffcanvasWidget> */
+                // voir comment réorganier tout ça
+               //this.showModal = true
             },
         }
     }

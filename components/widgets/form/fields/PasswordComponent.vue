@@ -1,7 +1,5 @@
 <template>
-
     <div class="password-checker">
-
         <div v-if="isCheckstrength" >
             <a role="button" aria-haspopup="true" aria-expanded="false" @click="toggle">
                 <i v-if="isPasswordSecure" class="fas fa-check-circle text-success" title="Votre mot de passe est valide"></i>
@@ -57,7 +55,6 @@
                 <span>{{message}}</span>
             </div>
         </div>
-
     </div>
 </template>
 
