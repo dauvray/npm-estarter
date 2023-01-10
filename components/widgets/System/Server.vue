@@ -25,17 +25,11 @@
         name: "Server",
         inject: ["eventBus"],
         components: {
-         NotificationsWidget: defineAsyncComponent(() => import('vuejs-estarter/components/widgets/System/Notifications.vue')),
-         AlertWidget,
-         GravatarStatus,
+            NotificationsWidget: defineAsyncComponent(() => import('vuejs-estarter/components/widgets/System/Notifications.vue')),
+            AlertWidget,
+            GravatarStatus,
         },
         props: {
-            //this may be the laravel connected user
-           mainid: {
-               type: Number,
-               required: false,
-               default: null
-           },
             notificationactived: {
                type: Boolean,
                 required: false,

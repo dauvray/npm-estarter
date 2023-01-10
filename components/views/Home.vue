@@ -13,18 +13,18 @@
 
 <script>
 
-  //  import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
-      import VueFormGenerator from 'vuejs-estarter/components/vueFormDesigner/formGenerator.vue'
+    import {BaseMixin} from 'vuejs-estarter/mixins/BaseMixin'
+    import VueFormGenerator from 'vuejs-estarter/components/vueFormDesigner/formGenerator.vue'
 
     export default {
         name: 'Home',
-     //   mixins: [BaseMixin],
+        mixins: [BaseMixin],
         components: {
             VueFormGenerator,
         },
         data() {
             return {
-                                model: {
+                model: {
                     created: '08/01/1973',
 /*                     id: 1,
                     name: 'John Doe',
@@ -160,7 +160,7 @@
             }
         },
         created() {
-         //   this.setBreadcrumb([])
+           this.setBreadcrumb([...this.$route.meta.breadcrumb])
         },
         computed: {
 

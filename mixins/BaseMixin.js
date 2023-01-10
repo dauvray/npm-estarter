@@ -1,14 +1,14 @@
-import breadcrumbs from 'vuejs-estarter/mixins/BreadcrumbsMixin'
-import MetaDescription from 'vuejs-estarter/mixins/MetaDescriptionMixin'
+import Breadcrumbs from 'vuejs-estarter/mixins/BreadcrumbsMixin'
+/* import MetaDescription from 'vuejs-estarter/mixins/MetaDescriptionMixin'
 import {AuthorizationMixin} from 'vuejs-estarter/mixins/AuthorizationMixin'
-import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin'
+import {RestDataSourcesMixin} from 'vuejs-estarter/mixins/RestDataSourcesMixin' */
 
 export const BaseMixin = {
     mixins: [
-        breadcrumbs,
-        MetaDescription,
-        AuthorizationMixin,
-        RestDataSourcesMixin
+        Breadcrumbs,
+     //   MetaDescription,
+      //  AuthorizationMixin,
+      //  RestDataSourcesMixin
     ],
     inject: ["eventBus"],
     data () {
