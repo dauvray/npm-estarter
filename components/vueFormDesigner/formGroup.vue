@@ -55,7 +55,7 @@
 
 <script>
 
-    import {deepGet} from './utils/helpers.js'
+    import {deepGet} from '../../services/helpers.js'
     import formMixin from "./formMixin.js"
     import fieldComponents from "./utils/fieldsLoader.js"
     import { slugifyFormID } from "./utils/schema"

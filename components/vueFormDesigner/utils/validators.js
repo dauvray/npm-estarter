@@ -1,36 +1,36 @@
-import { defaults } from "./helpers";
+import { defaults } from "../../../services/helpers";
 import fecha from "fecha";
 
 let resources = {
-	fieldIsRequired: "This field is required!",
-	invalidFormat: "Invalid format!",
+	fieldIsRequired: "Ce champ est obligatoire",
+	invalidFormat: "Format invalide",
 
-	numberTooSmall: "The number is too small! Minimum: {0}",
-	numberTooBig: "The number is too big! Maximum: {0}",
-	invalidNumber: "Invalid number",
-	invalidInteger: "The value is not an integer",
+	numberTooSmall: "Le nombre est trop petit, minimum: {0}",
+	numberTooBig: "Le nombre est trop grand, maximum: {0}",
+	invalidNumber: "Nombre invalide",
+	invalidInteger: "La valeur attendue est un nombre",
 
-	textTooSmall: "The length of text is too small! Current: {0}, Minimum: {1}",
-	textTooBig: "The length of text is too big! Current: {0}, Maximum: {1}",
-	thisNotText: "This is not a text!",
+	textTooSmall: "Le texte est trop court. Actuel: {0}, Minimum: {1}",
+	textTooBig: "Le texte est trop long. Actuel: {0}, Maximum: {1}",
+	thisNotText:"Texte attendu",
 
-	thisNotArray: "This is not an array!",
+	thisNotArray: "Tableau attendu",
 
-	selectMinItems: "Select minimum {0} items!",
-	selectMaxItems: "Select maximum {0} items!",
+	selectMinItems: "Sélectionnez au moins {0} éléments",
+	selectMaxItems: "Sélectionnez au maximum {0} éléments",
 
-	invalidDate: "Invalid date!",
-	dateIsEarly: "The date is too early! Current: {0}, Minimum: {1}",
-	dateIsLate: "The date is too late! Current: {0}, Maximum: {1}",
+	invalidDate: "Date invalide",
+	dateIsEarly: "La date est trop proche. Actuelle: {0}, Minimum: {1}",
+	dateIsLate: "La date est trop éloignée. Actuelle: {0}, Maximum: {1}",
 
-	invalidEmail: "Invalid e-mail address!",
-	invalidURL: "Invalid URL!",
+	invalidEmail: "Format d'email invalide",
+	invalidURL: "URL invalide",
 
-	invalidCard: "Invalid card format!",
-	invalidCardNumber: "Invalid card number!",
+	invalidCard: "Format de carte invalide",
+	invalidCardNumber: "Numéro de carte invalide",
 
-	invalidTextContainNumber: "Invalid text! Cannot contains numbers or special characters",
-	invalidTextContainSpec: "Invalid text! Cannot contains special characters"
+	invalidTextContainNumber: "Texte invalide, ne peut contenir de chiffre ou de caractères spéciaux",
+	invalidTextContainSpec: "Texte invalide, ne peut contenir de caractères spéciaux"
 };
 
 function checkEmpty(value, required, messages = resources) {

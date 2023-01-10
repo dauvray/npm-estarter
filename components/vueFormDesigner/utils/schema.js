@@ -1,10 +1,12 @@
+import {deepGet, set} from '../../../services/helpers.js'
+
 // Create a new model by schema default values
 const createDefaultObject = (schema, obj = {}) => {
 	each(schema.fields, field => {
-		if (get(obj, field.model) === undefined && field.default !== undefined) {
-			if (isFunction(field.default)) {
+		if (deepGet(obj, field.model) === undefined && field.default !== undefined) {
+			if (typeof field.default === 'function') {
 				set(obj, field.model, field.default(field, schema, obj));
-			} else if (isObject(field.default) || isArray(field.default)) {
+			} else if (field.default instanceof Object || Array.isArray(field.default)) {
 				set(obj, field.model, cloneDeep(field.default));
 			} else set(obj, field.model, field.default);
 		}
@@ -15,7 +17,7 @@ const createDefaultObject = (schema, obj = {}) => {
 // Get a new model which contains only properties of multi-edit fields
 const getMultipleFields = schema => {
 	let res = [];
-	each(schema.fields, field => {
+	schema.fields.forEach(field => {
 		if (field.multi === true) res.push(field);
 	});
 
@@ -33,8 +35,8 @@ const mergeMultiObjectFields = (schema, objs) => {
 		let notSet = true;
 		let path = field.model;
 
-		each(objs, obj => {
-			let v = get(obj, path);
+		objs.forEach(obj => {
+			let v = deepGet(obj, path);
 			if (notSet) {
 				mergedValue = v;
 				notSet = false;

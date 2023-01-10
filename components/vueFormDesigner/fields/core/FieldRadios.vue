@@ -22,7 +22,7 @@
 
 <script>
 
-import {deepGet} from '../../utils/helpers.js'
+import {deepGet} from '../../../../services/helpers.js'
 import abstractField from "../abstractField";
 
 export default {

@@ -64,7 +64,7 @@
 
 <script>
 
-import {cloneDeep} from '../../utils/helpers'
+import {cloneDeep} from '../../../../services/helpers.js'
 import abstractField from "../abstractField";
 import { slugify } from "../../utils/schema";
 

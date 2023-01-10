@@ -37,7 +37,7 @@
             :step="schema.step"
             :width="schema.width"
             :files="schema.files"
- 
+
         />
         <span
             v-if="schema.inputType.toLowerCase() === 'color' || schema.inputType.toLowerCase() === 'range'"
@@ -49,7 +49,7 @@
 <script>
 
 import abstractField from "../abstractField"
-import {deepGet, debounce} from '../../utils/helpers.js'
+import {deepGet, debounce} from 'vuejs-estarter/services/helpers.js'
 import fecha from "fecha"
 
 const DATETIME_FORMATS = {

@@ -1,4 +1,18 @@
-import Reverse from 'lodash/reverse'
+import {upperFirst} from '../../services/helpers.js'
+
+let EstarterComponents = {}
+const coreFields = import.meta.glob("./*.vue", {eager: true})
+// recursif : const coreFields = import.meta.glob("./**/*.vue", {eager: true})
+
+for (const path in coreFields) {
+    let compName = upperFirst(path.replace(/^\.\//, "").replace(/\.vue/, "").split('/').pop())
+    EstarterComponents[compName] = coreFields[path].default
+}
+
+export default EstarterComponents
+
+
+/* import Reverse from 'lodash/reverse'
 
 const modulesCache = {}
 const storeData = {}
@@ -45,3 +59,4 @@ requireModule.keys().forEach((fileName) => {
 })
 
 export default storeData
+ */

@@ -26,6 +26,7 @@ export default {
             });
             return words.join('/')
         },
+        // alias for legacy
         setBreadcrumb(breadcrumb){
             this.setBreadcrumbs(breadcrumb)
         }

@@ -1,4 +1,4 @@
-import {upperFirst} from './helpers.js'
+import {upperFirst} from '../../../services/helpers.js'
 
 let fieldComponents = {}
 const coreFields = import.meta.glob("../fields/core/*.vue", {eager: true})

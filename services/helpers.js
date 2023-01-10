@@ -1,3 +1,5 @@
+// see : https://youmightnotneed.com/lodash/
+
 // Simple implementation of lodash.get
 // Handles arrays, objects, and any nested combination of the two.
 // Also handles undefined as a valid value - see test case for details.
@@ -14,7 +16,9 @@ const deepGet = (obj, query, defaultVal) => {
     return obj;
   }
 
-
+// lodash debounce() like
+// Creates a debounced function that delays invoking func until after wait milliseconds
+// have elapsed since the last time the debounced function was invoked.
 const debounce = (func, delay, { leading } = {}) => {
     let timerId
 
@@ -36,6 +40,11 @@ const uniqueId = (
 
 const upperFirst = str => `${str.charAt(0).toUpperCase()}${str.slice(1)}`
 
+// loadash default() like
+// Assigns own and inherited enumerable string keyed properties of source objects
+// to the destination object for all destination properties that resolve to undefined.
+// Source objects are applied from left to right.
+// Once a property is set, additional values of the same property are ignored.
 const defaults = (...args) => args.reverse().reduce((acc, obj) => ({ ...acc, ...obj }), {})
 
 const cloneDeep = (entity, cache = new WeakMap)  => {
@@ -64,6 +73,22 @@ const cloneDeep = (entity, cache = new WeakMap)  => {
     return Object.assign(c, ...Object.keys(entity).map((prop) => ({ [prop]: cloneDeep(entity[prop], cache) })));
   }
 
+// Sets the value at path of object.
+// If a portion of path doesn’t exist, it’s created. Arrays are created for missing index properties
+// while objects are created for all other missing properties.
+// Use _.setWith to customize path creation.
+//Note: This method mutates object.
+const set = (obj, path, value) => {
+    // Regex explained: https://regexr.com/58j0k
+    const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g)
+
+    pathArray.reduce((acc, key, i) => {
+      if (acc[key] === undefined) acc[key] = {}
+      if (i === pathArray.length - 1) acc[key] = value
+      return acc[key]
+    }, obj)
+  }
+
   export {
     deepGet,
     debounce,
@@ -71,4 +96,5 @@ const cloneDeep = (entity, cache = new WeakMap)  => {
     upperFirst,
     defaults,
     cloneDeep,
+    set,
   }
