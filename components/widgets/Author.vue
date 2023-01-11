@@ -8,11 +8,14 @@
 </template>
 
 <script>
+    import GravatarWidget from 'vuejs-estarter/components/widgets/Gravatar.vue'
+    import UserLink from 'vuejs-estarter/components/widgets/UserLink.vue'
+    
     export default {
         name: 'Author',
         components: {
-            GravatarWidget: () => import('vuejs-estarter/components/widgets/Gravatar'),
-            UserLink: () => import('vuejs-estarter/components/widgets/UserLink'),
+            GravatarWidget,
+            UserLink,
         },
         data() {
             return {}

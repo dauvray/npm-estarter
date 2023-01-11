@@ -11,6 +11,16 @@
                  <span class="visually-hidden">unread messages</span>
              </div>
         </button>
+        <Teleport to="body">
+                <OffcanvasWidget
+                    v-if="showModal"
+                    :showBtn="false"
+                    :trigger="showModal"
+                    @hidden="onHideModal"
+                    >
+                    <template v-slot:header>Notifications</template>
+            </OffcanvasWidget>
+        </Teleport>
     </div>
 </template>
 
@@ -69,20 +79,8 @@ import { defineAsyncComponent } from 'vue'
                 })
             },
             onDisplayNotifications() {
-                document.location.href="/notifications"
-                // todo ne fonctionne pas car dejà dans un offcanvas dans le header
-                // l'idée était d'ouvrir les notifications dans un offcanvas
-            /*
-            <OffcanvasWidget
-            v-if="showModal"
-            :showBtn="false"
-            :trigger="showModal"
-            @hidden="onHideModal"
-            >
-             <template v-slot:header>Notifications</template>
-       </OffcanvasWidget> */
-                // voir comment réorganier tout ça
-               //this.showModal = true
+                //document.location.href="/notifications"
+               this.showModal = true
             },
         }
     }

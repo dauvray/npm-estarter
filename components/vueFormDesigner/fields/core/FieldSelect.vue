@@ -11,7 +11,7 @@
             v-if="!selectOptions.hideNoneSelectedText"
             :disabled="schema.required"
             :value="null"
-        >{{ selectOptions.noneSelectedText || "&lt;Nothing selected&gt;" }}</option>
+        >{{ selectOptions.noneSelectedText || "Aucune sélection" }}</option>
         <template v-for="(item,idx) in items">
             <optgroup
                 v-if="item.group"

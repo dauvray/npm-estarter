@@ -6,9 +6,9 @@
                 v-if="notificationactived && logged"
                 class="d-flex"
             ></NotificationsWidget>
-            <GravatarStatus
+            <GravatarWidget
                 size="small"
-            ></GravatarStatus>
+            ></GravatarWidget>
         </Teleport>
     </div>
 </template>
@@ -16,7 +16,7 @@
 <script>
 
     import AlertWidget from 'vuejs-estarter/components/widgets/Alert.vue'
-    import GravatarStatus from 'vuejs-estarter/components/widgets/Gravatar.vue'
+    import GravatarWidget from 'vuejs-estarter/components/widgets/Gravatar.vue'
     import { defineAsyncComponent } from 'vue'
     import { mapState, mapActions } from 'pinia'
     import { useMeStore } from 'vuejs-estarter/stores/me.js'
@@ -27,7 +27,7 @@
         components: {
             NotificationsWidget: defineAsyncComponent(() => import('vuejs-estarter/components/widgets/System/Notifications.vue')),
             AlertWidget,
-            GravatarStatus,
+            GravatarWidget,
         },
         props: {
             notificationactived: {
