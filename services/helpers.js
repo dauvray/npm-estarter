@@ -1,4 +1,5 @@
 // see : https://youmightnotneed.com/lodash/
+// https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
 
 // Simple implementation of lodash.get
 // Handles arrays, objects, and any nested combination of the two.
@@ -89,6 +90,58 @@ const set = (obj, path, value) => {
     }, obj)
   }
 
+const sortBy = ( key, cb ) => {
+    if ( !cb ) cb = () => 0;
+    return ( a, b ) => ( a[key] > b[key] ) ? 1 :
+        ( ( b[key] > a[key] ) ? -1 : cb( a, b ) );
+}
+
+const sortByDesc = ( key, cb ) => {
+    if ( !cb ) cb = () => 0;
+    return ( b, a ) => ( a[key] > b[key] ) ? 1 :
+        ( ( b[key] > a[key] ) ? -1 : cb( b, a ) );
+}
+
+// usage :
+// users.concat().sort( orderBy( ['user', 'age'], ['asc', 'desc'] ) );
+// => [ { user: 'barney', age: 36 }, { user: 'barney', age: 34 }, { user: 'fred', age: 48 }, { user: 'fred', age: 40 } ]
+// The concat() is used only to make sure the original array is not modified by .sort() so it behave like lodash .orderBy() function.
+
+const orderBy = ( keys, orders ) => {
+    let cb = () => 0;
+    keys.reverse();
+    orders.reverse();
+    for ( const [i, key] of keys.entries() ) {
+        const order = orders[i];
+        if ( order == 'asc' )
+            cb = sortBy( key, cb );
+        else if ( order == 'desc' )
+            cb = sortByDesc( key, cb );
+        else
+            throw new Error( `Unsupported order "${order}"` );
+    }
+    return cb;
+}
+
+// Removes all elements from array that predicate returns truthy for and returns an array of the removed elements.
+// The predicate is invoked with three arguments: (value, index, array).
+const remove = (array, iteratee) => {
+    // in order to not mutate the original array until the very end
+    // we want to cache the indexes to remove while preparing the result to return
+    const toRemove = []
+    const result = array.filter((item, i) => iteratee(item) && toRemove.push(i))
+
+    // just before returning, we can then remove the items, making sure we start
+    // from the higher indexes: otherwise they would shift at each removal
+    toRemove.reverse().forEach(i => array.splice(i, 1))
+    return result
+  }
+
+const isEmpty = (obj) => {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+
   export {
     deepGet,
     debounce,
@@ -97,4 +150,7 @@ const set = (obj, path, value) => {
     defaults,
     cloneDeep,
     set,
+    orderBy,
+    remove,
+    isEmpty,
   }
