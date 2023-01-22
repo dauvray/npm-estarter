@@ -7,7 +7,7 @@
             :is="tag">
             <template
                 v-for='(field, idx) in fields'
-                :key="`field-${idx}`">
+                :key="idx">
 
                 <form-group
                     v-if='fieldVisible(field)'
@@ -25,14 +25,14 @@
         </component>
 
         <template v-for='(group, idx) in groups'
-                :key="`group-${idx}`">
+                :key="idx">
             <component
                 :is="tag"
                 :class='getFieldRowClasses(group)'>
                 <legend v-if='group.legend'>{{ group.legend }}</legend>
                 <template
-                    v-for='(field, idx) in group.fields'
-                    :key="`group-field-${idx}`">
+                    v-for='(field, idx2) in group.fields'
+                    :key="idx2">
 
                     <form-group
                         v-if='fieldVisible(field)'
