@@ -57,7 +57,7 @@
 
     import formMixin from "./formMixin.js"
     import formGroup from "./formGroup.vue"
-    import {deepGet} from '../../services/helpers.js'
+    import { deepGet } from '../../services/helpers.js'
 
     export default {
 
